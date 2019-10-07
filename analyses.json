@@ -1,0 +1,105 @@
+[
+    {   "name": "Erradicación de gatos en Isla Socorro",
+        "description": "Estimamos en número de gatos remanentes en Isla Socorro",
+        "docker_parent_image": "islasgeci/base:2d95",
+        "report": "erradicacion_gatos_socorro_es.html",
+        "results": [
+            "capturas_acumuladas_vs_esfuerzo_acumulado.png", 
+            "analisis_exploratorio_de_datos.csv",
+            "capturas_remanentes_vs_esfuerzo.png",
+            "cdf_cantidad_gatos_remanentes.png",
+            "cdf_exito_erradicacion.png",
+            "derivada_captura_esfuerzo_socorro.csv",
+            "derivada_capturas_remanentes_vs_esfuerzo.png",
+            "distribucion_posterior_socorro.csv",
+            "pdf_cantidad_gatos_remanentes.png",
+            "pdf_exito_erradicacion.png",
+            "probabilidad_captura_remanentes_socorro.csv",
+            "tabla_valores_socorro.json",
+            "boxplot_cangrejos.png",
+            "boxplot_lagartijas.png"
+        ],
+        "scripts": [ 
+            "python/generaProbabilidadAtraparGatosRemanentes.py",
+            "python/generaReporteErradicacionGatosSocorro.py",
+            "python/generaTamanioPoblacionGatos.py",
+            "python/generaValoresReporte.py"
+
+	],
+        "data": [
+            {
+            "source": "datos-texto",
+            "version": "66c9d1f4a1c5e7b25396398a2202aaef1db0c2b0",
+            "path": "datapackage/erradicaciones-mamiferos",
+            "type" : "csv",
+            "filename" : "captura_gatos_socorro.csv"
+            },
+            {
+            "source": "datos-texto",
+            "version": "66c9d1f4a1c5e7b25396398a2202aaef1db0c2b0",
+            "path": "datapackage/erradicaciones-mamiferos",
+            "type" : "json",
+            "filename" : "datapackage.json"
+            }
+        ],
+        "requirements": [
+            {
+                "python": [
+                    "pymc",
+                    "selenium"
+                ]
+            },
+            {
+                "system": [
+                    "IslasGECI/datatools",
+		    "npm",
+		    "phantomjs-prebuilt"
+                ]
+            }
+        ]
+    },
+    {   "name": "Albatros sin gatos",
+        "description": "Estimamos en número de gatos remanentes en Isla Guadalupe",
+        "docker_parent_image": "islasgeci/base:2d95",
+        "report": "albatrosSinGatos.pdf",
+        "results": [
+            "LAAL_para_Scott.png" 
+        ],
+        "scripts": [ 
+            "MATLAB/demostraciones/graficaN.m"
+	],
+        "data": {},
+        "requirements": [
+            {
+                "MATLAB": []
+            },
+            {
+                "system": [
+                    "MATLAB"
+                ]
+            }
+        ]
+    },
+    {   "name": "Estimación de gatos remanentes en Isla Socorro",
+        "description": "Reporte con la estimación de gatos remamentes dependiendo del esfuerzo para isla Socorro",
+        "docker_parent_image": "islasgeci/base:2d95",
+        "report": "cantidad_individuos_remanentes_en.pdf",
+        "results": [
+          "captura_gatos_socorro.csv",
+          "TotalCapturasPorAnioGatosSocorro.png"
+        ],
+        "scripts": [
+          "src/histogramaCapturasPorAnioGatosSocorro"
+        ],
+        "data": [
+          {
+          "source": "datos-texto",
+          "version": "aab9bf88db95",
+          "path": "datapackage/erradicaciones-mamiferos",
+          "type": "csv",
+          "filename": "captura_gatos_socorro.csv"
+        }
+        ],
+        "requirements": []
+      }
+]

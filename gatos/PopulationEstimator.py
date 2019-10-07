@@ -69,7 +69,6 @@ class PopulationEstimator:
         Modelo_gatitos: MCMC = MCMC(
             self._Ramsey_model(self.esfuerzo, self.capturas))
         while repeticion < repeticiones:
-            print(f"\nRepetición {repeticion + 1} de {repeticiones}.")
             Modelo_gatitos.sample(iter=iteraciones, burn=n_datos_descartados)
             a = pd.Series(Modelo_gatitos.trace('a_captura')[:])
             b = pd.Series(Modelo_gatitos.trace('b_captura')[:])

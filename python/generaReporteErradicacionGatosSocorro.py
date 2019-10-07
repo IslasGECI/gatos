@@ -25,7 +25,6 @@ import datatools
 
 # region Se declaran las variables a los archivos de datos
 
-locale.setlocale(locale.LC_TIME, 'es-MX')
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-r", "--resource", required=True,
@@ -159,7 +158,7 @@ grafica_exito_erradicacion = bp.gridplot(
 nombre_template_reporte: str = "template.html"
 nombre_reporte_salida: str = "entrega/erradicacion_gatos_socorro.html"
 configuracion_jinja: Environment = Environment(
-    loader=PackageLoader('gatos', 'templates'),
+    loader=PackageLoader('templates'),
     autoescape=select_autoescape(['html'])
 )
 configuracion_jinja.filters['commafy'] = lambda v: "{:,}".format(v)

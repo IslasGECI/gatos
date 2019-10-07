@@ -1,0 +1,8 @@
+image: FROM islasgeci/gatos:latest
+
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          script:
+            - make

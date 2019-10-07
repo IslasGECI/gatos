@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+#
+# histogramaCapturasPorAnioGatosSocorro lee datos en CSV y genera hitogramas de la cantidad de esfuerzo por año.
+import os
+import sys
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+nombre_archivo_entrada = sys.argv[1]
+nombre_imagen_salida = sys.argv[2]
+posiciones_barras = np.linspace(1,17,9)
+tamano_fuente = 15
+
+datos_gatos_socorro = pd.read_csv(f'{nombre_archivo_entrada}')
+valores_anios = ["2011", "2012","2013", "2014","2015", "2016","2017", "2018","2019"]
+
+capturas_totales=[]
+for i in valores_anios:
+    mask = datos_gatos_socorro['fecha'].str.contains(i)
+    capturas_totales.append(np.sum( datos_gatos_socorro['esfuerzo'].values[mask]))
+
+fig, ax= plt.subplots(figsize=(11, 8))
+plt.bar(posiciones_barras,capturas_totales,alpha=1,width=1)
+plt.xticks(posiciones_barras, valores_anios)
+ax.set_ylabel('Cumulative effort per year',fontsize=tamano_fuente)
+ax.set_ylim(0, 60000)
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+for i in range(len(capturas_totales)):
+    plt.text(x = posiciones_barras[i]-.6 , y = capturas_totales[i]+500, s = capturas_totales[i], size = 12)
+ax.tick_params(labelsize=tamano_fuente)
+plt.savefig(f"{nombre_imagen_salida}", dpi=300)
