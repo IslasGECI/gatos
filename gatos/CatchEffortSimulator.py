@@ -51,7 +51,7 @@ class CatchEffortSimulator:
         Número de muestras que se toman de la distribución posterior. '''
         columnas_DataFrame = self._distribuciones_posteriores.columns
         assert ("No" in columnas_DataFrame and "a" in columnas_DataFrame and "b" in columnas_DataFrame), "Se espera que la distribución posterior tenga los valores de No, a y b."
-        for iEsfuerzo in range(1,1001):
+        for iEsfuerzo in range(1,1160):
             No = self._distribuciones_posteriores.No.sample(n=muestra, replace=True).values.astype(np.int32) - self._total_capturas
             beta = self._distribuciones_posteriores.b.sample(n=muestra, replace=True).values
             alpha = self._distribuciones_posteriores.a.sample(n=muestra, replace=True).values
