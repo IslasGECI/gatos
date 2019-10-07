@@ -1,0 +1,272 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[latin1]{inputenc}
+\usepackage{csvsimple}
+\usepackage{pythontex}
+\usepackage{natbib}
+\usepackage[spanish]{babel}
+\bibliographystyle{estilo_referencias}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\figurename}{Figura}
+ \renewcommand{\refname}{Referencias}
+\sloppy
+\setlength{\textwidth}{160mm}
+\setlength{\oddsidemargin}{-5mm}
+\setlength{\evensidemargin}{-5mm}
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\title{Estimaci\'on bayesiana del tama\~no de la poblaci\'on}
+\author{ Braulio Rojas \\ Direcci\'on de An\'alisis de Cient\'ifico}
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% En esta sección se leen los archivos que se utilizarán por `pythontex`. Son
+% dos archivos los que se utilizan: `datos-objetivo.json` y `datos_histograma_q.csv`. En el primer
+% archivo vienen los datos sintéticos que son la "adivinanza" para el programa.
+% El segundo archivo se utiliza para hacer la descripci\'on de la primera
+% gráfica.
+% Esta sección sigue los siguientes pasos:
+% 1.-Define las direcciones de los archivos ( *.json y *.csv);
+% 2.-Importa las módulos que servirán para la lectura de los archivos;
+% 3.-Abre el archivo *.json y guarda su información en la variable `datosJson`.
+% 4.-Abre el archivo *.csv y:
+%  4.1.-Lee todo como texto;
+%  4.2.-Define las listas eje_x y eje_y
+%  4.3.-Transforma las variables de texto a reales.
+\pyc{rutaJson='..\\resultados\\datos-objetivo.json'}
+\pyc{rutaCSV='..\\resultados\\datos_histograma_q.csv'}
+\begin{pycode}
+import json
+import csv
+with open(rutaJson,encoding='utf-8') as archivoJson:
+      datosJson=json.load(archivoJson)
+with open(rutaCSV,'r') as archivoCSV:
+      texto=csv.reader(archivoCSV,delimiter=',')
+      eje_x=[];eje_y=[];
+      for row in texto:
+        eje_x.append(row[0])
+        eje_y.append(row[1])
+      nDatos=eje_x.index(eje_x[-1])
+      for iDatos in range(1,nDatos+1):
+        eje_x[iDatos]=float(eje_x[iDatos])
+        eje_y[iDatos]=int(float(eje_y[iDatos]))
+\end{pycode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Planteamiento del problema}
+Aunque menos del 20\% de las especies animales en la tierra est\'an restringidas
+a las islas, el 75\% de las especies extintas desde 1600 han sido en las islas.
+Los gatos ferales han estados asociados con la extinci\'on de especies
+end\'emicas en las islas en todo el mundo. La remoci\'on de estos gatos de las
+islas es una menera efectiva de proteger la biodiversidad \citep{Wood2002}.
+
+\cite{Ramsey2010} presenta una metodolog\'ia para declarar terminada una
+erradicaci\'on. La metodolog\'ia incorpora informaci\'on del costo del
+monitoreo y el costo de una declaraci\'on incorrecta de la erradicaci\'on. La
+estad\'istica bayesiana es la teor\'ia que sustentan dicha metodolog\'ia. A
+continuaci\'on, hacemos una breve revisi\'on de los principios de la
+estad\'istica bayesiana y los utilizamos en la estimaci\'on del tama\~no de
+poblaci\'on.
+
+
+
+% Esta sección corresponde a la introducción del método de estadística
+% Bayesiana. Consiste en dos subsecciones: estadística bayesiana y el teorema de
+% Bayes.
+\subsection*{Estad\'istica Bayesiana}
+La {\it estad\'istica convencional} (EC) considera, a partir de una muestra
+aleatoria de una poblaci\'on, que es posible estimar el valor verdadero de
+alg\'un par\'ametro de la poblaci\'on \citep{Ellison1996}. De manera equivalente,
+la {\it estad\'istica bayesiana} (EB) es aquella que considera a las muestras
+y los par\'ametros de una distribuci\'on como variables aleatorias (sin valores
+fijos) \citep{Gilks1996}.
+
+\cite{McCarthy2007} encuentra dos ventajas de usar la EB
+sobre la EC: la EB se puede usar para hacer predicciones
+probabil\'isticas del estado del mundo (por ejemplo de la erradicaci\'on de
+especies), mientras que la EC nos restringe a promedios de r\'eplicas de muestras
+de datos. La segunda ventaja es que la EB nos permite agregar informaci\'on
+relevante para el an\'alisis de las funciones distribuciones de probabilidad
+(FDP) de los par\'ametros.
+
+Las componentes de conocimiento que utiliza la EB son: conocimiento previo,
+nuevos datos, el modelo y el conocimiento nuevo. La incorporaci\'on de las
+cuatro componentes se logra mediante el teorema de Bayes \citep{McCarthy2007}.
+\subsection*{El teorema de Bayes}
+El teorema de Bayes dice lo siguiente:
+\begin{equation}\label{ecTBayes}
+p(\theta |\vec x) = \frac{p(\vec x |\theta)p(\theta)}{p(\vec x)}.
+\end{equation}
+
+La probabiliadad de que una hip\'otesis, $\theta$, sea verdadera dado un
+conjunto de datos, $\vec x$, es el producto de la probabilidad de obtener los
+datos siendo verdadera la hip\'otesis, $p(\vec x|\theta)$, por la probabilidad
+de que la hip\'otesis suceda, $p(\theta)$, entre la probabilidad de que sucedan
+los datos sin importar nada m\'as, $p(\vec x)$. Y expresado en t\'erminos de
+FDP \citep{Lynch2007} se tiene
+\begin{equation}\label{ecTBayesDistribuciones}
+f(\theta |\mbox{datos}) = \frac{g(\mbox{datos} |\theta)h(\theta)}{k(\mbox{datos})},
+\end{equation}
+donde $f(\theta |\mbox{datos})$ es la FDP posterior para los
+par\'ametros $\theta$, $h(\theta)$ es la FDP {\it previa} de los
+par\'ametros y $k(\mbox{datos})$ es la probabilidad marginal de los datos y
+actua como una constante de normalizaci\'on. De lo anterior se tiene que:
+\begin{equation}\label{ecTBayesProp}
+f(\theta |\mbox{datos}) \propto g(\mbox{datos} |\theta)h(\theta).
+\end{equation}
+
+A diferencia de lo que se obtiene con EC para los par\'ametros (un valor puntual
+y su error est\'andar), con la EB se obtiene una FDP para los
+par\'ametros y entonces se puede utilizar esta FDP para obtener otra
+informaci\'on \citep{Lynch2007}.
+
+\subsection*{Muestras de Gibbs}
+Si tenemos el vector de las $k$ hip\'otesis, $\theta=(\theta_1,...,\theta_k)$, y
+lo que nos interesa obtener es la distribuci\'on conjuta posterior
+$f(\theta |\mbox{datos})=f(\theta_1,...,\theta_k|\mbox{datos})$, eso lo podemos
+lograr mediante m\'etodos num\'ericos. Una propuesta
+para conseguirlo es simular muestras para diferentes valores de las $k$
+hip\'otesis. Si esas muestras vienen de distribuciones completamente
+condicionadas, los valores simulados podr\'an ser utilizados para calcular la
+distribuci\'on posterior de inter\'es \citep{Bernardo2000}.
+
+Las muestras de Gibbs es una t\'ecnica que simula muestras a partir de cadenas
+de Markov y es un m\'etodo iterativo. El procedimiento utiliza a la densidadad
+completamente condicionada:
+$$
+f(\theta_j|\vec x,\theta_i);
+$$
+con $i=1,...,k$ pero $j\neq i$ y a un conjunto arbitrario de valores iniciales
+$\theta^{(0)}=(\theta^{(0)}_1,...,\theta^{(0)}_k)$. Entonces, las muestras de
+las $k$ hip\'otesis ocurren de la siguiente manera:
+$$\theta^{(1)}_{1}\sim f_1(\theta_1|\vec x,\theta^{(0)}_2,...,\theta^{(0)}_k)$$
+$$\theta^{(1)}_{2}\sim f_2(\theta_2|\vec x,\theta^{(1)}_1,...,\theta^{(0)}_k)$$
+$$\vdots$$
+$$\theta^{(1)}_{k}\sim f_k(\theta_k|\vec x,\theta^{(1)}_1,...,\theta^{(1)}_{k-1})$$
+$$\theta^{(2)}_{1}\sim f_1(\theta_1|\vec x,\theta^{(1)}_2,...,\theta^{(1)}_k)$$
+$$\vdots$$
+La forma de las $f_i$ dependen de la selecci\'on de las FDP {\it previas} para
+las $\theta_i$ y funci\'on verosimilitud, $g(\mbox{datos} |\theta)$. Una
+adecuada selecci\'on permitir\'a que las densidades completamente condicionadas,
+$f_i$, tengan una forma conocida.
+
+% En esta sección se presentan los valores objetivos ("adivinanza") y los datos
+% sintéticos.
+\subsection*{C\'alculo del tama\~no inicial de la poblaci\'on y de la
+probabilidad de captura}
+Para hacer una primera aproximaci\'on del problema, vamos a suponer que se hacen
+capturas con remplazo, lo que pasar\'ia con c\'amaras trampas. Vamos a
+seleccionar, de manera aleatoria, valores para el tama\~no inicial de una
+poblaci\'on ($N_o$) y la probabilidad de detecci\'on por las c\'amaras trampa
+($p^{\mbox{det}}$) de cada uno de los individuos de la poblaci\'on.  A
+partir de estos valores podemos generar datos de noches de trampeo, suponiendo
+que el n\'umero de individuos detectados en una noche es una variable
+aleatoria de una distribuci\'on binomial con par\'ametros $n=N_o$ y
+$p=p^{\mbox{det}}$.
+
+Por ejemplo, con una poblaci\'on inicial de $N_o=$\py{datosJson["No"]["data"]}
+individuos y una probabilidad de detecci\'on $p^{\mbox{det}}=$
+\py{datosJson["q"]["data"]}, se simularon \py{datosJson["nDatos"]["data"]}
+noches de trampeo (se generaron las observaciones).
+As\'i, en las primeras 5 noches de trampeo el n\'umero de observaciones fueron
+$\vec{n}=($\py{datosJson["datos"]["data"][0]}, \py{datosJson["datos"]["data"][1]},
+\py{datosJson["datos"]["data"][2]}, \py{datosJson["datos"]["data"][3]},
+\py{datosJson["datos"]["data"][4]}); es decir,
+la primera noche se observaron \py{datosJson["datos"]["data"][0]} individuos, la
+segunda noche \py{datosJson["datos"]["data"][1]} individuos y la quinta
+\py{datosJson["datos"]["data"][4]} individuos.
+
+% En esta sección se hace una pequeña descripción de los resultados utilizando
+% dos gráficas como herramienta.
+\subsection*{Resultados}
+Se hizo un muestreo de Gibbs de tama\~no 5000, para obtener las FDP
+posteriores para los par\'ametros $p^{\mbox{det}}$ y $N_o$. Los resultados
+los presentamos en las figuras \ref{fproCap} y \ref{ftamIni}. Los muestreos para
+$p^{\mbox{det}}$ se hacen a partir de funciones betas de distribuci\'on de
+probabilidad:
+$$\beta(x;a,b)=\left(\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}p^{a-1}(1-p)^{b-1}\right);$$
+y para $N_o$ se consider\'o distribuciones uniformes. Las funciones beta
+multiplicada por funciones binomiales son funciones beta. Es por eso que
+decidimos utilizar funciones beta.
+
+
+La figura \ref{fproCap} muestra el histograma de la FDP
+de los valores para el par\'ametro $p^{\mbox{det}}$. Se observa que
+el m\'aximo de repeticiones corresponde a la probabilidad $p^{\mbox{det}}=$
+\py{eje_x[eje_y.index(max(eje_y[1:-1]))]}.
+
+
+La figura \ref{ftamIni} muestra el histograma de la FDP
+ de los valores para el par\'ametro $N_o$. Se observa que
+el valor m\'inimo de la poblaci\'on inicial (el eje horizontal) es mayor a
+\py{max(datosJson["datos"]["data"])} individuos, que corresponde al valor
+m\'aximo de los datos sint\'eticos de observaciones ($n_i$) en las
+\py{datosJson["nDatos"]["data"]} noches de trampeo simuladas.
+
+% Aquí va figura `resultados\probabilidad_captura.png` que muestra el histograma
+% de la probabilidad de captura de los blancos. Los datos son generados por una
+% muestra de Gibbs que se realiza con el programa `python\bates.py`.
+\begin{figure}[h]
+\centering
+\includegraphics[width=120mm]{../resultados/probabilidad_captura.png}
+\caption{Histograma de la muestra de probabilidades de capturas
+$p^{\mbox{det}}$, generadas a partir del m\'etodo de Gibbs.}
+\label{fproCap}
+\end{figure}
+% Aquí va figura `resultados\tamagno_inicial.png` que muestra el histograma
+% del tamaño inicial de una población de blancos. Los datos son generados por
+% una muestra de Gibbs que se realiza con el programa `python\bates.py`.
+\begin{figure}[h]
+\centering
+\includegraphics[width=120mm]{../resultados/tamagno_inicial.png}
+\caption{Histograma de los tama\~nos iniciales
+$N_o$, generados a partir del m\'etodo de Gibbs.}
+\label{ftamIni}
+\end{figure}
+
+% En esta sección se hace una pequeña discusión de los resultados mostrados en
+% las dos gráficas.
+\subsection*{Discusi\'on}
+Las columnas en blanco en los histogramas de las figuras \ref{fproCap} y
+\ref{ftamIni} podr\'ian deberse a la necesidad de un tama\~no de muestra m\'as
+grande. Se puede observar que los histogramas ya tienen la forma de las
+distribuciones de probabilidad {\it posteriores}.
+
+La propuesta de una distribuci\'on uniforme para $N_o$ no parece la m\'as
+adecuada. No se puede sacar mucha informaci\'on de ella ya que cualquier
+tama\~no inicial de poblaci\'on es igual de probable. Una distribuci\'on
+multinomial podr\'ia proporcionar mayor informaci\'on, ya que permite que se
+tengan probabilidades distintas para distintos tama\~nos de poblaci\'on.
+
+Los datos con los que se gener\'o la figura \ref{fproCap} servir\'an para
+obtener la FDP de variable aleatoria
+$p^{\mbox{det}}$. Esa FDP se usar\'a para calcular
+los intervalos de confianza para $p^{\mbox{det}}$. Debemos recordar que la EB
+considera a los par\'ametros $p^{\mbox{det}}$ y $N_o$ como variables aleatorias,
+por lo que el valor m\'aximo de
+$p^{\mbox{det}}=$\py{eje_x[eje_y.index(max(eje_y[1:-1]))]} no deber ser
+considerado como el valor buscado, sino solo informaci\'on descriptiva de la FDP
+a la que pertenece.
+
+\subsection*{Conclusi\'on}
+El reporte presenta la metodolog\'ia para obtener la distribuci\'on de
+probabilidad de algunos par\'ametros de inter\'es para la estimaci\'on del
+tama\~no inicial de una poblaci\'on. Los resultados los obtuvimos
+considerando situaciones en las que no hay extracci\'on de individuos.
+
+Obtuvimos histogramas para la probabilidad de detecci\'on de individuos y el
+tama\~no inicial de la poblaci\'on a partir de muestreos de Gibbs. Creemos que
+se obtendr\'an mejores resultados si el tama\~no de muestra crece. Adem\'as,
+un cambio en el modelo podr\'ia proporcionar m\'as informaci\'on; por ejemplo,
+que el tama\~no de la poblaci\'on siga una distribuci\'on multinomial.
+
+Hasta el momento, no hemos calculado las distribuciones de probabilidad de
+las variables del $N_o$ y $p^{\mbox{det}}$, pero son necesarias para obtener
+de los intervalos de confianza y poder hacer una mejor evaluaci\'on del modelo y
+los resultados.
+
+\newpage
+
+\bibliography{referencias}
+\end{document}

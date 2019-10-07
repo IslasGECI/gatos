@@ -1,0 +1,25 @@
+%                           Preambulos
+% Se cargan las librerias que se utilizarán e instrucciones para forma de la
+% presentación.
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{datetime} % Paquete para utilizar la fecha del sistema en el título de manera automática con el comando `\today`
+\usefonttheme[onlymath]{serif}         %Para que las eciciones matemáticas salgan bonitas
+\bibliographystyle{estilo_referencias}
+\usetheme{metropolis}
+%                       Portada
+% Se agrega la información que aparecerá en la portada y se genera la misma.
+\title[Estimaci\'on de la densidad de poblaci\'on]{Densidad de poblaci\'on de
+gatos con trampas-c\'amara sin identificaci\'on de individuos \citep{Rowcliffe2008}}
+\date{\today}
+\institute{Direcci\'on de An\'alisis Cient\'ifico\\
+	GECI}
+\begin{document}
+	\frame{\titlepage}
+
+%                        Diapositivas
+% Se carga un archivo en el que se encuentran las diapositivas.
+	\input{camaras-trampa_diapositivas.tex}
+\end{document}

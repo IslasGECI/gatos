@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{gensymb}
+\usepackage{authblk}
+\usepackage{hyperref}
+\usepackage{adjustbox}
+
+\author{Scientific Analysis Department}
+\title{Laysan Albatross reproductive success}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+\maketitle
+
+We predicted the number of reproductive individuals of Laysan albatross (\textit{Phoebastria immutabilis; LAAL}) expected in 2021 on Guadalupe Island (Punta Sur colony) by modelling population growth under different cat-density scenarios. The scenarios included a four-year cat eradication program, and an absence of any cat management strategy. We predict that by 2021 there will be 631 reproductive LAAL individuals after the implementation of the cat eradication campaign. If cat management is absent (no control at all), the model predicts a decrease to 49 LAAL individuals.
+
+\section*{Introduction}
+From 2013 to the present day, cat-control management efforts backed by National Fish and Wildlife Foundation (NFWF) have reduced predation to low levels. If current cat-control management is sustained, LAAL predation by feral cats will remain low. However, if cat-control efforts cease, predation levels will increase from low to high. Conversely, if a four-year cat eradication campaign is conducted with NFWF’s support, predation by feral cats will cease as of 2020.
+
+\section*{Methods}
+
+\subsubsection*{Assumptions}
+To  model LAAL popultion growth we assumed
+\begin{enumerate}
+\item{No limitation of food availability based on LAAL foraging distributions along the NE Pacific Ocean.}
+\item{No spatial limitation given that mean LAAL density on Guadalupe Island represents less than 5\% of LAAL density on Midway Atoll.}
+\item{No effect from climate change, particularly sea-level rise, since Guadalupe Island serves as a safe alternative habitat for LAAL population.}
+\end{enumerate}
+
+\subsubsection*{Model}
+From the number of reproductive individuals reported by Luna-Mendoza (2014) and Hernández-Montoya et al. (2014), we calculated the corresponding cat density for each of the different predation scenarios (Table \ref{timeline}). LAAL population growth was estimated using the following model:
+
+\begin{equation}
+\frac{dN}{dt} = N  e^{r}-\text{IR}\times \text{cat}
+\end{equation}
+\\where,\\
+$\text{IR} = 1.94(1-e^{- 0.0216 N}) =$ annual functional response of feral cats to albatross availability,\\
+$N$ =  number of LAAL reproductive individuals,\\
+$r$ =  instantaneous rate of increase,\\
+cat = cat density (cats/km$^{2}$), and \\
+$\alpha = e^{r}$ = constant of proportionality for population growth rate
+\\
+
+We solved the first-order nonlinear ordinary differential equations (ODEs) using the Dormand-Prince method, which is an explicit method that uses the fourth and fifth order of the Runge-Kutta formulae along with a variable time step. To solve the ODEs, an instantaneous rate of increase ($r$) of -2.34 and a constant of proportionality for population growth ($\alpha$) of 0.09 were calculated from data published by Luna-Mendoza (2014).
+
+
+\subsubsection*{Predator density scenarios}
+\begin{table}[H]
+\caption{Cat density under different cat-control and predation scenarios}\label{timeline}
+\begin{adjustbox}{width=1\textwidth, center}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Period} & \textbf{Control scenario} & \textbf{Predation scenario} & \textbf{Cat density (cats/km$^{2}$)}\\ \hline
+2017-2021& Cat eradication& No predation & 3.281--0\\ \hline
+2017-2021& No cat control& High predation& 6.964\\ \hline
+  \end{tabular}
+
+\end{adjustbox}
+\end{table}
+
+\subsubsection*{Cat eradication}
+The ODE was solved as an Initial Value Problem (IVP) considering a variable cat density and an initial condition set to $N(2016)=398$. This scenario which begins with low predation and results in no predation after four years is represented by:
+\begin{equation}
+\frac{dN}{dt} = N  e^{r}-\text{IR}\times \text{cat}(t)
+\end{equation}
+\\
+where $\textnormal{cat}(t) = 3.281\left(1-\frac{t}{3}\right)$ for $t\in \left[0,3\right]$ (from 2017 to 2020) and $\textnormal{cat}(t) = 0$ for $t>3$ (after 2020),
+and results in $N(2021)=631$. \\
+
+
+\subsubsection*{No cat control}
+The ODE was solved as an IVP considering a constant cat density of 6.964 $\textnormal{cats}/\textnormal{km}^{2}$ and an initial condition of $N(2004)=104$. This high predation scenario is represented by:
+\begin{equation}
+\frac{dN}{dt} = N  e^{r}-\text{IR} \times 6.964
+\end{equation}
+\\
+and results in $N(2021)=49$
+
+\section*{Results}
+\begin{figure}[H]
+\centering
+\includegraphics[width=120mm]{../resultados/LAAL_para_Scott.png}
+\caption{Laysan Albatross reproductive success under cat eradication scenario o no cat control scenario.}\label{4scenarios}
+\end{figure}
+
+We expect that by 2021, the 398 reproductive LAAL individuals reported for 2016 will increase to 631 reproductive LAAL individuals, considering a cat eradication campaign were to be carried out in the next four years (Figure \ref{4scenarios}). On the other hand, if no cat control is implemented, by 2021 no more than 49 reproductive LAAL individuals would be present on Guadalupe Island.
+
+\end{document}

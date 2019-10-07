@@ -1,0 +1,6 @@
+<!--Estimación de la cantidad de individuos remanentes-->
+            <p>
+                A partir de la distribución de probabilidad de gatos remanentes (figura 2, izquierda) calculamos el intervalo de credibilidad del 95%, obteniendo que la cantidad de individuos remanentes se encuentra entre {{ estado_gatos.intervalo_gatos_remanentes[0] | int }} y {{
+                estado_gatos.intervalo_gatos_remanentes[1]
+                | int }} individuos y que el valor más probable de individuos remanentes (moda de la distribución) es de <b>{{ estado_gatos.vmp_gatos_remanentes | int }}</b> individuos.
+            </p>

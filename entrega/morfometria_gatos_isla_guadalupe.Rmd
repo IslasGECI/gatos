@@ -1,0 +1,67 @@
+---
+title: "Estudio de morfometría de gatos en Isla Guadalupe"
+subtitle: David Martínez ^1^
+author:
+- ^1^ Dirección de Análisis Científico
+date: "`r format(Sys.time(), '%d de %B, %Y')`"
+output:
+  pdf_document:
+  toc: true
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+library(data.table)
+library(gdata)
+library(seabird)
+library(knitr)
+library(convencion)
+
+nombreArchivo <- '//junco/datos/control-de-gato-IG-2005-2017-rev-JH-070218.xlsx'
+Tabla <- importExcel(nombreArchivo)
+Datos <- Tabla$datos
+# Metadatos <- Tabla$meta
+```
+```{r, echo=FALSE, warning = FALSE, results='hide'}
+DatosInteres <- Datos[, .(Peso, Longitud.total, Longitud.de.cola, Altura)]
+
+nombreVariable <- c('Peso (kg)','Longitud total (cm)','Longitud de cola (cm)','Altura (cm)')
+tamanoMuestra <- NULL
+media <- NULL
+desviacionEstandar <- NULL
+margenErrorPorcentual <- NULL
+limiteInferiorIntervalo <- NULL
+limiteSuperiorIntervalo <- NULL
+
+for (iVariable in 1:length(DatosInteres)) {
+  Estadisticos <- list()
+  Estadisticos <- sapply(DatosInteres[, ..iVariable], seabird::descStat)
+  
+  tamanoMuestra <- c(tamanoMuestra,Estadisticos[[1]])
+  media <- c(media,Estadisticos[[2]])
+  desviacionEstandar <- c(desviacionEstandar,Estadisticos[[3]])
+  margenErrorPorcentual <- c(margenErrorPorcentual,Estadisticos[[7]])
+  limiteInferiorIntervalo <- c(limiteInferiorIntervalo,Estadisticos[[11]][1])
+  limiteSuperiorIntervalo <- c(limiteSuperiorIntervalo,Estadisticos[[11]][2])
+}
+
+TablaEstadisticos <- data.frame(nombreVariable, tamanoMuestra, round(media,2), round(desviacionEstandar,2), round(margenErrorPorcentual,2), 
+                                     paste0(round(limiteInferiorIntervalo,2),'-',round(limiteSuperiorIntervalo,2)))
+
+```
+
+\begin{abstract}
+Realicé un análisis exploratorio de datos (AED) de la morfometría de los gatos capturados desde el 2005 en Isla Guadalupe. La cantidad de registros en la tabla de datos es de `r Datos[, .N]`. Las variables tomadas en cuenta para el AED fueron: peso, longitud total, longitud de la cola, y altura del individuo. Del AED se obtuvo que el margen de error porcentual fue de menos del 2% para todas las variables estudiadas. Se debe tomar en cuenta que el AED se realizó para el conjunto de datos de cada variable sin separar por categoría de indivíduos o por sitios de la isla.
+\end{abstract}
+
+# Resultados
+
+```{r, echo=FALSE, warning = FALSE}
+kable(TablaEstadisticos, col.names = c('Variable', 'Tamaño de muestra', 'Media', 'Desviación estándar', 'Margen de error (%)', 'Intervalo de confianza'), 
+      align = c('c','c','c','c','c','c'), format = 'latex', caption = 'Estadística descriptiva que contiene: tamaño de la muestra, media, desviación estándar, margen de error porcentual e intervalo de confianza para el peso, longitud total, longitud de la cola y altura de los indivíduos capturados.')
+```
+
+```{r, echo=FALSE, warning = FALSE, results='hide'}
+boxplot(DatosInteres$Peso, names = c('Peso (kg)'))
+boxplot(DatosInteres[, .(Longitud.total, Longitud.de.cola, Altura)], names = c('Longitud total (cm)','Longitud cola (cm)','Altura (cm)'))
+boxplot(DatosInteres$Grasa.corporal, names = c('Condición corporal'))
+```

@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{pythontex}
+\usepackage{natbib}
+\bibliographystyle{estilo_referencias}
+
+\author{Braulio Rojas y Daniela Mungu\'ia}
+\title{Cabras en Guadalupe}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+\maketitle
+
+% Comienza el ambiente de python
+\begin{pycode}
+import datapackage
+directorioDataPackage = '../inst/extdata/datapackage.json'   #directorio del datapackage
+PaqueteDatos = datapackage.DataPackage(directorioDataPackage)#paquete con datos y metadatos
+Recursos = PaqueteDatos.descriptor['resource']               #estructura que contiene los campos dentro de resource
+nRecursos = len(Recursos[0]['schema']['fields'])             #número de campos dentro de la estructura recursos
+recursosJuntos=[];                                           #vector a rellenar en el ciclo
+for iRecursos in range(0,nRecursos):
+    recursosJuntos.append((Recursos[0]["schema"]["fields"][iRecursos]["name"])) #rellena vector con los nombres de los campos dentro de recursos
+
+\end{pycode}
+
+
+\section*{Resumen} % El resumen menciona la relación de este análisis con la
+% erradicación de gatos. Se menciona también el estado actual del análisis de 
+% cabras, el paso inmediato siguiente y el estado final.
+En este reporte se hace una descripci\'on de los datos de la erradicaci\'on 
+de cabras en Isla Guadalupe, la cual se limita a una menci\'on de las variables 
+que contiene el archivo \textit{\py{PaqueteDatos.descriptor['name']}.csv}. Lo 
+siguiente que se debe hacer con los datos es una regresi\'on lineal (blancos 
+acumulados en funci\'on de las horas de vuelo acumuladas y despu\'es con la 
+derivada de eso). Al terminar, se tendr\'a la estimación del n\'umero inicial 
+de cabras utilizando el m\'etodo tradicional y se podr\'a evaluar este resultado 
+contra el n\'umero real de cabras erradicadas. El resultado final servir\'a para 
+evaluar y calibrar la estimaci\'on del tamaño de poblaci\'on de gatos, la cual 
+se pretende calcular con el método \textit{Catch-Effort} presentado en \cite{krebs2012}.
+
+
+\section*{Metodolog\'ia} %Inicia sección de metodología
+\subsection*{Datos} % Descripción de los datos
+Se hizo una revisi\'on de los datos contenido en el archivo
+\textit{\py{PaqueteDatos.descriptor['name']}.csv}. Dicho archivo contiene
+informaci\'on que fue guardada en un Tabular Data Package (TDP), el cual es un
+paquete que contiene una colecci\'on de datos en un archivo CSV (del ingl\'es,
+Comma-Separated Values) y la descripci\'on de los mismos guardados en un JSON
+(del ingl\'es, JavaScript Object Notation) \citep{Walsh2012}.
+El TDP creado contiene el archivo
+\textit{\py{PaqueteDatos.descriptor['name']}.csv} con datos y el correspondiente
+\textit{datapackage.json} con metadatos. Es importante mencionar que, para que
+se cumpla con la nomenclatura de los TDP el archivo de metadatos debe llamarse
+\textit{datapackage}.
+
+La informaci\'on contenida en el archivo de datos proviene de
+\py{PaqueteDatos.descriptor['source']} en Isla Guadalupe. En el archivo las
+variables son: \py{', '.join(recursosJuntos[0:nRecursos-1])} y
+\py{recursosJuntos[nRecursos-1]}.
+
+
+\section*{Referencias}
+
+\bibliography{referencias}
+\end{document}

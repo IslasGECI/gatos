@@ -1,0 +1,16 @@
+<!--Esfuerzo requerido para concluir con la erradicación-->
+            <p>
+                El esfuerzo necesario para concluir la  erradicación se encuentra entre {{ estado_gatos.intervalo_trampas_gatos_remanentes[0] | commafy }} y {{ estado_gatos.intervalo_trampas_gatos_remanentes[1] | commafy }} noches&#8729trampa. Lo anterior se obtiene a partir del intervalo de credibilidad del 95% de la probabilidad de éxito en la erradicación (área azul, figura 3, izquierda).
+            </p>
+
+            <p>
+                En la figura 3 de la derecha se muestra la probabilidad de acabar con los gatos remanentes en función del esfuerzo aplicado. Para crear esta gráfica realizamos una simulación computacional en donde aplicamos cierto esfuerzo y calculamos la probabilidad de acabar con los individuos remanentes. Podemos ver que a mayor esfuerzo la probabilidad de éxito aumenta. Cuando usamos un esfuerzo de {{ estado_gatos.esfuerzo_trampas_mayor_95 | commafy }} noches&#8729trampa, el 95% de las veces capturamos el total de individuos remanentes. Lo  anterior implica que:
+                <ul>
+                    <li>
+                        Se requieren {{ estado_gatos.dias_esfuerzo_trampas_mayor_95 | int }} días si se utilizan 10 tramperos, con 30 trampas cada uno.
+                    </li>
+                    <li>
+                        Si quisiéramos terminar la erradicación en 100 días, se requerirían {{ estado_gatos.tramperos_100_dias | int }} tramperos con 30 trampas cada uno.
+                    </li>
+                </ul>
+            </p>

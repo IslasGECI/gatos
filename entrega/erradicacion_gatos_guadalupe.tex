@@ -1,0 +1,62 @@
+\documentclass{article}
+% General document formatting
+\usepackage[margin=0.7in]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{pythontex}
+
+% Related to math
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\refname}{Referencias}
+\sloppy
+
+\title{Erradicaci\'on de gato feral en Isla Guadalupe}
+\author{Direcci\'on de Ciencia de Datos}
+
+\begin{document}
+    
+\maketitle
+
+% region Inicia bloque de código en Python para cargar archivos `.json`
+\begin{pycode}
+import json
+ruta_json_resultados_acumulados = '../resultados/capturas_acumuladas_gatos_guadalupe.json'
+with open(ruta_json_resultados_acumulados, encoding='utf8') as archivo_resultados_acumulados: parametros_acumulados = json.load(archivo_resultados_acumulados)
+\end{pycode}
+% endregion
+
+\section*{Introducci\'on}
+Este reporte contiene la actualización del estado del proyecto de erradicación de gato feral en Isla Guadalupe. Los resultados 
+presentados son generados con datos provenientes de la tabla \texttt{IG\_POSICION\_TRAMPAS\_31MAY2018.XLSX}. La información contenida 
+en esta tabla corresponde al periodo del 14 de marzo al 31 de mayo del 2018.
+
+\section*{Estado actual}
+
+Hasta la fecha van acumuladas \textbf{\py{parametros_acumulados['esfuerzoAcumulado']} noches$\cdot$trampa} y un total de \textbf{\py{parametros_acumulados['capturasAcumuladas']} gatos} removidos. 
+
+La figura \ref{fig:capturas_por_esfuerzo} muestra el número total de capturas por unidad de esfuerzo, es decir, la razón que existe 
+entra la cantidad de capturas y el esfuerzo utilizado. Podemos ver que esta relación disminuye conforme aumenta el esfuerzo acumulado.
+
+La figura \ref{fig:capturas_acumuladas} muestra que la cantidad acumulada de individuos removidos es cercana a un valor constante. Esto 
+podría sugerir que nos estamos acercando al límite de la cantidad de individuos en la zona donde están colocadas las trampas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../resultados/capturas_por_esfuerzo_vs_esfuerzo_acumulado.png}
+    \caption{Capturas de gato feral por unidad de esfuerzo, en función del esfuerzo acumulado en Isla Guadalupe.}
+    \label{fig:capturas_por_esfuerzo}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../resultados/capturas_acumuladas_vs_esfuerzo_acumulado.png}
+    \caption{Capturas acumuladas de gato feral en función del esfuerzo acumulado en Isla Guadalupe.}
+    \label{fig:capturas_acumuladas}
+\end{figure}
+
+\end{document}

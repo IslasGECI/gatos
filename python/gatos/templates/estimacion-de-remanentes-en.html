@@ -1,0 +1,8 @@
+<!--Estimation of remaining individuals-->
+<p>
+    The most probable number of remaining individuals is <b>{{ estado_gatos.vmp_gatos_remanentes | int }}</b> cats. In 
+    the left pane of Figure 2 the orange line represents the most probable number of remaining
+    individuals and the blue bars represent the 95 % credibility interval. Within the 95% credibility interval, the 
+    number of remaining individuals is between {{ estado_gatos.intervalo_gatos_remanentes[0] | int }} 
+    and {{ estado_gatos.intervalo_gatos_remanentes[1]| int }} cats.
+</p>

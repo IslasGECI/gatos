@@ -1,0 +1,154 @@
+@extends('layouts.app')
+
+@section('title')
+Gatos
+@endsection
+
+@section('content')
+<link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.css" rel="stylesheet" type="text/css">
+<link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.16.min.css" rel="stylesheet" type="text/css">
+
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.16.min.js"></script>
+
+<div class="content">
+    <section class="report-title">
+        <h1>{{ datos_reporte.titulo }}</h1>
+        <h2>Proyecto Islas del Golfo de California y Tropicales <br> Dirección de Ciencia de Datos</h2>
+        <h3>{{ datos_reporte.fecha }}</h3>
+    </section>
+    <section class="abstract">
+        <h2 class="text-center">Resumen</h2>
+        {% if es %}
+        {% include 'resumen.html' %}
+        {% else %}
+        {% include 'resumen-en.html' %}
+        {% endif%}
+    </section>
+
+    <section id="estado-inicial" class="report-section">
+        <h2>Estado inicial de la erradicación</h2>
+        {% if es %}
+        {% include 'introduccion.html' %}
+        {% else %}
+        {% include 'introduccion-en.html' %}
+        {% endif%}
+
+        <p class="pie-figura">
+            <strong>Tabla 1.</strong> Estado inicial de la erradicación.</p>
+        <table class="table table-bordered">
+            <thead>
+                <th>Stage</th>
+                <th>Percentage</th>
+                <th>Cats</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Initial population size</td>
+                    <td>100%</td>
+                    <td>{{ estado_gatos.poblacion_inicial | int }}</td>
+                </tr>
+                <tr>
+                    <td>Initial knockdown</td>
+                    <td>99%</td>
+                    <td>{{ estado_gatos.gatos_para_knockdown | int }}</td>
+                </tr>
+                <tr>
+                    <td>Mop-up of survivors</td>
+                    <td>1%</td>
+                    <td>{{ estado_gatos.gatos_Mop_up | int }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </section>
+
+    <section id="estado_gatos" class="report-section">
+        <h2>Estado actual</h2>
+        {% if es %}
+        {% include 'estado-actual.html' %}
+        {% else %}
+        {% include 'estado-actual-en.html' %}
+        {% endif%}
+
+        <p class="pie-figura">
+            <strong>Tabla 2.</strong> Estado actual de la erradicación.</p>
+        <table class="table table-bordered">
+            <thead>
+                <th>Current</th>
+                <th>Percentage</th>
+                <th>Cats</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Initial population size</td>
+                    <td>100%</td>
+                    <td>{{ estado_gatos.poblacion_inicial | int }}</td>
+                </tr>
+                <tr>
+                    <td>Cumulative number of cats removed</td>
+                    <td> {{ estado_gatos.porcentaje_removidos | int }}%</td>
+                    <td>{{ estado_gatos.total_capturas | int }}</td>
+                </tr>
+                <tr>
+                    <td>Remaining cats</td>
+                    <td> {{ estado_gatos.porcentaje_remanentes | int }}%</td>
+                    <td>{{ estado_gatos.vmp_gatos_remanentes | int }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% if es %}
+        {% include 'descripcion_figura_capturas_por_esfuerzo.html' %}
+        {% else %}
+        {% include 'descripcion_figura_capturas_por_esfuerzo-en.html' %}
+        {% endif%}
+
+        <div>
+            {{ script_grafica_captura_por_esfuerzo|safe }} {{ div_grafica_captura_por_esfuerzo|safe }}
+            <p class="pie-figura">
+                <strong>Figura 1.</strong> (Izquierda) Capturas por unidad de esfuerzo, por esfuerzo acumulado;
+                (Derecha) Capturas
+                acumuladas por esfuerzo acumulado.
+            </p>
+        </div>
+
+    </section>
+    <section id="gatos_remanentes" class="report-section">
+        <h2>Estimación de la cantidad de individuos remanentes</h2>
+        {% if es %}
+        {% include 'estimacion-de-remanentes.html' %}
+        {% else %}
+        {% include 'estimacion-de-remanentes-en.html' %}
+        {% endif%}
+
+        <div class="container">
+            <div class="row">
+                <div class=""></div>
+            </div>
+            {{ script_pdf|safe }} {{ pdf|safe }}
+            <p class="pie-figura">
+                <strong>Figura 2.</strong> (Izquierda) Distribución de la probabilidad de la cantidad de gatos
+                remanentes; (Derecha)
+                Probabilidad acumulada de la cantidad de gatos remanentes.
+            </p>
+        </div>
+    </section>
+    <section id="esfuerzo_remanentes" class="report-section">
+        <h2>Esfuerzo requerido para concluir con la erradicación</h2>
+        {% if es %}
+        {% include 'esfuerzo-para-concluir-erradicacion.html' %}
+        {% else %}
+        {% include 'esfuerzo-para-concluir-erradicacion-en.html' %}
+        {% endif%}
+
+        <div>
+            {{script_grafica_exito_erradicacion|safe}} {{div_grafica_exito_erradicacion|safe}}
+            <p class="pie-figura">
+                <strong>Figura 3.</strong> (Izquierda) Distribución de la probabilidad del éxito de erradicación; (Derecha) Probabilidad del éxito de la erradicación en función del esfuerzo aplicado.
+            </p>
+        </div>
+    </section>
+</div>
+@endsection

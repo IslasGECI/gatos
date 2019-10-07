@@ -1,0 +1,7 @@
+<!--Estado actual-->
+            <p>
+                La tabla 2 muestra el estado actual de la erradicación. De acuerdo a los datos más recientes, hemos removido {{ estado_gatos.total_capturas
+                | int }} individuos. Por lo tanto, podemos decir que la cantidad más probable de remanentes es de <b>{{ estado_gatos.vmp_gatos_remanentes | int }}</b> individuos.
+
+                Con esta información, podemos decir que  necesitamos remover <b>{{ estado_gatos.gatos_para_Mop_up | int }}</b> individuos para entrar a la etapa Mop-up.
+            </p>

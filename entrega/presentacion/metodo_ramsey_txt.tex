@@ -1,0 +1,142 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% En esta sección se leen los archivos que se utilizaran por `pythontex`. Son
+% dos archivos los que se utilizan `datos-objetivo.json` y `datos_histograma_q.csv`. En el primer
+% archivo vienen los datos sintéticos que son la "adivinanza" para el programa.
+% El segundo archivo se utiliza para hacer la descripci\'on de la primera
+% gráfica.
+% Esta sección sigue los siguientes pasos:
+% 1.-Define las diercciones de los archivos ( *.json y *.csv);
+% 2.-Importa las módulos que servirán para la lectura de los archivos;
+% 3.-Abre el archivo *.json y guarda su información en la variable `datosJson`.
+% 4.-Abre el archivo *.csv y:
+%  4.1.-Lee todo como texto;
+%  4.2.-Define las listas eje_x y eje_y
+%  4.3.-Transforma las variables de texto a reales.
+
+% Se inicia ambiente python
+\begin{pycode}
+#  Carga archivo JSON para escribir su contenido después en el texto
+import json
+rutaJson='..\\..\\resultados\\datos-objetivo.json' # Define la ruta del JSON a cargar
+with open(rutaJson,encoding='utf-8') as archivoJson:
+      datosJson=json.load(archivoJson)  # Carga a una lista el archivo JSON
+\end{pycode}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame} % Inicia una nueva diapositiva
+\frametitle{Temas de Erradicaci\'on en La Paz} % Indica cual es el título de la diapositiva
+\begin{itemize} % Inicia la lista de bullets
+  \item Confirmaci\'on de Erradicaci\'on de gatos ferales: Esp\'iritu Santo. % Un bullet
+  \item Erradicaci\'on de cabras en las islas: Esp\'iritu Santo ($>$90\%).
+  \item Erradicaci\'on de gatos ferales y cabras en las islas: Mar\'ia Cleofas
+  ($>$70\%).
+  \item Plan de erradicaci\'on en Mar\'ia Magadalena (diagn\'ostico ambiental).
+\end{itemize}% Cierra la lista de bullets
+\end{frame} % Cierra la diapositiva activa
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{M\'etodos}
+\begin{itemize}
+  \item Tradicional; \pause % Detiene la presentación para que aparezca un bullet a la vez
+  \item Estad\'istica bayesiana: verosimilitud \pause
+  \item Estad\'istica bayesiana: muestreos de Gibbs\pause
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{M\'etodo tradicional}
+\begin{figure}[h] % Inicia ambiente para cargar figuras
+\centering % Centra la figura
+\includegraphics[width=100mm]{../../referencias/imagenes/cangrejito_playero.png} % Carga la figura
+\caption{M\'etodos de captura-esfuerzo. En el eje
+independiente la captura acumulada y la variable dependiente es la captura por
+unidad de esfuerzo (figura 3.3 en \cite{krebs2012}).}% Escribe el pie de figura
+\label{fproCap} % Crea referencia cruzada hacia la figura
+\end{figure}% Cierra ambiente para cargar figuras
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{El teorema de Bayes}
+\begin{equation} % Inicia ambiente de ecuación
+p(\theta|\vec x) = \frac{p(\vec x|\theta)p(\theta)}{p(\vec x)}
+\end{equation}
+La probabilidad de que una hip\'otesis, $\theta$, sea verdadera dado un
+conjunto de datos, $\vec x$, es el producto de la probabilidad de obtener los
+datos siendo verdadera la hip\'otesis, $p(\vec x|\theta)$, por la probabilidad
+de que la hip\'otesis suceda, $p(\theta)$, entre la probabilidad de que ocurran
+los datos sin importar nada m\'as, $p(\vec x)$.
+\end{frame} % Cierra ambiente de ecuación
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Verosimilitud}
+Se ajusta un conjunto de par\'ametros $\theta$ utilizando la condici\'on de que
+$p(\vec x|\theta)$ obtenga su valor m\'aximo.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Muestras de Gibbs}
+La densidad completamente condicionada
+$$
+p(\theta_j|\vec x,\theta_i)
+$$
+con $j\neq i$. As\'i se obtienen muestras para las $\theta_j$:
+$$\theta^{(1)}_{1}\sim p(\theta_1|\vec x,\theta^{(0)}_2,...,\theta^{(0)}_k)$$
+$$\theta^{(1)}_{2}\sim p(\theta_2|\vec x,\theta^{(1)}_1,...,\theta^{(0)}_k)$$
+$$\vdots$$
+$$\theta^{(1)}_{k}\sim p(\theta_3|\vec x,\theta^{(1)}_1,...,\theta^{(1)}_{k-1})$$
+$$\theta^{(2)}_{1}\sim p(\theta_1|\vec x,\theta^{(1)}_2,...,\theta^{(1)}_k)$$
+$$\vdots$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Erradicaci\'on}
+\begin{itemize}
+  \item Los datos, $\vec x$, son el n\'umero de individuos, $n_i$, retirados en el
+  intento $i$.
+  \item Las hip\'otesis, $\theta$, son el tama\~no inicial de la poblaci\'on,
+  $N_o$, y las probabilidades de captura $p_i$ (se espera que sean constantes
+  para cada individuo y que dependan del esfuerzo).
+  \item La propuesta, para $p(\vec n_i|N_o,p_i)$, es una distribuci\'on
+  binomial.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+Un caso m\'as sencillo (?`ser\'a?) es aquel en el cual no se retiran los
+individuos. As\'i el tama\~no de la pobaci\'on es la misma de un intento $i$ al
+tama\~no inicial, $N_o$. De esta manera llamar\'e probabilidad de detecci\'on en
+lugar de captura.
+Se propone una distribuci\'on $\beta\sim p^{\mbox{det}}$, una distribuci\'on
+uniforme para $N_o$ y $n_i\sim$ binomial.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+$$w(N_o,p^{\mbox{det}}|\vec{n_i})\propto f(\vec{n_i}|p^{\mbox{det}},N_o)
+g(N_o|p^{\mbox{det}},\vec{n_i})h(p^{\mbox{det}}|N_o,\vec{n_i})$$
+$$f(N_o,p^{\mbox{det}}|\vec{n_i})\propto\left( \frac{N_o!}{(N_o-n_i)!}p^{n_i}(1-p)^{N_o-n_i}\right)*
+\left( \frac{1}{N_{\mbox{max}}-N_{\mbox{min}}} \right)*$$
+$$\left(\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}p^{a-1}(1-p)^{b-1}\right)$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{../../resultados/probabilidad_captura.png}
+\caption{Histograma de la muestra de probabilidades de detecci\'on
+($p^{\mbox{det}}=$\py{datosJson["q"]["data"]}), generadas a partir del m\'etodo de Gibbs.}
+\label{fproCap}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{../../resultados/tamagno_inicial.png}
+\caption{Histograma de los tama\~nos iniciales
+$N_o$, generados a partir del m\'etodo de Gibbs.}
+\label{ftamIni}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\bibliography{../referencias} % Despliega la bibliografía que se encuentra en el archivo  `referencias.bib`
+\end{frame}

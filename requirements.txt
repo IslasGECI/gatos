@@ -1,0 +1,8 @@
+numpy
+matplotlib
+pandas
+scipy
+pymc3
+# Se utiliza para que los mensajes de log aparezcan con color
+colorlog
+bokeh==0.12.16

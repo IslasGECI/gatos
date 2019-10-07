@@ -1,0 +1,142 @@
+\section{Introducción}
+%%%%%%%%%%%%%%%%%%%%%% Método    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{M\'etodo}
+\begin{frame}
+\begin{itemize}
+  \item Estimaci\'on de la densidad a partir de la tasa de trampeo
+  \item Estimaci\'on de la varianza
+  \item Pruebas de campo
+  \item Par\'ametros de las c\'amaras
+  \item Par\'ametros de los animales
+  \item Censo animal
+  \item Simulaci\'on de la precisi\'on
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{../referencias/imagenes/figura1_rowcliffe.png}
+\caption{Diagrama que muestra la variaci\'on en la secci\'on presentada a
+animales por la zona de detecci\'on de la trampas-c\'amara. Las direcciones de
+acercamiento de los animales son indicadas por flechas, la zona de detecci\'on
+es el \'area sombreada, definida por una distancia $r$ y un \'angulo $\theta$, y
+la barra obscura es la secci\'on presentada.}
+\end{figure}
+\end{frame}
+%%%%
+\begin{frame}
+\frametitle{Ecuaciones}
+$$y=2rtvD$$
+$$\frac{2\int\limits^{\pi/2}_{(\pi-\theta)/2}2r\sin\left(\frac{\theta}{2}\right)
+\sin \left(\gamma\right)\mbox{d}\gamma+2\int\limits^{\pi/2}_{\theta}r
+\sin\left(\gamma\right)\mbox{d}\gamma}{\pi}=r\frac{2+\theta}{\pi}$$
+$$y=\frac{2+\theta}{\pi}rtvD$$
+$$D=\frac{y}{t}\frac{\pi}{vr(2+\theta)}$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=60mm]{../referencias/imagenes/tabla1_rowcliffe.png}
+\caption{Resumen de los datos de censo y trampas-c\'amara dividido por especies
+y zonas.}
+\label{tabla1}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%  Resultados %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Resultados}
+\begin{frame}
+\begin{itemize}
+  \item Resultados de campo
+  \item Resultados de la simulaci\'on
+\end{itemize}
+\end{frame}
+%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=70mm]{../referencias/imagenes/figura2a_rowcliffe.png}
+\caption{Tasa de trampas-c\'amaras contra densidades por censo. La l\'inea
+punteada indica la regresi\'on lineal. Los puntos est\'an agrupados por especies
+y para cada especie se hicieron censos en las cuatro \'areas de estudio.}
+\label{figura2a}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{../referencias/imagenes/figura2b_rowcliffe.png}
+\caption{Densidad estimada de las cuatro especies contra las densidades por
+censo. La l\'inea diagional representa la identidad.}
+\label{figura2b}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=110mm]{../referencias/imagenes/figura3_rowcliffe.pdf}
+\caption{El conjunto de las cuatro densidades, comparado entre las densidades
+por censo y las densidades estimadas mediante las trampas-c\'amara.}
+\label{figura3}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{../referencias/imagenes/tabla2_rowcliffe.png}
+\caption{Resumen de las varibles independientes requeridas para calcular la
+densidad animal a partir de las tasas de trampas-c\'amara.}
+\label{tabla2}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=100mm]{../referencias/imagenes/figura4a_rowcliffe.pdf}
+\caption{
+La precisi\'on de la densidad estimada de datos simulados en relaci\'on
+a la variaci\'on del esfuerzo de muestreo, suponiendo alta y baja varianza en
+la tasa de trampas-c\'amara (l\'inea superior e inferior, respectivamente).
+Cambia el n\'umero de c\'amaras mientras se mantiene constante el tiempo por
+c\'amara.}
+\label{figura4a}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{../referencias/imagenes/figura4bc_rowcliffe.pdf}
+\caption{
+La precisi\'on de la densidad estimada de datos simulados en relaci\'on
+a la variaci\'on del esfuerzo de muestreo, suponiendo alta y baja varianza en
+la tasa de trampas-c\'amara (l\'inea superior e inferior, respectivamente).
+(b) El tiempo por c\'amara cambia (n\'umero total de fotograf\'ias) y el
+n\'umero total de trampas-c\'amara es constante. (c) El n\'umero de ubicaciones
+de las trampas-c\'amara var\'ia pero el tiempo total es constante.}
+\label{figura4b}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}[h]
+\centering
+\includegraphics[width=50mm]{../referencias/imagenes/figura5_rowcliffe.pdf}
+\caption{Esfuerzo de trampeo esperado (d\'ias trampa indicados por contornos)
+requiere lograr 10 fotograf\'ias dada una variaci\'on de densidad y suponiendo
+un grupo de tama\~no 1. Las combinaci\'on t\'ipica de recorridos por d\'ia y
+densidad son indicados para carn\'ivoros (C), ungulados (U) y roedores (R),
+calculadas utilizando ecuaciones alom\'etricas para el recorrido por d\'ia y la
+densidad a una capacidad de carga e ilustrando densidades entre 10\% y 100\% de
+la capacidad de carga. }
+\label{figura5}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%% Discusión %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\bibliography{referencias} % Despliega la bibliografía que se encuentra en el archivo  `referencias.bib`
+\end{frame}
