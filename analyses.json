@@ -29,7 +29,7 @@
         "data": [
             {
             "source": "datos-texto",
-            "version": "66c9d1f4a1c5e7b25396398a2202aaef1db0c2b0",
+            "version": "f17d337c20f9",
             "path": "datapackage/erradicaciones-mamiferos",
             "type" : "csv",
             "filename" : "captura_gatos_socorro.csv"
@@ -46,8 +46,8 @@
             {
                 "python": [
                     "pymc",
-                    "selenium"
-                ]
+                    "selenium"66c9d1f4a1c5e7b25396398a2202aaef1db0c2b0
+                ]66c9d1f4a1c5e7b25396398a2202aaef1db0c2b0
             },
             {
                 "system": [
@@ -94,7 +94,7 @@
         "data": [
           {
           "source": "datos-texto",
-          "version": "aab9bf88db95",
+          "version": "f17d337c20f9",
           "path": "datapackage/erradicaciones-mamiferos",
           "type": "csv",
           "filename": "captura_gatos_socorro.csv"
