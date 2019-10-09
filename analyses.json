@@ -86,10 +86,14 @@
         "report": "cantidad_individuos_remanentes_en.pdf",
         "results": [
           "captura_gatos_socorro.csv",
-          "TotalCapturasPorAnioGatosSocorro.png"
+          "TotalCapturasPorAnioGatosSocorro.png",
+          "json_meses_faltantes.json",
+          "json_p-valor.json"
         ],
         "scripts": [
-          "src/histogramaCapturasPorAnioGatosSocorro"
+          "src/histogramaCapturasPorAnioGatosSocorro",
+          "src/simulaciones_posterior.py",
+          "src/tabla_p-valor_erradicacion_gatos.py"
         ],
         "data": [
           {
