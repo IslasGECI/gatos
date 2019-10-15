@@ -7,6 +7,7 @@
 \usepackage{natbib} % Importa bibliografía
 \usepackage{caption,ragged2e,tabularx}
 \usepackage{graphicx}
+\usepackage{pythontex}
 
 \renewcommand{\figurename}{Figura}
 %\decimalpoint
@@ -19,16 +20,24 @@
 \affil{Data Science Direction}
 
 \begin{document}
-\maketitle
 
+\begin{pycode}
+import json
+
+ruta_json_p_valor = '../resultados/json_p-valor.json'
+with open(ruta_json_p_valor, encoding='utf8') as archivo_p_valor:
+    p_valor = json.load(archivo_p_valor)
+\end{pycode}
+
+\maketitle
 \begin{abstract}
-   According to the data up to August 2019, we determined that: 1) the most probable amount of the remnant cats is 75 individuals; and 2) considering an effort similar to the latest trends and consider an increase rate equal to zero, we will complete eradication in September 2020.
+   According to the data up to September 2019, we determined that: 1) the most probable amount of the remnant cats is \py{'%.0f'% p_valor['gatos_remanentes']} individuals; and 2) considering an effort similar to the latest trends and consider an increase rate equal to zero, we will complete eradication in September 2020.
 \end{abstract}
 
 
 \section*{Current status}
 
-Following the methodology proposed by Ramsey (2011) and using data from the feral cat eradication project on Socorro Island until August 2019, we estimate that the initial population size was 841 cats. To date, 766 cats have been removed and the most probable number of remaining individuals is 75 cats. As such, 8 cats must be removed in order to enter the mop-up phase.
+Following the methodology proposed by Ramsey (2011) and using data from the feral cat eradication project on Socorro Island until September 2019, we estimate that the initial population size was \py{p_valor['gatos_capturados']+p_valor['gatos_remanentes']} cats. To date, \py{'%.0f'% p_valor['gatos_capturados']} cats have been removed and the most probable number of remaining individuals is  \py{'%.0f'% p_valor['gatos_remanentes']} cats. 
 
 \begin{table}[H]
 \centering
@@ -38,13 +47,14 @@ Following the methodology proposed by Ramsey (2011) and using data from the fera
     \hline
     Current & Percentage & Cats \\
     \hline
-    Initial population size & 100\%    & 841 \\
-    Cumulative number of cats removed & 91\%     & 766 \\
-    Remaining cats & 9\%     & 76 \\
+    Initial population size & 100\% & \py{'%.0f'%(p_valor['gatos_capturados']+p_valor['gatos_remanentes'])} \\
+    Cumulative number of cats removed & \py{'%.2f'% ((p_valor['gatos_capturados']*100)/(p_valor['gatos_capturados']+p_valor['gatos_remanentes']))} \% & \py{'%.0f'% p_valor['gatos_capturados']} \\
+    Remaining cats & \py{'%.2f'%((p_valor['gatos_remanentes']*100)/(p_valor['gatos_capturados']+p_valor['gatos_remanentes']))}\%     &  \py{'%.0f'% p_valor['gatos_remanentes']} \\
     \hline
 \end{tabular}
 \end{table}
 
+%\py{'%.2f'%((p_valor['gatos_capturados'])/(p_valor['gatos_capturados']+p_valor['gatos_remanentes']))*100}  \py{'%.0f'% p_valor['gatos_capturados']}
 
 \section*{Results}
 
@@ -56,7 +66,7 @@ Following the methodology proposed by Ramsey (2011) and using data from the fera
 \end{figure}
 
 
-Table \ref{table:individuosRemanentes} shows: $\textnormal{P}_\textnormal{s}$, 
+The table \ref{table:individuosRemanentes} shows: $\textnormal{P}_\textnormal{s}$, 
 the amount of remaining individuals, and the $p$-value (level of trust) associated with the amount of remaining individuals.
 
 
@@ -69,7 +79,7 @@ the amount of remaining individuals, and the $p$-value (level of trust) associat
     Probability of & Remaining cats & $p$-value \\
     successful eradication ($\textnormal{P}_\textnormal{s}$) & & \\
     \hline
-    0\%      & 76  & 0.581 \\
+    \py{'%.0f'%p_valor['probabilidades'][0]}\%      &  \py{'%.0f'% p_valor['gatos_remanentes']}  & \py{'%.2f'% (p_valor['probabilidades'][2]/100)} \\
     \hline
 \end{tabular}
 \end{table}
@@ -77,10 +87,10 @@ the amount of remaining individuals, and the $p$-value (level of trust) associat
 \section*{Conclusion}
 
 \begin{itemize}
-\item To complete eradication by January 2020, an effort of 23900 night-traps each month must be applied. That means 27 trappers (with 30 traps each) need to be deployed
-\item  TARGET: To complete eradication by July 2020, an effort of 9600 night-traps each month must be applied. That means 11 trappers (with 30 traps each) need to be deployed.
+\item To complete eradication by January 2020, an effort of 30000 night-traps each month must be applied. That means 34 trappers (with 30 traps each) need to be deployed
+\item  TARGET: To complete eradication by July 2020, an effort of 10000 night-traps each month must be applied. That means 12 trappers (with 30 traps each) need to be deployed.
 \item If current effort from the last expeditions is maintained (7825 night-traps), we will complete eradication in September 2020.
-\end{itemize}
+\end{itemize}	
 
 \section*{Referencias}
 
