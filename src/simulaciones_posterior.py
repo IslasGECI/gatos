@@ -57,7 +57,7 @@ print(f'Este esfuerzo lo lograríamos con {esfuerzo_para_agno*factor_conversion/
 diccionario_salida = {
     "meses_faltantes": int(np.ceil(meses_faltantes.median()))
 }
-with open('json_meses_faltantes.json', 'w') as archivo:
+with open('resultados/json_meses_faltantes.json', 'w') as archivo:
     json.dump(diccionario_salida, archivo)
 
 n_simulacion = 100_000
