@@ -14,8 +14,9 @@ csvProbabilidadCapturaGatosSocorro = \
     resultados/derivada_captura_esfuerzo_socorro.csv
 
 datapackageCapturaGatosSocorro = \
+    inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv \
     inst/extdata/erradicaciones-mamiferos/datapackage.json\
-    inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv
+
 
 jsonValoresReporteGatosSocorro = \
     resultados/tabla_valores_socorro.json
@@ -228,26 +229,34 @@ $(imagenesCamarasTrampa):
 pngHistogramaCapturasGatosSocorroPorAnio = \
 	reports/figures/TotalCapturasPorAnioGatosSocorro.png
 
-csvCapturasGatosSocorro = \
-	data/raw/captura_gatos_socorro.csv
+jsonMesesFaltantes = \
+	resultados/json_meses_faltantes.json
+
+jsonPValorErradicacion = \
+	resultados/json_p-valor.json
 
 # 5 III. Reglas para construir los objetivos principales
 
-reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(csvCapturasGatosSocorro) $(pngHistogramaCapturasGatosSocorroPorAnio)
+reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(datapackageCapturaGatosSocorro) $(pngHistogramaCapturasGatosSocorroPorAnio) $(jsonPValorErradicacion) $(jsonMesesFaltantes)
 	cd $(<D) && pdflatex $(<F)
+	cd $(<D) && pythontex $(<F)
 	cd $(<D) && pdflatex $(<F)
 
 # 5 IV. Reglas para construir las dependencias de los objetivos principales
 
-$(csvCapturasGatosSocorro): log/install_requirements.log
+$(jsonPValorErradicacion): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/tabla_p-valor_erradicacion_gatos.py
 	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
-	descarga_datos $(@F) $(@D)
+	src/tabla_p-valor_erradicacion_gatos.py
 
-$(pngHistogramaCapturasGatosSocorroPorAnio):$(csvCapturasGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
+$(jsonMesesFaltantes): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/simulaciones_posterior.py
+	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	src/simulaciones_posterior.py
+
+$(pngHistogramaCapturasGatosSocorroPorAnio):$(datapackageCapturaGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
 	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
 	src/histogramaCapturasPorAnioGatosSocorro $< $@
 
-# 4.V Reglas del resto de los phonies
+# V Reglas del resto de los phonies
 # =================================
 datos: $(datapackageCapturaGatosSocorro)
 
