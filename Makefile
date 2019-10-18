@@ -41,33 +41,33 @@ versionDatos = f17d337c20f9
 # 1.III. Reglas para construir los objetivos principales
 # ====================================================
 reports/erradicacion_gatos_socorro_es.html: python/generaReporteErradicacionGatosSocorro.py $(jsonValoresReporteGatosSocorro)
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	python python/generaReporteErradicacionGatosSocorro.py -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file $(csvProbabilidadCapturaGatosSocorro) --report-values $(jsonValoresReporteGatosSocorro) -o $(@) --espaniol
 
 reports/erradicacion_gatos_socorro_en.html: python/generaReporteErradicacionGatosSocorro.py $(jsonValoresReporteGatosSocorro)
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	python python/generaReporteErradicacionGatosSocorro.py -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file $(csvProbabilidadCapturaGatosSocorro) --report-values $(jsonValoresReporteGatosSocorro) -o $(@) --ingles
 
 # 1.IV. Reglas para construir las dependencias de los objetivos principales
 # =======================================================================
 $(datapackageCapturaGatosSocorro):
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	curl --output $@ --user ${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD} https://bitbucket.org/IslasGECI/datos-texto/raw/$(versionDatos)/datapackage/erradicaciones-mamiferos/$(@F)
 
 $(csvDistribucionPosteriorSocorro): $(datapackageCapturaGatosSocorro) log/install_requirements.log
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	crea_tamagno_poblacion_gatos calculate -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv -o $(@)
 
 resultados/probabilidad_captura_remanentes_socorro.csv: $(csvDistribucionPosteriorSocorro)
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	crea_probabilidad_atrapar_gatos remanent_cats -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) -o resultados/probabilidad_captura_remanentes_socorro.csv
 
 resultados/derivada_captura_esfuerzo_socorro.csv: $(csvDistribucionPosteriorSocorro)
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	crea_probabilidad_atrapar_gatos derivate_effort -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) -o resultados/derivada_captura_esfuerzo_socorro.csv
 
 $(jsonValoresReporteGatosSocorro): $(csvProbabilidadCapturaGatosSocorro)
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	crea_valores_reporte calculate -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file resultados/probabilidad_captura_remanentes_socorro.csv  --derivate-effort-file resultados/derivada_captura_esfuerzo_socorro.csv -o $(@)
 
 # 3. Albatros sin gatos
@@ -230,10 +230,10 @@ pngHistogramaCapturasGatosSocorroPorAnio = \
 	reports/figures/TotalCapturasPorAnioGatosSocorro.png
 
 jsonMesesFaltantes = \
-	resultados/json_meses_faltantes.json
+	reports/non-tabular/json_meses_faltantes.json
 
 jsonPValorErradicacion = \
-	resultados/json_p-valor.json
+	reports/non-tabular/json_p-valor.json
 
 # 5 III. Reglas para construir los objetivos principales
 
@@ -245,15 +245,15 @@ reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_reman
 # 5 IV. Reglas para construir las dependencias de los objetivos principales
 
 $(jsonPValorErradicacion): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/tabla_p-valor_erradicacion_gatos.py
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/tabla_p-valor_erradicacion_gatos.py
 
 $(jsonMesesFaltantes): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/simulaciones_posterior.py
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/simulaciones_posterior.py
 
 $(pngHistogramaCapturasGatosSocorroPorAnio):$(datapackageCapturaGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/histogramaCapturasPorAnioGatosSocorro $< $@
 
 # V Reglas del resto de los phonies
@@ -265,7 +265,7 @@ pruebas: # Corre las pruebas de las funciones
 	python -m doctest -v python/tests/test_unidad-pruebas.py
 
 log/install_requirements.log: src/install_requirements.sh
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	$< > $@
 
 # Elimina PDFs, PNGs y residuos de LaTeX
@@ -287,3 +287,4 @@ clean:
 	rm --force reports/*.snm
 	rm --force reports/*.synctex.gz
 	rm --force reports/*.toc
+	rm --force --recursive reports/pythontex*
