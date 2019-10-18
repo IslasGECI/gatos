@@ -55,5 +55,5 @@ diccionario_salida = {
     "probabilidades": calculador.probabilidades.tolist(),
     "gatos_remanentes": int(calculador.remanented_cat_more_probably)
 }
-with open('resultados/json_p-valor.json', 'w') as archivo:
+with open('reports/non-tabular/json_p-valor.json', 'w') as archivo:
     json.dump(diccionario_salida, archivo)
