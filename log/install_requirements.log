@@ -1,0 +1,20 @@
+Collecting hg+http://islasfernando:cocoliso12@bitbucket.org/analislas/datatools.old@61629a8 (from -r requirements-pip.txt (line 1))
+  Cloning hg http://islasfernando:cocoliso12@bitbucket.org/analislas/datatools.old (to revision 61629a8) to /tmp/pip-req-build-h9eomp0p
+Requirement already satisfied (use --upgrade to upgrade): datatools==0.2.0 from hg+http://islasfernando:cocoliso12@bitbucket.org/analislas/datatools.old@61629a8 in /root/anaconda3/lib/python3.6/site-packages (from -r requirements-pip.txt (line 1))
+Collecting hg+http://islasfernando:cocoliso12@bitbucket.org/IslasGECI/gatos.hg@9a1ac44dbf07 (from -r requirements-pip.txt (line 2))
+  Cloning hg http://islasfernando:cocoliso12@bitbucket.org/IslasGECI/gatos.hg (to revision 9a1ac44dbf07) to /tmp/pip-req-build-p0oa0ipn
+Requirement already satisfied (use --upgrade to upgrade): gatos==0.1.0 from hg+http://islasfernando:cocoliso12@bitbucket.org/IslasGECI/gatos.hg@9a1ac44dbf07 in /root/anaconda3/lib/python3.6/site-packages (from -r requirements-pip.txt (line 2))
+Requirement already satisfied: pandas in /root/anaconda3/lib/python3.6/site-packages (from datatools==0.2.0->-r requirements-pip.txt (line 1)) (0.23.0)
+Requirement already satisfied: Click in /root/anaconda3/lib/python3.6/site-packages (from gatos==0.1.0->-r requirements-pip.txt (line 2)) (6.7)
+Requirement already satisfied: python-dateutil>=2.5.0 in /root/anaconda3/lib/python3.6/site-packages (from pandas->datatools==0.2.0->-r requirements-pip.txt (line 1)) (2.7.3)
+Requirement already satisfied: pytz>=2011k in /root/anaconda3/lib/python3.6/site-packages (from pandas->datatools==0.2.0->-r requirements-pip.txt (line 1)) (2018.4)
+Requirement already satisfied: numpy>=1.9.0 in /root/anaconda3/lib/python3.6/site-packages (from pandas->datatools==0.2.0->-r requirements-pip.txt (line 1)) (1.16.4)
+Requirement already satisfied: six>=1.5 in /root/anaconda3/lib/python3.6/site-packages (from python-dateutil>=2.5.0->pandas->datatools==0.2.0->-r requirements-pip.txt (line 1)) (1.11.0)
+Building wheels for collected packages: datatools, gatos
+  Running setup.py bdist_wheel for datatools: started
+  Running setup.py bdist_wheel for datatools: finished with status 'done'
+  Stored in directory: /tmp/pip-ephem-wheel-cache-aphzh0o0/wheels/29/57/76/89d086fe0073612a4d4f81654a0606b90e18e1220bea5d6180
+  Running setup.py bdist_wheel for gatos: started
+  Running setup.py bdist_wheel for gatos: finished with status 'done'
+  Stored in directory: /tmp/pip-ephem-wheel-cache-aphzh0o0/wheels/e3/8a/b4/4323a5696db9c18fb9c8a1ff2094b8c32109564317267c1470
+Successfully built datatools gatos

@@ -1,0 +1,311 @@
+{
+  "name": "erradicacion-mamiferos",
+  "homepage": "https://bitbucket.org/analislas/datos/src/default/datapackage/erradicacion-mamiferos/",
+  "profile": "tabular-data-package",
+  "comment": "",
+  "contributors": [
+    { "title": "David Martinez",
+      "email": "david.martinez@islas.org.mx",
+      "organization": "GECI",
+      "role": "author"
+    },
+    { "title": "Braulio Rojas",
+      "email": "braulio.rojas@islas.org.mx",
+      "organization": "GECI",
+      "role": "author"
+    },
+    { "title": "Efren Cabrera",
+      "email": "efren.cabrera@islas.org.mx",
+      "organization": "GECI",
+      "role": "author"
+    },
+    { "title": "Elizabeth Brassea",
+      "email": "elizabeth.brassea@islas.org.mx",
+      "organization": "GECI",
+      "role": "author"
+    }
+  ],
+  "description": "Morfometría de albatros de Laysan en Isla Guadalupe (2015-2016) para determinar el dimorfismo sexual de esta especie mediante regresión logística.",
+  "history": "los datos se pasaron de una hoja excel a formato CSV",
+  "institution": "Grupo de Ecología y Conservación de Islas",
+  "references": "",
+  "sources": [
+    { "title": "Antonio Ortiz",
+      "email": "antonio.ortiz@islas.org.mx"
+    }
+  ],
+  "title": "Eradication of goats on Guadalupe Island",
+  "titulo": "Erradicacion de cabras en la Isla Guadalupe",
+  "resources": [
+    { "name": "erradicacion_cabra_guadalupe",
+      "path": "erradicacion_cabra_guadalupe.csv",
+      "profile": "tabular-data-resource",
+      "description": "Esfuerzo en las cacerías de cabras en Isla Guadalupe",
+      "source": "Medidas in situ",
+      "title": "Laysan Albatross morphometry from Guadalupe Island",
+      "titulo": "Morfometría de Albatros de Laysan en Isla Guadalupe",
+      "schema": {
+        "fields": [
+          {
+            "name": "vuelo",
+            "type": "integer",
+            "units": "vuelos",
+            "standard_name": "flights",
+            "long_name": "hunting flights",
+            "nombre_largo": "vuelos de caza",
+            "axis": ""
+          },
+          {
+            "name": "fecha inicio",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "units": "minutos",
+            "standard_name": "time",
+            "long_name": "time",
+            "nombre_largo": "tiempo",
+            "axis": "T"
+          },
+          {
+            "name": "hora inicio",
+            "type": "time",
+            "format": "%H:%M:%S",
+            "units": "minutos",
+            "standard_name": "time",
+            "long_name": "time",
+            "nombre_largo": "tiempo",
+            "axis": "T"
+          },
+          {
+            "name": "fecha final",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "units": "minutos",
+            "standard_name": "time",
+            "long_name": "time",
+            "nombre_largo": "tiempo",
+            "axis": ""
+          },
+          {
+            "name": "hora final",
+            "type": "time",
+            "format": "%H:%M:%S",
+            "units": "minutos",
+            "standard_name": "time",
+            "long_name": "time",
+            "nombre_largo": "tiempo",
+            "axis": ""
+          },
+          {
+            "name": "cuadrante",
+            "type": "string",
+            "units": "",
+            "standard_name": "sighting_direction",
+            "long_name": "sighting direction",
+            "nombre_largo": "Dirección del avistamiento",
+            "axis": ""
+          },
+          {
+            "name": "balas",
+            "type": "integer",
+            "units": "balas",
+            "standard_name": "bullets",
+            "long_name": "bullets",
+            "nombre_largo": "balas",
+            "axis": ""
+          },
+          {
+            "name": "calibre",
+            "type": "string",
+            "units": "vuelos",
+            "standard_name": "",
+            "long_name": "",
+            "nombre_largo": "",
+            "axis": ""
+          },
+          {
+            "name": "blancos",
+            "type": "integer",
+            "units": "cabras",
+            "standard_name": "captures",
+            "long_name": "target",
+            "nombre_largo": "blancos",
+            "axis": ""
+          }
+        ]
+      }
+    },
+    { "name": "captura_gatos_guadalupe",
+      "path": "captura_gatos_guadalupe.csv",
+      "profile": "tabular-data-resource",
+      "description": "Esfuerzo en las capturas (posición de trampas) de gato feral en Isla Guadalupe",
+      "source": "Datos recolectados en campo",
+      "title": "Feral cat traps position at Guadalupe Island",
+      "titulo": "Posición de trampas para gato feral en Isla Guadalupe",
+      "schema": {
+        "fields": [
+          {
+            "name": "ID",
+            "type": "string",
+            "format": "default",
+            "standard_name": "",
+            "long_name": "ID",
+            "nombre_largo": "ID",
+            "axis": ""
+          },
+          {
+            "name": "Coor.X",
+            "type": "number",
+            "format": "default",
+            "standard_name": "projection_x_coordinate",
+            "long_name": "Longitude",
+            "nombre_largo": "Longitud",
+            "axis": "X"
+          },
+          {
+            "name": "Coor.Y",
+            "type": "number",
+            "format": "default",
+            "units": "m",
+            "standard_name": "projection_y_coordinate",
+            "long_name": "Latitude",
+            "nombre_largo": "Latitud",
+            "axis": "Y"
+          },
+          {
+            "name": "responsable",
+            "type": "string",
+            "format": "default",
+            "standard_name": "",
+            "long_name": "Responsible",
+            "nombre_largo": "Responsable",
+            "axis": ""
+          },
+          {
+            "name": "fecha",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "standard_name": "time",
+            "long_name": "time",
+            "nombre_largo": "tiempo",
+            "axis": "T"
+          },
+          {
+            "name": "condicion",
+            "type": "string",
+            "format": "default",
+            "standard_name": "",
+            "long_name": "Condition",
+            "nombre_largo": "Condición",
+            "axis": ""
+          }
+        ]
+      }
+    },
+    { "name": "captura_gatos_socorro",
+      "path": "captura_gatos_socorro.csv",
+      "profile": "tabular-data-resource",
+      "description": "Esfuerzo en las cacerías de cabras en Isla Guadalupe",
+      "source": "Medidas in situ",
+      "title": "Laysan Albatross morphometry from Guadalupe Island",
+      "titulo": "Morfometría de Albatros de Laysan en Isla Guadalupe",
+      "schema": {
+        "fields": [
+          {
+            "name": "esfuerzo",
+            "type": "integer",
+            "units": "trampas noche",
+            "standard_name": "effort",
+            "long_name": "effort",
+            "nombre_largo": "esfuerzo",
+            "axis": "",
+            "type": "integer",
+            "unidades": "noches trampa",
+            "axis": "",
+            "units": "trap nights"
+          },
+          {
+            "name": "capturas",
+            "type": "integer",
+            "units": "gatos",
+            "standard_name": "",
+            "long_name": "captures",
+            "nombre_largo": "capturas",
+            "axis": "",
+            "unidades": "individuos",
+            "standard_name": "",
+            "axis": "",
+            "units": "individuals"
+          },
+          {
+            "name": "fecha",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "units": "días",
+            "standard_name": "date",
+            "long_name": "date",
+            "nombre_largo": "fecha",
+            "axis": "T"
+          }
+        ]
+      }
+    },
+    { "name": "captura_gatos_es_dp",
+      "path": "captura_gatos_ES_dp.csv",
+      "profile": "tabular-data-resource",
+      "description": "Esfuerzo en las cacerías de cabras en Isla Guadalupe",
+      "source": "Medidas in situ",
+      "title": "Laysan Albatross morphometry from Guadalupe Island",
+      "titulo": "Morfometría de Albatros de Laysan en Isla Guadalupe",
+      "schema": {
+        "fields": [
+          {
+            "name": "TN cepo",
+            "type": "integer",
+            "units": "trampas",
+            "standard_name": "snare traps",
+            "long_name": "snare traps",
+            "nombre_largo": "trampas cepo",
+            "axis": ""
+          },
+          {
+            "name": "capturas",
+            "type": "integer",
+            "units": "gatos",
+            "standard_name": "captures",
+            "long_name": "captures",
+            "nombre_largo": "capturas",
+            "axis": ""
+          },
+          {
+            "name": "TH",
+            "type": "integer",
+            "units": "trampas",
+            "standard_name": "Tomahawk traps",
+            "long_name": "Tomahawk traps",
+            "nombre_largo": "trampas tomahawk",
+            "axis": ""
+          },
+          {
+            "name": "esfuerzo",
+            "type": "integer",
+            "units": "trampas",
+            "standard_name": "effort",
+            "long_name": "effort",
+            "nombre_largo": "esfuerzo",
+            "axis": "E"
+          },
+          {
+            "name": "fecha",
+            "type": "date",
+            "format": "%Y-%m-%d",
+            "units": "días",
+            "standard_name": "date",
+            "long_name": "date",
+            "nombre_largo": "fecha",
+            "axis": "T"
+          }
+        ]
+      }
+    }
+  ]
+}
