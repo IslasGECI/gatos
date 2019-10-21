@@ -45,6 +45,7 @@ with open(ruta_json_p_valor, encoding='utf8') as archivo_p_valor:
 
 \section*{Current status}
 
+\subsection*{Without carrying capacity}
 Following the methodology proposed by Ramsey (2011) and using data from the feral cat eradication 
 project on Socorro Island until September 2019, we estimate that the initial population size was 
 \py{p_valor['gatos_capturados']+p_valor['gatos_remanentes']} cats. To date, 
@@ -111,7 +112,11 @@ the amount of remaining individuals, and the $p$-value (level of trust) associat
 \end{tabular}
 \end{table}
 
+The table \ref{table:carryingCapacity} shows the number of months to end eradication considering 3 different load capacities and an effort equal to that of the last months (7825 night-traps).
+
 \section*{Conclusion}
+
+Without considering carrying capacity, we show the possible end of eradication considering 3 possible scenarios varying the amount of effort.
 
 \begin{itemize}
 \item To complete eradication by January 2020, an effort of 30000 night-traps each month must be applied. That means 34 trappers (with 30 traps each) need to be deployed
