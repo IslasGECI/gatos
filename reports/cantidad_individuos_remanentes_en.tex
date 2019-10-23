@@ -23,6 +23,8 @@
 
 \begin{pycode}
 import json
+import datetime 
+from dateutil.relativedelta import relativedelta
 
 ruta_json_simulacion = 'non-tabular/json_meses_faltantes.json'
 with open(ruta_json_simulacion, encoding='utf8') as archivo_simulacion:
@@ -30,6 +32,10 @@ with open(ruta_json_simulacion, encoding='utf8') as archivo_simulacion:
 ruta_json_p_valor = 'non-tabular/json_p-valor.json'
 with open(ruta_json_p_valor, encoding='utf8') as archivo_p_valor:
     p_valor = json.load(archivo_p_valor)
+
+fecha_actual = datetime.date.today()
+final_erradicacion = fecha_actual + relativedelta(months=meses['meses_faltantes_esfuerzo_actual'])
+
 \end{pycode}
 
 \maketitle
@@ -112,16 +118,16 @@ the amount of remaining individuals, and the $p$-value (level of trust) associat
 \end{tabular}
 \end{table}
 
-The table \ref{table:carryingCapacity} shows the number of months to end eradication considering 3 different load capacities and an effort equal to that of the last months (7825 night-traps).
+The table \ref{table:carryingCapacity} shows the number of months to end eradication considering 3 different load capacities and an effort equal to that of the last months (\py{'%.0f'% meses['esfuerzo_actual']} night-traps).
 
 \section*{Conclusion}
 
 Without considering carrying capacity, we show the possible end of eradication considering 3 possible scenarios varying the amount of effort.
 
 \begin{itemize}
-\item To complete eradication by January 2020, an effort of 30000 night-traps each month must be applied. That means 34 trappers (with 30 traps each) need to be deployed
-\item  TARGET: To complete eradication by July 2020, an effort of 10000 night-traps each month must be applied. That means 12 trappers (with 30 traps each) need to be deployed.
-\item If current effort from the last expeditions is maintained (7825 night-traps), we will complete eradication in September 2020.
+\item To complete eradication by January 2020, an effort of \py{'%.0f'% meses['esfuerzo_2019']} night-traps each month must be applied. That means \py{'%.0f'% meses['tramperos_2019']} trappers (with 30 traps each) need to be deployed
+\item  TARGET: To complete eradication by July 2020, an effort of \py{'%.0f'% meses['esfuerzo_primer_semestre']} night-traps each month must be applied. That means \py{'%.0f'% meses['tramperos_primer_semestre']} trappers (with 30 traps each) need to be deployed.
+\item If current effort from the last expeditions is maintained (\py{'%.0f'% meses['esfuerzo_actual']} night-traps), we will complete eradication in \py{final_erradicacion.strftime("%B %Y")}.
 \end{itemize}	
 
 \section*{Referencias}
