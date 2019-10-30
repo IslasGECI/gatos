@@ -223,36 +223,36 @@ $(imagenesCamarasTrampa):
 
 
 #5 Reporte estimación de esfuerzo para acabar la erradicación de gato feral en Isla Socorro
-
+#===============================================================================================
 # 5 II Declaracion de las variables
 
-pngHistogramaCapturasGatosSocorroPorAnio = \
+histogramCapturedCatsPerYearSocorro = \
 	reports/figures/TotalCapturasPorAnioGatosSocorro.png
 
-jsonMesesFaltantes = \
+remainingMonths = \
 	reports/non-tabular/json_meses_faltantes.json
 
-jsonPValorErradicacion = \
+pValueEradication = \
 	reports/non-tabular/json_p-valor.json
 
 # 5 III. Reglas para construir los objetivos principales
 
-reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(datapackageCapturaGatosSocorro) $(pngHistogramaCapturasGatosSocorroPorAnio) $(jsonPValorErradicacion) $(jsonMesesFaltantes)
+reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(datapackageCapturaGatosSocorro) $(histogramCapturedCatsPerYearSocorro) $(pValueEradication) $(remainingMonths)
 	cd $(<D) && pdflatex $(<F)
 	cd $(<D) && pythontex $(<F)
 	cd $(<D) && pdflatex $(<F)
 
 # 5 IV. Reglas para construir las dependencias de los objetivos principales
 
-$(jsonPValorErradicacion): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/tabla_p-valor_erradicacion_gatos.py
+$(pValueEradication): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/tabla_p-valor_erradicacion_gatos.py
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/tabla_p-valor_erradicacion_gatos.py
 
-$(jsonMesesFaltantes): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/simulaciones_posterior.py
+$(remainingMonths): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/simulaciones_posterior.py
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/simulaciones_posterior.py
 
-$(pngHistogramaCapturasGatosSocorroPorAnio):$(datapackageCapturaGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
+$(histogramCapturedCatsPerYearSocorro):$(datapackageCapturaGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/histogramaCapturasPorAnioGatosSocorro $< $@
 
