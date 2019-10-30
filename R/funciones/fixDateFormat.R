@@ -1,63 +1,33 @@
-#' Corrige fecha provenientes del archivo \code{POSICION_TRAMPAS.XLSX}
-#'
-#' Recibe un vector con las fechas y las corrige, dejando las fechas en el formato \code{YYYY-MM-DDThh:mm:ss}. 
-#'
-#' @author \tabular{l}{
-#' David Martínez <david.martinez@@islas.org.mx>
-#' }
-#'
-#' @usage addDateTimeFormat(tabla)
-#'  # Agrega tres columnas a los datos: "Date.and.Time"
-#'  # con formato as.POSIXct, "Date" con formato
-#'  # as.IDate y "Time" con formato as.ITime. TambiÃ©n
-#'  # se agregan los metadatos correspondientes.
-#'
-#' @param tabla(list) Un vector con las fechas a corregir
-#'
-#' @return  \tabular{ll}{
-#'  tabla(list) \tab  El mismo vector pero ahora con las fechas corregidas y con el formato que solicita la convención GECI: \code{YYYY-MM-DDThh:mm:ss}
-#' }
-#'
-#' @references
-#'
+#' @param Datos Un data frame en formato tidy donde una de las columnas contiene las fechas a corregir
+#' @return El mismo data frame con el formato de las fechas modificado
+#' @examples 
 #' @examples
-#'  fixDateFormat(datos)
-#'
-#'
-#'  @seealso \code{funcion 1}, \code{funcion 2}
-#'
-#' @import gdata, data.table, stringi, stringr
-#' @export
+#' 
+#' @import rlang
+#'  
 fixDateFormat <- function(Datos) {
-  fechaACorregir <- Datos$Fecha
-  fechaACorregir <- substr(fechaACorregir,2,20)
-  fechaSeparada <- str_split_fixed(fechaACorregir,'T',2)
-  fecha <- fechaSeparada[,1]
-  hora <- fechaSeparada[,2]
-  
-  fecha <- stri_replace_all_fixed(fecha,'.','-')
-  hora <- stri_replace_all_fixed(hora,'.',':')
-  
-  fechaConcatenada <- stri_join(fecha, hora, sep = 'T')
-  
-  Datos$Fecha <- fechaConcatenada
-  Salida <- Datos
-  
-  return(Datos)
-}
+fechaACorregir <- Datos$Fecha
+fechaACorregir <- substr(fechaACorregir,2,12)
 
-#'
-meltTable <- function(nombreArchivo) {
-  Lista <- list(Datos = data.table(read.xls(nombreArchivo, sheet = 1)), Meta = data.table(read.xls(nombreArchivo, sheet = 2)))
-  Datos <- Lista$Datos
-  Meta <- data.table(Lista$Meta)
+fechaSeparada <- str_split_fixed(fechaACorregir,'[.]', n = 3)
+dia <- fechaSeparada[,1]
+mes <- fechaSeparada[,2]
+ano <- fechaSeparada[,3]
   
-  nombreColumnas <- c(Meta[,1])
-  nombreColumnas <- nombreColumnas[nombreColumnas != 'Global']
-  
-  Datos <- melt(Datos, id = 1:4, variable.name = 'Fecha', value.name = 'condicion de la trampa')
-  
-  Salida <- Datos
-  
-  return(Datos)
+meses <- c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic")
+reemplazoMeses <- c("01","02","03","04","05","06","07","08","09","10","11","12")
+
+mesCorregido <- NULL
+for(i in 1:length(meses)){
+  indiceMeses <- grep(meses[i], mes)
+  if(!rlang::is_empty(indiceMeses)){
+    mes[indiceMeses] <- reemplazoMeses[i]
+  }
+}
+ 
+fechaConcatenada <- stri_join(ano, mes, dia, sep = '-')
+Datos$Fecha <- fechaConcatenada
+Salida <- Datos
+ 
+return(Salida)
 }

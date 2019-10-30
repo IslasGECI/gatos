@@ -1,0 +1,2 @@
+hg+http://${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD}@bitbucket.org/analislas/datatools.old@61629a8
+hg+http://${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD}@bitbucket.org/IslasGECI/gatos.hg@9a1ac44dbf07

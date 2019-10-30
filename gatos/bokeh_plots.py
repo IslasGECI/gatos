@@ -3,7 +3,8 @@ import bokeh.models as bm
 import bokeh.plotting as bp
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, Circle, HoverTool, CustomJS
-import matplotlib.pyplot as plt
+import matplotlib; matplotlib.use('agg') 
+import matplotlib.pyplot as plt;
 from collections import OrderedDict
 import numpy as np
 from bokeh.models import NumeralTickFormatter
@@ -88,7 +89,7 @@ class RemanentCatPlotter:
         ''' 
         encima_pdf = bm.HoverTool(tooltips=[("Number of cats remaining", "@x"),("Probability", "@p")], mode='vline')
         pdf = bp.figure(x_axis_label='Number of cats remaining', y_axis_label='Probability',
-            y_range=(0,0.035), tools=[encima_pdf, HERRAMIENTAS])
+            y_range=(0,0.025), tools=[encima_pdf, HERRAMIENTAS])
         pdf.vbar(x = self._bins_centrados, top=self._histograma_completo, bottom=0, width = 1, fill_color=AZUL_GECI)
         pdf.line([self._valor_mas_probable, self._valor_mas_probable], [0, self._histograma_completo.max()], line_width=5, line_color="DarkOrange")
         pdf.vbar(x = self._bins_centrados[self._es_inferior], top=self._histograma_completo[self._es_inferior], bottom=0, width = 1, fill_color=VERDE_GECI, line_color=VERDE_GECI)
@@ -179,7 +180,7 @@ class CatchPerEffortPlotter:
 
         
         ## Grafica de capturas acumuladas vs esfuerzo acumulado    
-        limite_y = 700
+        limite_y = 800
         opciones_grafica = dict(x_axis_label='Cumulative effort',
                                 y_axis_label='Cumulative removals', y_range=(0,limite_y),\
                                 tools=[encima_p1, HERRAMIENTAS])
