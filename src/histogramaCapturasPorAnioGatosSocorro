@@ -16,19 +16,31 @@ tamano_fuente = 15
 datos_gatos_socorro = pd.read_csv(f'{nombre_archivo_entrada}')
 valores_anios = ["2011", "2012","2013", "2014","2015", "2016","2017", "2018","2019"]
 
-capturas_totales=[]
+esfuerzo_acumulado_anual=[]
+gatos_erradicados=[]
 for i in valores_anios:
     mask = datos_gatos_socorro['fecha'].str.contains(i)
-    capturas_totales.append(np.sum( datos_gatos_socorro['esfuerzo'].values[mask]))
+    esfuerzo_acumulado_anual.append(np.sum( datos_gatos_socorro['esfuerzo'].values[mask]))
+    gatos_erradicados.append(np.sum( datos_gatos_socorro['capturas'].values[mask]))
 
 fig, ax= plt.subplots(figsize=(11, 8))
-plt.bar(posiciones_barras,capturas_totales,alpha=1,width=1)
+plt.bar(posiciones_barras,esfuerzo_acumulado_anual,alpha=1,width=1)
 plt.xticks(posiciones_barras, valores_anios)
 ax.set_ylabel('Cumulative effort per year',fontsize=tamano_fuente)
 ax.set_ylim(0, 60000)
-ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-for i in range(len(capturas_totales)):
-    plt.text(x = posiciones_barras[i]-.6 , y = capturas_totales[i]+500, s = capturas_totales[i], size = 12)
+for i in range(len(esfuerzo_acumulado_anual)):
+    plt.text(x = posiciones_barras[i]-.6 , y = esfuerzo_acumulado_anual[i]+500, s = esfuerzo_acumulado_anual[i], size = 12)
 ax.tick_params(labelsize=tamano_fuente)
+
+ax2 = ax.twinx()
+
+ax2.set_ylabel('No. cats dispatched',fontsize=tamano_fuente)
+ax2.plot(posiciones_barras,gatos_erradicados,c='black',marker="D")
+ax2.set_ylim(0, 140)
+for i in range(len(gatos_erradicados)):
+    plt.text(x = posiciones_barras[i]-0.25, y = gatos_erradicados[i]+5, s = gatos_erradicados[i], size = 12)
+ax2.tick_params(labelsize=tamano_fuente)
+ax2.spines['top'].set_visible(False)
+
 plt.savefig(f"{nombre_imagen_salida}", dpi=300)

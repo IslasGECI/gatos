@@ -29,7 +29,7 @@
         "data": [
             {
             "source": "datos-texto",
-            "version": "66c9d1f4a1c5e7b25396398a2202aaef1db0c2b0",
+            "version": "f17d337c20f9",
             "path": "datapackage/erradicaciones-mamiferos",
             "type" : "csv",
             "filename" : "captura_gatos_socorro.csv"
@@ -86,15 +86,19 @@
         "report": "cantidad_individuos_remanentes_en.pdf",
         "results": [
           "captura_gatos_socorro.csv",
-          "TotalCapturasPorAnioGatosSocorro.png"
+          "TotalCapturasPorAnioGatosSocorro.png",
+          "json_meses_faltantes.json",
+          "json_p-valor.json"
         ],
         "scripts": [
-          "src/histogramaCapturasPorAnioGatosSocorro"
+          "src/histogramaCapturasPorAnioGatosSocorro",
+          "src/simulaciones_posterior.py",
+          "src/tabla_p-valor_erradicacion_gatos.py"
         ],
         "data": [
           {
           "source": "datos-texto",
-          "version": "aab9bf88db95",
+          "version": "f17d337c20f9",
           "path": "datapackage/erradicaciones-mamiferos",
           "type": "csv",
           "filename": "captura_gatos_socorro.csv"

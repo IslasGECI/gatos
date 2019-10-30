@@ -7,28 +7,58 @@
 \usepackage{natbib} % Importa bibliografía
 \usepackage{caption,ragged2e,tabularx}
 \usepackage{graphicx}
+\usepackage{pythontex}
 
 \renewcommand{\figurename}{Figura}
 %\decimalpoint
 
 \title{Estimation of remaining individuals by area in Socorro Island \\
-    \Large{Feral cat eradication project in Socorro Island, Revillagigedo National Park, Mexico}}
+\Large{Feral cat eradication project in Socorro Island, Revillagigedo National Park, Mexico}}
 \author{Fernando Alvarez}
 \author{Maritza Bello}
 \author{Braulio Rojas}
 \affil{Data Science Direction}
 
 \begin{document}
-\maketitle
 
+\begin{pycode}
+import json
+import datetime 
+from dateutil.relativedelta import relativedelta
+
+path_json_simulation = 'non-tabular/json_meses_faltantes.json'
+with open(path_json_simulation, encoding='utf8') as simulation_file:
+    months = json.load(simulation_file)
+ruta_json_p_valor = 'non-tabular/json_p-valor.json'
+with open(ruta_json_p_valor, encoding='utf8') as p_value_file:
+    p_value = json.load(p_value_file)
+
+today = datetime.date.today()
+end_eradication = today + relativedelta(months=months['meses_faltantes_esfuerzo_actual'])
+
+\end{pycode}
+
+\maketitle
 \begin{abstract}
-   According to the data up to August 2019, we determined that: 1) the most probable amount of the remnant cats is 75 individuals; and 2) considering an effort similar to the latest trends and consider an increase rate equal to zero, we will complete eradication in September 2020.
+   According to the data up to September 2019, we determined that: the most probable amount of 
+   the remnant cats is \py{'%.0f'% p_value['gatos_remanentes']} 
+   individuals. Considering an effort similar to the latest trends and an increase 
+   rate equal to zero, we will complete eradication in September 2020. When we consider the 
+   intrinsic monthly rate of increase of $r=0.08$ and the carrying capacity of $K=$\py{'%.0f'% months['capacidad_carga'][0]} 
+   cats,  eradication will take \py{'%.0f'% months['meses_faltantes_k_baja']} months.
 \end{abstract}
 
 
 \section*{Current status}
 
-Following the methodology proposed by Ramsey (2011) and using data from the feral cat eradication project on Socorro Island until August 2019, we estimate that the initial population size was 841 cats. To date, 766 cats have been removed and the most probable number of remaining individuals is 75 cats. As such, 8 cats must be removed in order to enter the mop-up phase.
+\subsection*{Without carrying capacity}
+Following the methodology proposed by Ramsey (2011) and using data from the feral cat eradication 
+project on Socorro Island until September 2019, we estimate that the initial population size was 
+\py{p_value['gatos_capturados']+p_value['gatos_remanentes']} cats. To date, 
+\py{'%.0f'% p_value['gatos_capturados']} 
+cats have been removed and the most probable number of remaining individuals is  
+\py{'%.0f'% p_value['gatos_remanentes']} 
+cats. 
 
 \begin{table}[H]
 \centering
@@ -38,13 +68,12 @@ Following the methodology proposed by Ramsey (2011) and using data from the fera
     \hline
     Current & Percentage & Cats \\
     \hline
-    Initial population size & 100\%    & 841 \\
-    Cumulative number of cats removed & 91\%     & 766 \\
-    Remaining cats & 9\%     & 76 \\
+    Initial population size & 100\% & \py{'%.0f'%(p_value['gatos_capturados']+p_value['gatos_remanentes'])} \\
+    Cumulative number of cats removed & \py{'%.2f'% ((p_value['gatos_capturados']*100)/(p_value['gatos_capturados']+p_value['gatos_remanentes']))} \% & \py{'%.0f'% p_value['gatos_capturados']} \\
+    Remaining cats & \py{'%.2f'%((p_value['gatos_remanentes']*100)/(p_value['gatos_capturados']+p_value['gatos_remanentes']))}\%     &  \py{'%.0f'% p_value['gatos_remanentes']} \\
     \hline
 \end{tabular}
 \end{table}
-
 
 \section*{Results}
 
@@ -56,10 +85,6 @@ Following the methodology proposed by Ramsey (2011) and using data from the fera
 \end{figure}
 
 
-Table \ref{table:individuosRemanentes} shows: $\textnormal{P}_\textnormal{s}$, 
-the amount of remaining individuals, and the $p$-value (level of trust) associated with the amount of remaining individuals.
-
-
 \begin{table}[H]
 \centering
 \caption{\small{We show the probability of successful eradication ($\textnormal{P}_\textnormal{s}$), amount of remaining individuals and $p$-value associated with the amount of remaning cats.}}
@@ -69,18 +94,41 @@ the amount of remaining individuals, and the $p$-value (level of trust) associat
     Probability of & Remaining cats & $p$-value \\
     successful eradication ($\textnormal{P}_\textnormal{s}$) & & \\
     \hline
-    0\%      & 76  & 0.581 \\
+    \py{'%.0f'%p_value['probabilidades'][0]}\%      &  \py{'%.0f'% p_value['gatos_remanentes']}  & \py{'%.2f'% (p_value['probabilidades'][2]/100)} \\
     \hline
 \end{tabular}
 \end{table}
 
+
+The table \ref{table:individuosRemanentes} shows: $\textnormal{P}_\textnormal{s}$, 
+the amount of remaining individuals, and the $p$-value (level of trust) associated with the amount of remaining individuals.
+
+\begin{table}[H]
+\centering
+\caption{\small{Carrying capacity assumed and the months that the eradication will take.}}
+\label{table:carryingCapacity}
+\begin{tabular}{ |c|c| }
+    \hline
+    Carrying capacity & Months \\
+    \hline
+    \py{'%.0f'% months['capacidad_carga'][0]}      &  \py{'%.0f'% months['meses_faltantes_k_baja']}  \\
+    \py{'%.0f'% months['capacidad_carga'][1]}      &  \py{'%.0f'% months['meses_faltantes_k_media']}  \\
+    \py{'%.0f'% months['capacidad_carga'][2]}      &  \py{'%.0f'% months['meses_faltantes_k_alta']}  \\
+    \hline
+\end{tabular}
+\end{table}
+
+The table \ref{table:carryingCapacity} shows the number of months to end eradication considering 3 different load capacities and an effort equal to that of the last months (\py{'%.0f'% months['esfuerzo_actual']} night-traps).
+
 \section*{Conclusion}
 
+Without considering carrying capacity, we show the possible end of eradication considering 3 possible scenarios varying the amount of effort.
+
 \begin{itemize}
-\item To complete eradication by January 2020, an effort of 23900 night-traps each month must be applied. That means 27 trappers (with 30 traps each) need to be deployed
-\item  TARGET: To complete eradication by July 2020, an effort of 9600 night-traps each month must be applied. That means 11 trappers (with 30 traps each) need to be deployed.
-\item If current effort from the last expeditions is maintained (7825 night-traps), we will complete eradication in September 2020.
-\end{itemize}
+\item To complete eradication by January 2020, an effort of \py{'%.0f'% months['esfuerzo_2019']} night-traps each month must be applied. That means \py{'%.0f'% months['tramperos_2019']} trappers (with 30 traps each) need to be deployed
+\item  TARGET: To complete eradication by July 2020, an effort of \py{'%.0f'% months['esfuerzo_primer_semestre']} night-traps each month must be applied. That means \py{'%.0f'% months['tramperos_primer_semestre']} trappers (with 30 traps each) need to be deployed.
+\item If current effort from the last expeditions is maintained (\py{'%.0f'% months['esfuerzo_actual']} night-traps), we will complete eradication in \py{end_eradication.strftime("%B %Y")}.
+\end{itemize}	
 
 \section*{Referencias}
 
