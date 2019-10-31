@@ -58,28 +58,6 @@
             }
         ]
     },
-    {   "name": "Albatros sin gatos",
-        "description": "Estimamos en número de gatos remanentes en Isla Guadalupe",
-        "docker_parent_image": "islasgeci/base:2d95",
-        "report": "albatrosSinGatos.pdf",
-        "results": [
-            "LAAL_para_Scott.png" 
-        ],
-        "scripts": [ 
-            "MATLAB/demostraciones/graficaN.m"
-	],
-        "data": {},
-        "requirements": [
-            {
-                "MATLAB": []
-            },
-            {
-                "system": [
-                    "MATLAB"
-                ]
-            }
-        ]
-    },
     {   "name": "Estimación de gatos remanentes en Isla Socorro",
         "description": "Reporte con la estimación de gatos remamentes dependiendo del esfuerzo para isla Socorro",
         "docker_parent_image": "islasgeci/base:2d95",
