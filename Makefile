@@ -1,8 +1,7 @@
 # I. Definición del _phony_ *all* que enlista todos los objetivos principales
 # ===========================================================================
 all: \
-    reports/albatrosSinGatos.pdf \
-    reports/erradicacion_gatos_socorro_es.html \
+    reports/erradicacion_gatos_socorro_es.html
 
 # 1. Erradicación de gato en Isla Socorro
 # 1.II Declaracion de las variables
@@ -69,30 +68,6 @@ resultados/derivada_captura_esfuerzo_socorro.csv: $(csvDistribucionPosteriorSoco
 $(jsonValoresReporteGatosSocorro): $(csvProbabilidadCapturaGatosSocorro)
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	crea_valores_reporte calculate -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file resultados/probabilidad_captura_remanentes_socorro.csv  --derivate-effort-file resultados/derivada_captura_esfuerzo_socorro.csv -o $(@)
-
-# 3. Albatros sin gatos
-# 3.II. Declaración de las variables
-# ================================
-figurasAlbatrosSinGatos = \
-  resultados/LAAL_para_Scott.png
-
-
-# 3.III. Reglas para construir los objetivos principales
-# ====================================================
-reports/albatrosSinGatos.pdf: reports/albatrosSinGatos.tex $(figurasAlbatrosSinGatos)
-	pdflatex -output-directory=reports -include-directory=reports reports\albatrosSinGatos.tex
-	pdflatex -output-directory=reports -include-directory=reports reports\albatrosSinGatos.tex
-	start "" /max "reports\albatrosSinGatos.pdf"
-
-reports/albatrosSinGatos.docx: reports/albatrosSinGatos.tex $(figurasAlbatrosSinGatos)
-	pandoc reports/albatrosSinGatos.tex -o reports/albatrosSinGatos.docx
-
-# 3.IV. Reglas para construir las dependencias de los objetivos principales
-# =======================================================================
-# Generación de las figuras para albatrosSinGatos.pdf
-$(figurasAlbatrosSinGatos): MATLAB/demostraciones/graficaN.m
-	if not exist "$(subst /,\,$(@D))" mkdir $(subst /,\,$(@D))
-	runMatlab "MATLAB\demostraciones\graficaN.m"
 
 # 4. No análisis
 # 4.II. Declaración de las variables
