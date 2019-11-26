@@ -1,4 +1,4 @@
-image: FROM islasgeci/gatos:latest
+image: islasgeci/gatos:latest
 
 pipelines:
   pull-requests:
