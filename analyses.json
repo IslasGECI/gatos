@@ -1,7 +1,7 @@
 [
     {   "name": "Erradicación de gatos en Isla Socorro",
         "description": "Estimamos en número de gatos remanentes en Isla Socorro",
-        "docker_parent_image": "islasgeci/base:2d95",
+        "docker_parent_image": "islasgeci/base",
         "report": "erradicacion_gatos_socorro_es.html",
         "results": [
             "capturas_acumuladas_vs_esfuerzo_acumulado.png", 
@@ -60,7 +60,7 @@
     },
     {   "name": "Estimación de gatos remanentes en Isla Socorro",
         "description": "Reporte con la estimación de gatos remamentes dependiendo del esfuerzo para isla Socorro",
-        "docker_parent_image": "islasgeci/base:2d95",
+        "docker_parent_image": "islasgeci/base",
         "report": "cantidad_individuos_remanentes_en.pdf",
         "results": [
           "captura_gatos_socorro.csv",
