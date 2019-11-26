@@ -1,6 +1,7 @@
 # I. Definición del _phony_ *all* que enlista todos los objetivos principales
 # ===========================================================================
 all: \
+    reports/cantidad_individuos_remanentes_en.pdf \
     reports/erradicacion_gatos_socorro_es.html
 
 # 1. Erradicación de gato en Isla Socorro
