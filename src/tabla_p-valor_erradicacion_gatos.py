@@ -4,26 +4,29 @@
 
 from calculator_p_value import *
 import json
+from cliRutaArchivoEntradaSalida import ruta_archivos
 
-datos_captura = pd.read_csv('inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv')
+rutas = ruta_archivos()
+
+datos_captura = pd.read_csv(f'{rutas.entrada[0][0]}')
 total_capturas = datos_captura.capturas.sum()
 
 calculador = CalculatorPValue()
 calculador.set_total_capturas(total_capturas)
-calculador.read_posterior('resultados/distribucion_posterior_socorro.csv')
+calculador.read_posterior(f'{rutas.entrada[1][0]}')
 calculador.calculate_range_remanented_cats()
 calculador.calculate_high_probability()
 calculador.calculate_remanented_cat_more_probably()
 calculador.probability()
 
-print(total_capturas)
-print(calculador.probabilidades)
-print(calculador.remanented_cat_more_probably)
+print("El total de capturas es: ",total_capturas)
+print("Probabilidades: ",calculador.probabilidades)
+print("Gatos remanentes mas probable: "calculador.remanented_cat_more_probably)
 
 diccionario_salida = {
     "gatos_capturados": int(total_capturas),
     "probabilidades": calculador.probabilidades.tolist(),
     "gatos_remanentes": int(calculador.remanented_cat_more_probably)
 }
-with open('reports/non-tabular/json_p-valor.json', 'w') as archivo:
+with open(f"{rutas.salida[0][0]}", 'w') as archivo:
     json.dump(diccionario_salida, archivo)

@@ -222,7 +222,10 @@ reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_reman
 
 $(pValueEradication): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/tabla_p-valor_erradicacion_gatos.py
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	src/tabla_p-valor_erradicacion_gatos.py
+	src/tabla_p-valor_erradicacion_gatos.py \
+	--entrada inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv \
+	--entrada resultados/distribucion_posterior_socorro.csv \
+	--salida reports/non-tabular/json_p-valor.json
 
 $(remainingMonths): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/simulaciones_posterior.py
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
