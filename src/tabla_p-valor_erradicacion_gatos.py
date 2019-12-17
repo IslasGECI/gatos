@@ -21,7 +21,7 @@ calculador.probability()
 
 print("El total de capturas es: ",total_capturas)
 print("Probabilidades: ",calculador.probabilidades)
-print("Gatos remanentes mas probable: "calculador.remanented_cat_more_probably)
+print("Gatos remanentes mas probable: ",calculador.remanented_cat_more_probably)
 
 diccionario_salida = {
     "gatos_capturados": int(total_capturas),

@@ -34,7 +34,7 @@ def calculate(**argumentos):
 
     # region Se busca el tamaño de la población
     repeticiones = 3
-    iteraciones = 3_000_000
+    iteraciones = 1_000_000
     estimador_poblacion_inicial: PopulationEstimator = PopulationEstimator(
         esfuerzo, capturas, argumentos["output_file"])
     estimador_poblacion_inicial.run(
