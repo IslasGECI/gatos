@@ -44,17 +44,6 @@ print(f'meses faltantes {meses_faltantes.median()} si seguimos con un esfuerzo d
 diccionario_salida["esfuerzo_actual"] = int(esfuerzo * factor_conversion)
 diccionario_salida["meses_faltantes_esfuerzo_actual"] = int(np.ceil(meses_faltantes.median()))
 
-# para acabar este año
-fecha= dt.date.today()
-final_2019 = dt.datetime(2020,1,15)
-meses_para_acabe_agno = relativedelta(final_2019,fecha).months + relativedelta(final_2019,fecha).days/31
-factor_para_acabar_agno = 1/(meses_para_acabe_agno*posterior.probabilidad_captura.median())
-esfuerzo_para_agno = esfuerzo * factor_para_acabar_agno
-print(f'Esfuerzo para acabar en el 2019 es {esfuerzo_para_agno * factor_conversion}')
-diccionario_salida["esfuerzo_2019"] = int(esfuerzo_para_agno * factor_conversion)
-print(f'Este esfuerzo lo lagraríamos con {esfuerzo_para_agno * factor_conversion/900} tramperos \n')
-diccionario_salida["tramperos_2019"] = int(esfuerzo_para_agno * factor_conversion/900)
-
 # para acabar en el primer semestre del 2020
 fecha= dt.date.today()
 final_primer_semestre = dt.datetime(2020,7,1)
