@@ -36,7 +36,7 @@ resultadosEstimacionPoblacionInicial = \
     resultados\metadatos_histograma_q.json\
     resultados\metadatos_histograma_No.json
 
-versionDatos = f17d337c20f9
+versionDatos = 36af819b340750050d95df466dcc35a55ca83494
 
 # 1.III. Reglas para construir los objetivos principales
 # ====================================================
