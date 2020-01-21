@@ -64,9 +64,21 @@ print(f'La corrección es {correccion_capacidad}')
 probabilidad_corregida = posterior.probabilidad_captura.median() - correccion_capacidad
 print(f'La probabilidad corregida es {probabilidad_corregida}')
 print(f'Meses para acabar {math.ceil(1/probabilidad_corregida[1])}')
-diccionario_salida["meses_faltantes_k_baja"] = math.ceil(1/probabilidad_corregida[0])
-diccionario_salida["meses_faltantes_k_media"] = math.ceil(1/probabilidad_corregida[1])
-diccionario_salida["meses_faltantes_k_alta"] = math.ceil(1/probabilidad_corregida[2])
+if math.ceil(1/probabilidad_corregida[0]) < 0:
+  meses = 9999
+else:
+  meses = math.ceil(1/probabilidad_corregida[0])
+diccionario_salida["meses_faltantes_k_baja"] = meses
+if math.ceil(1/probabilidad_corregida[1]) < 0:
+  meses = 9999
+else:
+  meses = math.ceil(1/probabilidad_corregida[1])
+diccionario_salida["meses_faltantes_k_media"] = meses
+if math.ceil(1/probabilidad_corregida[2]) < 0:
+  meses = 9999
+else:
+  meses = math.ceil(1/probabilidad_corregida[2])
+diccionario_salida["meses_faltantes_k_alta"] = meses
 diccionario_salida["capacidad_carga"] = capacidad_carga
 
 # Escritura del archivo de salida
