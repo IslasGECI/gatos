@@ -16,10 +16,6 @@ calculador.calculate_high_probability()
 calculador.calculate_remanented_cat_more_probably()
 calculador.probability()
 
-print(total_capturas)
-print(calculador.probabilidades)
-print(calculador.remanented_cat_more_probably)
-
 diccionario_salida = {
     "gatos_capturados": int(total_capturas),
     "probabilidades": calculador.probabilidades.tolist(),
