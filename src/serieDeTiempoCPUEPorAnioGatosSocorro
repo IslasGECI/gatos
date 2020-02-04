@@ -33,4 +33,5 @@ ax.set_xlim(6.95, 17.03)
 ax.set_ylim(0, 0.014)
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-plt.savefig("pngCPUEanual.png", dpi=300)
+nombre_imagen_salida="reports/figures/timeSerieCPUEanual.png"
+plt.savefig(f"{nombre_imagen_salida}", dpi=300)
