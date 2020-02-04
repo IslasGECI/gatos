@@ -205,6 +205,9 @@ $(imagenesCamarasTrampa):
 histogramCapturedCatsPerYearSocorro = \
 	reports/figures/TotalCapturasPorAnioGatosSocorro.png
 
+timeSerieCPUE= \
+	reports/figures/timeSerieCPUEanual.png
+
 remainingMonths = \
 	reports/non-tabular/json_meses_faltantes.json
 
@@ -213,7 +216,7 @@ pValueEradication = \
 
 # 5 III. Reglas para construir los objetivos principales
 
-reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(datapackageCapturaGatosSocorro) $(histogramCapturedCatsPerYearSocorro) $(pValueEradication) $(remainingMonths)
+reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(timeSerieCPUE) $(datapackageCapturaGatosSocorro) $(histogramCapturedCatsPerYearSocorro) $(pValueEradication) $(remainingMonths)
 	cd $(<D) && pdflatex $(<F)
 	cd $(<D) && pythontex $(<F)
 	cd $(<D) && pdflatex $(<F)
@@ -231,6 +234,10 @@ $(remainingMonths): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosterior
 $(histogramCapturedCatsPerYearSocorro):$(datapackageCapturaGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
 	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
 	src/histogramaCapturasPorAnioGatosSocorro $< $@
+
+$(timeSerieCPUE): inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv src/serieDeTiempoCPUEPorAnioGatosSocorro
+	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
+	$(word 2,$^) $<
 
 # V Reglas del resto de los phonies
 # =================================
