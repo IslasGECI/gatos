@@ -25,6 +25,12 @@ def calculate_catch_probability(alfa_m, beta_m, esfuerzo_m):
     probabilidad_captura = exp / (1 + exp)
     return np.array(probabilidad_captura)
 
+def check_probability(probabilidad):
+  if math.ceil(1/probabilidad) < 0:
+    return 9999
+  else:
+    return math.ceil(1/probabilidad)
+
 # ### Actualización de los conjuntos de datos
 capturas["esfuerzo_convertido"] = capturas.esfuerzo / factor_conversion
 posterior['remanentes'] = posterior.No - capturas.capturas.sum()
@@ -64,9 +70,11 @@ print(f'La corrección es {correccion_capacidad}')
 probabilidad_corregida = posterior.probabilidad_captura.median() - correccion_capacidad
 print(f'La probabilidad corregida es {probabilidad_corregida}')
 print(f'Meses para acabar {math.ceil(1/probabilidad_corregida[1])}')
-diccionario_salida["meses_faltantes_k_baja"] = math.ceil(1/probabilidad_corregida[0])
-diccionario_salida["meses_faltantes_k_media"] = math.ceil(1/probabilidad_corregida[1])
-diccionario_salida["meses_faltantes_k_alta"] = math.ceil(1/probabilidad_corregida[2])
+
+diccionario_salida["meses_faltantes_k_baja"] = check_probability(probabilidad_corregida[0])
+diccionario_salida["meses_faltantes_k_media"] = check_probability(probabilidad_corregida[1])
+diccionario_salida["meses_faltantes_k_alta"] = check_probability(probabilidad_corregida[2])
+
 diccionario_salida["capacidad_carga"] = capacidad_carga
 
 # Escritura del archivo de salida
