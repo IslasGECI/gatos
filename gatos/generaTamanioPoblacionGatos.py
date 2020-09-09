@@ -11,7 +11,7 @@ import sys  # Esta librería se usa para obtener una referencia a la terminal
 import os
 # Librerías creadas para este repositorio
 from gatos.PopulationEstimator import PopulationEstimator
-import datatools
+import metadata_tools
 # endregion
 @click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
 def cli():
@@ -26,8 +26,8 @@ def cli():
     help="Nombre del archivo de salida csv")
 
 def calculate(**argumentos): 
-    DatosSocorro = datatools.import_tabular_data_resource(argumentos["resource"])
-    nombre_esfuerzo: str = DatosSocorro.get_variable_name_from_standard_name(datatools.StandardName.effort)
+    DatosSocorro = metadata_tools.import_tabular_data_resource(argumentos["resource"])
+    nombre_esfuerzo: str = DatosSocorro.get_variable_name_from_standard_name(metadata_tools.StandardName.effort)
     nombre_capturas: str = "capturas"
     esfuerzo: np.array = np.array(DatosSocorro.get_value(
         nombre_esfuerzo)/(30 * 7 * 5))  # Días hombre: 30 trampas, 7 tramperos, 5 días
