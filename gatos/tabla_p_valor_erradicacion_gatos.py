@@ -19,7 +19,7 @@ def cli():
     help="Nombre del archivo de salida csv")
 def calculate(**argumentos):
     datos_captura = pd.read_csv(argumentos["resource"])
-    total_capturas = datos_captura.capturas.sum()
+    total_capturas = datos_captura.Capturas.sum()
 
     calculador = CalculatorPValue()
     calculador.set_total_capturas(total_capturas)
