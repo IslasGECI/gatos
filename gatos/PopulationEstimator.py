@@ -11,11 +11,11 @@ import pandas as pd
 
 class PopulationEstimator:
     # region Documentación
-    ''' Clase encargada de encontrar el tamaño inicial de la población utilizando
+    """Clase encargada de encontrar el tamaño inicial de la población utilizando
     el método de Ramsey
 
     Para inicializar el estimador se le debe pasar la información necesaria para
-    encontrar el tamaño de la población.        
+    encontrar el tamaño de la población.
 
     # Parámetros
     `esfuerzo np.array`
@@ -29,7 +29,7 @@ class PopulationEstimator:
     ## Nota:
     Para borrar los archivos temporales se debe llamar al método
     `remove_temporal_data()`
-    '''
+    """
     # endregion
 
     def __init__(self, esfuerzo: np.array, capturas: np.array, nombre_archivo):
@@ -38,9 +38,11 @@ class PopulationEstimator:
         self._nombre_archivo = nombre_archivo
         self.tamanios_poblacion = None
 
-    def run(self, repeticiones: int=3, iteraciones: int=6000000, n_datos_descartados: int=30000):
+    def run(
+        self, repeticiones: int = 3, iteraciones: int = 6000000, n_datos_descartados: int = 30000
+    ):
         # region documentación
-        ''' Método encargado de correr el modelo de Ramsey una cierta cantidad de
+        """Método encargado de correr el modelo de Ramsey una cierta cantidad de
         repeticiones para determinar el tamaño de la población.
 
         En cada iteración guarda las distribuciones posteriores y a partir de estas
@@ -63,35 +65,34 @@ class PopulationEstimator:
         ## Nota:
         Para borrar los archivos temporales se debe llamar al método
         `remove_temporal_data()`
-        '''
+        """
         # endregion
         repeticion: int = 0
-        Modelo_gatitos: MCMC = MCMC(
-            self._Ramsey_model(self.esfuerzo, self.capturas))
+        Modelo_gatitos: MCMC = MCMC(self._Ramsey_model(self.esfuerzo, self.capturas))
         while repeticion < repeticiones:
             Modelo_gatitos.sample(iter=iteraciones, burn=n_datos_descartados)
-            a = pd.Series(Modelo_gatitos.trace('a_captura')[:])
-            b = pd.Series(Modelo_gatitos.trace('b_captura')[:])
-            No = pd.Series(Modelo_gatitos.trace('N_o')[:])
+            a = pd.Series(Modelo_gatitos.trace("a_captura")[:])
+            b = pd.Series(Modelo_gatitos.trace("b_captura")[:])
+            No = pd.Series(Modelo_gatitos.trace("N_o")[:])
             repeticion += 1
         print("\n")
-        pd.DataFrame({"a": a, "b": b, "No": No}).to_csv(
-            self._nombre_archivo, index=False)
+        pd.DataFrame({"a": a, "b": b, "No": No}).to_csv(self._nombre_archivo, index=False)
 
     def plot_Vmp_histogram(self):
         self.tamanios_poblacion.Vmp.hist()
 
     def _Ramsey_model(self, v_effort, v_captures):
-        ''' Modelo jerarquico utilizado para determinar el tamaño de la población '''
-        alpha = Normal('a_captura', mu=.00, tau=1/(2.50*2.50))
-        beta = Normal('b_captura', mu=.00, tau=1/(2.50*2.50))
-        No = DiscreteUniform('N_o', lower=sum(v_captures), upper=22000)
+        """ Modelo jerarquico utilizado para determinar el tamaño de la población """
+        alpha = Normal("a_captura", mu=0.00, tau=1 / (2.50 * 2.50))
+        beta = Normal("b_captura", mu=0.00, tau=1 / (2.50 * 2.50))
+        No = DiscreteUniform("N_o", lower=sum(v_captures), upper=22000)
 
         @deterministic
         def catchProbability(alfa_m=alpha, beta_m=beta, esfuerzo_m=v_effort):
             probabilidadCaptura = []
-            probabilidadCaptura = np.exp(
-                alfa_m + esfuerzo_m * beta_m) / (1 + np.exp(alfa_m + esfuerzo_m * beta_m))
+            probabilidadCaptura = np.exp(alfa_m + esfuerzo_m * beta_m) / (
+                1 + np.exp(alfa_m + esfuerzo_m * beta_m)
+            )
             return np.array(probabilidadCaptura)
 
         @stochastic(observed=True)
@@ -106,9 +107,9 @@ class PopulationEstimator:
         return locals()
 
 
-def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float=0.95):
+def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float = 0.95):
     # region Documentación
-    ''' Función para encontrar el cuartil 2.5 y el Valor más probable del tamaño
+    """Función para encontrar el cuartil 2.5 y el Valor más probable del tamaño
     inicial de la población.
 
     # Parámetros
@@ -120,11 +121,16 @@ def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float=0.95):
 
     Porcentaje de los datos que no se va a considerar. `default=0.95`, esto quiere
     decir que solo se considera el 5% de los datos.
-    '''
+    """
     # endregion
     datos: pd.DataFrame = pd.read_csv(archivo)
     intervalo = hpd(datos.No, alpha=porcentaje_datos_excluidos)
-    return {"q": datos.No.quantile(q=0.025), "Vmp": intervalo.mean(), "max": intervalo.max(), "min": intervalo.min()}
+    return {
+        "q": datos.No.quantile(q=0.025),
+        "Vmp": intervalo.mean(),
+        "max": intervalo.max(),
+        "min": intervalo.min(),
+    }
 
 
 def calc_min_interval(x, alpha):
@@ -140,14 +146,15 @@ def calc_min_interval(x, alpha):
     interval_width = x[interval_idx_inc:] - x[:n_intervals]
 
     if len(interval_width) == 0:
-        raise ValueError('Too few elements for interval calculation')
+        raise ValueError("Too few elements for interval calculation")
 
     min_interval_width = interval_width.min()
-    limite_inferior = np.array(
-        range(x.min(), x.max() - min_interval_width + 2))
+    limite_inferior = np.array(range(x.min(), x.max() - min_interval_width + 2))
     limite_superior = limite_inferior + min_interval_width
-    n_dentro = [((inferior <= x) & (x <= superior)).sum()
-                for inferior, superior in zip(limite_inferior, limite_superior)]
+    n_dentro = [
+        ((inferior <= x) & (x <= superior)).sum()
+        for inferior, superior in zip(limite_inferior, limite_superior)
+    ]
 
     max_idx = np.argmax(n_dentro)
     hdi_min = limite_inferior[max_idx]
