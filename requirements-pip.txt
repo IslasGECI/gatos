@@ -1,2 +1,0 @@
-git+https://github.com/IslasGECI/metadata_tools.git@444d9dfc67088aad9253302e54426ea476346430
-hg+http://${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD}@bitbucket.org/IslasGECI/gatos.hg@9a1ac44dbf07
