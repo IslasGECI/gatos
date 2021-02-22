@@ -17,7 +17,7 @@ Proyecto de erradicación de gato feral en Isla Guadalupe
 - Recibí y acomodé en una tabla los datos de capturas obtenidos de las cámaras trampa. Estos datos aún les falta cierto tratamiento, como separar por fecha y hora cada captura obtenida.
 - Obtuve la visualización de la posición de las trampas cepo y las trampas donde ha habido captura de individuos.
 - Recibí y acomodé los datos, aunque todavía están incompletos, del esfuerzo y capturas actualizado de forma diaria.
-- Después de platicar un par de ocasiones con Luciana Luna sobre la tabla `POSICION_TRAMPAS_CEPO.XLSX`, terminamos con un diseño que les ayudará a los tramperos a tener cierto control sobre la información diaria de las trampas y nos permitirá a nosotros hacer el procesamiento. 
+- Después de platicar un par de ocasiones con Luciana Luna sobre la tabla `POSICION_TRAMPAS_CEPO.XLSX`, terminamos con un diseño que les ayudará a las personas a tener cierto control sobre la información diaria de las trampas y nos permitirá a nosotros hacer el procesamiento. 
 
 **¿Con quién trabajé y cómo fue el trato?**
 
@@ -27,11 +27,11 @@ Proyecto de erradicación de gato feral en Isla Guadalupe
 
 **¿Cuáles serán mis actividades de los próximos días?**
 
-- Trabajaré con David Nájera y Carlos Tafoya para acordar el seguimiento de la actualización de los datos dentro de los archivos. David Nájera se quedará a cargo del equipo de tramperos y acordaré con él delegar a Carlos Tafoya la función de actualizar las tablas de datos.
+- Trabajaré con David Nájera y Carlos Tafoya para acordar el seguimiento de la actualización de los datos dentro de los archivos. David Nájera se quedará a cargo del equipo de personas y acordaré con él delegar a Carlos Tafoya la función de actualizar las tablas de datos.
 - Trabajaré con Salvador, David Nájera y Carlos Tafoya para terminar la corrección de la nomenclatura de las trampas y dejar listo el archivo `POSICION_TRAMPAS_CEPO.XLSX`.
 - Trabajaré con Salvador, David Nájera y Carlos Tafoya para terminar de capturar los datos que estarán en el archivo `ESFUERZO_CAPTURAS_GATOS.XLSX`.
 - Trabajaré con Salvador, David Nájera y Carlos Tafoya en el desglose de la información de las cámaras trampa que irá dentro del archivo `REGISTRO_CAMARAS_TRAMPA.XLSX`.
-- Trabajaré junto con David Cosío, David Nájera y algunos tramperos más en una práctica para la toma de datos de los transectos nocturnos para avistamiento de gatos.
+- Trabajaré junto con David Cosío, David Nájera y algunas personas más en una práctica para la toma de datos de los transectos nocturnos para avistamiento de gatos.
 
 **¿Qué pude haber hecho diferente en mis actividades de la semana?**
 
@@ -88,7 +88,13 @@ Viernes:
 Sábado:
 
 - Creé el programa `morfometría_gatos_isla_guadalupe.Rmd` donde obtuve la estadística descriptiva de las variables numéricas de la morfometría de gatos. Por el momento no separé las variables por categorías ni por sitios en la isla.
-- Trabajé en conjunto con David Cosío y Salvador Figueroa para corregir la nomenclatura designada para cada trampa. Supervisé que el nombre de las trampas quedara como habíamos acordado, quedando de la siguiente manera: `TT-XX-YYY-AA`, donde: TT es el tipo de trampa; `XX` es el sector que se está trabajando; `YYY` es el número de la trampa (que irá de 1-40 para el primer trampero, del 41-80 para el segundo trampero, del 81-120 para el tercer trampero, y así sucesivamente); y `AA` son las iniciales del trampero. Pretendo que esta nomenclatura no cambie, con la finalidad de poder hacer validaciones.
+- Trabajé en conjunto con David Cosío y Salvador Figueroa para corregir la nomenclatura designada
+  para cada trampa. Supervisé que el nombre de las trampas quedara como habíamos acordado, quedando
+  de la siguiente manera: `TT-XX-YYY-AA`, donde: TT es el tipo de trampa; `XX` es el sector que se
+  está trabajando; `YYY` es el número de la trampa (que irá de 1-40 para la primer persona, del
+  41-80 para la segunda persona, del 81-120 para la tercer persona, y así sucesivamente); y `AA` son
+  las iniciales de la persona. Pretendo que esta nomenclatura no cambie, con la finalidad de poder
+  hacer validaciones.
 - Exporté desde matlab una malla en `kml`. Carlos Tafoya importó esta malla en ArcGIS para acomodar los puntos tomando en cuenta las trampas ya colocadas. Esta malla tiene una resolución de 200 $\times$ 200 metros.
 
 Domingo:
@@ -103,7 +109,11 @@ Lunes:
 
 **¿Qué resultados obtuve?**
 
-- Conocí el terreno donde se están colocando las trampas, dándome cuenta que es muy abrupto. Conocí la manera en que realizan la revisión de las trampas una vez colocadas. La idea de revisar trampas de manera aleatoria o sistemática queda descartada ya que es imposible recorrer todo el terreno trabajado para verificar el desempeño de los tramperos; tendremos que buscar una forma más eficiente para hacer esa verificación.
+- Conocí el terreno donde se están colocando las trampas, dándome cuenta que es muy abrupto. Conocí
+  la manera en que realizan la revisión de las trampas una vez colocadas. La idea de revisar trampas
+  de manera aleatoria o sistemática queda descartada ya que es imposible recorrer todo el terreno
+  trabajado para verificar el desempeño de las personas; tendremos que buscar una forma más
+  eficiente para hacer esa verificación.
 - Avancé en el diseño de la base de datos que contendrá el esfuerzo y captura de gatos y la base de datos que contendrá la localización de las trampas colocadas. Añadí metadatos a las bases de datos. Comencé a pensar qué tan conveniente sería hacer un TDP para estas bases de datos.
 - Creé un archivo `Rmd` para realizar el estudio de la morfometría de gatos.
 - Hice una malla cuadriculada que intenta ayudar al diseño de la posición de las trampas en el sector 1. Este trabajo fue necesario ya según la cuadrícula existe pero no está a la mano (no la han envidado desde Ensenada).
@@ -174,7 +184,7 @@ de las trampas cepo colocadas.
 
 `ESFUERZO_CAPTURA_GATOS.XSLX`:
 
-| fecha de revision | ID del trampero | ID de trampa | condicion | captura |
+| fecha de revision | ID de la persona | ID de trampa | condicion | captura |
 |-------------------|-----------------|--------------|-----------|---------|
 | 2018-02-21T16:12:00 | DN | TC01001DN | activa | 0 | 
 | 2018-02-21T16:12:01 | DN | TC01002DN | activa | 0 | 

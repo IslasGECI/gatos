@@ -57,7 +57,7 @@ Bitácora de actividades - Isla Guadalupe
 
 **Actividades para el día de mañana 21 de febrero**:
 
-- Posible salida a punta sur para reunirnos con el grupo de tramperos. De realizarse el traslado no sé cuánto dure el viaje y la instalación en el campamento.
+- Posible salida a punta sur para reunirnos con el grupo de personas. De realizarse el traslado no sé cuánto dure el viaje y la instalación en el campamento.
 - Crear una copia de la base de datos que se usa en la capacitación y modificarla para crear una base de datos sintéticos que simule los datos de esfuerzo y captura de gatos aquí en la isla.
 - Si hay internet, descargar la base de datos de morfometría de gatos. Comunicarme con el equipo de AC para discutir el procesamiento de esta base de datos.
 - Hasta ahora no he podido revisar alguna base de datos de esfuerzo y capturas, una base de datos está en una computadora que no tiene el cargador y la otra base de datos está en una máquina en punta sur.
@@ -89,7 +89,7 @@ Bitácora de actividades - Isla Guadalupe
 
 `ESFUERZO_CAPTURA_GATOS.XSLX`:
 
-| fecha de revision | ID del trampero | ID de trampa | condicion | captura |
+| fecha de revision | ID de la persona | ID de trampa | condicion | captura |
 |-------------------|-----------------|--------------|-----------|---------|
 | 2018-02-22T00:00:00 | DN | TC-01-001-DN | activa | 0 | 
 | 2018-02-22T00:00:00 | DN | TC-01-002-DN | activa | 0 | 
@@ -106,7 +106,7 @@ Bitácora de actividades - Isla Guadalupe
 
 - Resultó bastante productivo haber trabajado con el Fungi, ya que él ha estado más tiempo trabajando con las trampas, y haber trabajado con Cosío, ya que él tiene una visión un poco más amplia del proyecto, aparte que es el tomador de decisiones en ausencia de la directora del proyecto.
 
-- De la discusión resultó que la nomenclatura del identificador de las trampas resultaba confuso, ya que se repetían series de números por trampero, teniendo muchas trampas con numeración del 1-30 en el mismo sector (en este momento cada trampero está trabajando con 30 trampas); llegamos a un acuerdo para disponer números consecutivos a las trampas por sector, quedando de la siguiente manera: `TT-XX-YYY-AA`, donde: TT es el tipo de trampa; `XX` es el sector que se está trabajando; `YYY` es el número de la trampa (que irá de 1-40 para el primer trampero, del 41-80 para el segundo trampero, del 81-120 para el tercer trampero, y así sucesivamente); y `AA` son las iniciales del trampero.
+- De la discusión resultó que la nomenclatura del identificador de las trampas resultaba confuso, ya que se repetían series de números por persona, teniendo muchas trampas con numeración del 1-30 en el mismo sector (en este momento cada persona está trabajando con 30 trampas); llegamos a un acuerdo para disponer números consecutivos a las trampas por sector, quedando de la siguiente manera: `TT-XX-YYY-AA`, donde: TT es el tipo de trampa; `XX` es el sector que se está trabajando; `YYY` es el número de la trampa (que irá de 1-40 para el primer persona, del 41-80 para el segundo persona, del 81-120 para el tercer persona, y así sucesivamente); y `AA` son las iniciales del persona.
 
 - La posible salida a punta sur es el sábado 24 de febrero.
 
@@ -372,8 +372,12 @@ Bitácora de actividades - Isla Guadalupe
 
 - Revisé, junto con Luciana Luna, las tablas de datos hasta ahora creadas. Revisamos el diseño y contenido de la tabla `POSICION_TRAMPAS_CEPO.XLSX` y el diseño de la tabla `ESFUERZO_CAPTURA_GATOS.XLSX`.
 - Visualicé en un mapa, junto con Luciana Luna, el contenido de la tabla `POSICION_TRAMPAS_CEPO.XLSX`. Me comentó sobre el diseño y la ubicación de las trampas y lo que pasará con la cuadrícula cuando pasemos al sector 2.
-- Acompañé a todo el equipo de gatos al campo, incluyendo a los tramperos, coordinadores y directora, donde Miguel Ángel Hernández, el cazador, mostró dos trampas. Esta muestra fue con la finalidad de enseñar a los tramperos sobre lo detalles a los que deben poner atención al momento de estar colocando o revisando una trampa. En esta demostración revisamos dos trampas.
-- Salvador Figueroa me facilitó una tabla de datos con la cual actualicé la tabla `ESFUERZO_CAPTURAS_GATOS.XLSX`. Esta tabla tiene información diaria desde el 25 de diciembre del 2017 hasta el 6 de marzo del 2018, sin embargo la información diaria del 25 de diciembre hasta inicios de noviembre, que es cuando comenzó el trampeo para erradiciación, no está a la mano. Los tramperos que estaban en la estación y que trabajaron en el inicio del trampeo (noviembre-diciembre) comenzaron a incluir la información faltante.
+- Acompañé a todo el equipo de gatos al campo, incluyendo a las personas encargadas de las trampas,
+  coordinadores y directora, donde Miguel Ángel Hernández, el cazador, mostró dos trampas. Esta
+  muestra fue con la finalidad de enseñar a los personas sobre lo detalles a los que deben poner
+  atención al momento de estar colocando o revisando una trampa. En esta demostración revisamos dos
+  trampas.
+- Salvador Figueroa me facilitó una tabla de datos con la cual actualicé la tabla `ESFUERZO_CAPTURAS_GATOS.XLSX`. Esta tabla tiene información diaria desde el 25 de diciembre del 2017 hasta el 6 de marzo del 2018, sin embargo la información diaria del 25 de diciembre hasta inicios de noviembre, que es cuando comenzó el trampeo para erradiciación, no está a la mano. Los personas que estaban en la estación y que trabajaron en el inicio del trampeo (noviembre-diciembre) comenzaron a incluir la información faltante.
 - David Cosío y Luciana Luna me facilitaron los datos de las rutas de los perros (`Ruta perros 270218` en las extensiones `.GDB`, `.GPX` y `.TXT`); estos datos fueron recolectados durante el trabajo de búsqueda y marcaje de rastros. Me facilitaron también la ruta hecha por Miguel Ángel Hernández durante su excursión nocturna buscando gatos (`Track_MAH`, en las extensiones `.GDB`, `.GPX` Y `.TXT`).
 
 **Observaciones:**
