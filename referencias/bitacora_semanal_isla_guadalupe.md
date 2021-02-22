@@ -17,7 +17,8 @@ Proyecto de erradicación de gato feral en Isla Guadalupe
 - Recibí y acomodé en una tabla los datos de capturas obtenidos de las cámaras trampa. Estos datos aún les falta cierto tratamiento, como separar por fecha y hora cada captura obtenida.
 - Obtuve la visualización de la posición de las trampas cepo y las trampas donde ha habido captura de individuos.
 - Recibí y acomodé los datos, aunque todavía están incompletos, del esfuerzo y capturas actualizado de forma diaria.
-- Después de platicar un par de ocasiones con Luciana Luna sobre la tabla `POSICION_TRAMPAS_CEPO.XLSX`, terminamos con un diseño que les ayudará a las personas a tener cierto control sobre la información diaria de las trampas y nos permitirá a nosotros hacer el procesamiento. 
+- Después de platicar un par de ocasiones con Luciana Luna sobre la tabla `POSICION_TRAMPAS_CEPO.XLSX`, terminamos con un diseño que les ayudará al personal a tener cierto control sobre la información diaria de las trampas y nos permitirá a nosotros hacer el procesamiento. 
+
 
 **¿Con quién trabajé y cómo fue el trato?**
 
@@ -27,11 +28,13 @@ Proyecto de erradicación de gato feral en Isla Guadalupe
 
 **¿Cuáles serán mis actividades de los próximos días?**
 
-- Trabajaré con David Nájera y Carlos Tafoya para acordar el seguimiento de la actualización de los datos dentro de los archivos. David Nájera se quedará a cargo del equipo de personas y acordaré con él delegar a Carlos Tafoya la función de actualizar las tablas de datos.
+- Trabajaré con David Nájera y Carlos Tafoya para acordar el seguimiento de la actualización de los datos dentro de los archivos. David Nájera se quedará a cargo del personal de trampeo y acordaré con él delegar a Carlos Tafoya la función de actualizar las tablas de datos.
+
 - Trabajaré con Salvador, David Nájera y Carlos Tafoya para terminar la corrección de la nomenclatura de las trampas y dejar listo el archivo `POSICION_TRAMPAS_CEPO.XLSX`.
 - Trabajaré con Salvador, David Nájera y Carlos Tafoya para terminar de capturar los datos que estarán en el archivo `ESFUERZO_CAPTURAS_GATOS.XLSX`.
 - Trabajaré con Salvador, David Nájera y Carlos Tafoya en el desglose de la información de las cámaras trampa que irá dentro del archivo `REGISTRO_CAMARAS_TRAMPA.XLSX`.
-- Trabajaré junto con David Cosío, David Nájera y algunas personas más en una práctica para la toma de datos de los transectos nocturnos para avistamiento de gatos.
+- Trabajaré junto con David Cosío, David Nájera y algunas personas de trampeo más en una práctica para la toma de datos de los transectos nocturnos para avistamiento de gatos.
+
 
 **¿Qué pude haber hecho diferente en mis actividades de la semana?**
 
@@ -184,7 +187,8 @@ de las trampas cepo colocadas.
 
 `ESFUERZO_CAPTURA_GATOS.XSLX`:
 
-| fecha de revision | ID de la persona | ID de trampa | condicion | captura |
+| fecha de revision | Iniciales del personal | ID de trampa | condicion | captura |
+
 |-------------------|-----------------|--------------|-----------|---------|
 | 2018-02-21T16:12:00 | DN | TC01001DN | activa | 0 | 
 | 2018-02-21T16:12:01 | DN | TC01002DN | activa | 0 | 
@@ -237,4 +241,3 @@ Viernes:
 - Aparte de platicar con David Cosío y Salvador Figueroa, me habría apoyado más en las personas que ya han trabajado en la colocación de trampas haciendo preguntas sobre el trabajo que hacen y los datos que capturan.
 
 ---
-
