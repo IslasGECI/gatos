@@ -7,10 +7,12 @@
                 En la figura 3 de la derecha se muestra la probabilidad de acabar con los gatos remanentes en función del esfuerzo aplicado. Para crear esta gráfica realizamos una simulación computacional en donde aplicamos cierto esfuerzo y calculamos la probabilidad de acabar con los individuos remanentes. Podemos ver que a mayor esfuerzo la probabilidad de éxito aumenta. Cuando usamos un esfuerzo de {{ estado_gatos.esfuerzo_trampas_mayor_95 | commafy }} noches&#8729trampa, el 95% de las veces capturamos el total de individuos remanentes. Lo  anterior implica que:
                 <ul>
                     <li>
-                        Se requieren {{ estado_gatos.dias_esfuerzo_trampas_mayor_95 | int }} días si se utilizan 10 tramperos, con 30 trampas cada uno.
+                        Se requieren {{ estado_gatos.dias_esfuerzo_trampas_mayor_95 | int }} días si se utilizan 10 personas para trampeo, con 30 trampas cada persona.
+
                     </li>
                     <li>
-                        Si quisiéramos terminar la erradicación en 100 días, se requerirían {{ estado_gatos.tramperos_100_dias | int }} tramperos con 30 trampas cada uno.
+                        Si quisiéramos terminar la erradicación en 100 días, se requerirían {{ estado_gatos.personas_100_dias | int }} personas para trampeo con 30 trampas cada persona.
+
                     </li>
                 </ul>
             </p>
