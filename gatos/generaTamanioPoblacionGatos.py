@@ -30,7 +30,7 @@ def calculate(**argumentos):
     nombre_esfuerzo: str = DatosSocorro.get_variable_name_from_standard_name(datatools.StandardName.effort)
     nombre_capturas: str = "capturas"
     esfuerzo: np.array = np.array(DatosSocorro.get_value(
-        nombre_esfuerzo)/(30 * 7 * 5))  # Días hombre: 30 trampas, 7 tramperos, 5 días
+        nombre_esfuerzo)/(30 * 7 * 5))  # Días persona: 30 trampas, 7 personas, 5 días
     capturas: np.array = np.array(DatosSocorro.get_value(nombre_capturas))
     # endregion
 
