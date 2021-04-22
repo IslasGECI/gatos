@@ -1,11 +1,9 @@
 # Clase encargada de encontrar el tama~no de la población de gatos
 
-from pymc import Uniform, deterministic, MCMC, Binomial, Normal
+from pymc import deterministic, MCMC, Normal
 from pymc import stochastic, DiscreteUniform, binomial_like
 from pymc.utils import hpd
 import numpy as np
-import os
-import shutil
 import pandas as pd
 
 

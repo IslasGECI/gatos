@@ -1,8 +1,9 @@
 import click
 from click_default_group import DefaultGroup
 
-from gatos.calculator_p_value import *
+from gatos.calculator_p_value import CalculatorPValue
 import json
+import pandas as pd
 
 
 @click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
