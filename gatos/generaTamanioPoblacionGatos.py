@@ -19,6 +19,7 @@ def cli():
 @cli.command(short_help="Cálcula la distribución posterior para el tamaño de la población inicial")
 @click.option("--resource", "-r", type=click.Path(), help="Nombre del recurso csv")
 @click.option("--output-file", "-o", type=click.Path(), help="Nombre del archivo de salida csv")
+@click.option("--iterations", "-i", default = 1_000_000, type=click.Path(), help="Número de iteraciones")
 def calculate(**argumentos):
     DatosSocorro = metadatatools.import_tabular_data_resource(argumentos["resource"])
     nombre_esfuerzo: str = "Esfuerzo"
@@ -30,7 +31,7 @@ def calculate(**argumentos):
 
     # region Se busca el tamaño de la población
     repeticiones = 3
-    iteraciones = 1_000_000
+    iteraciones = argumentos["iterations"]
     estimador_poblacion_inicial: PopulationEstimator = PopulationEstimator(
         esfuerzo, capturas, argumentos["output_file"]
     )
