@@ -2,12 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name="gatos",
-    version="0.1.0",
+    version="0.2.1",
     packages=find_packages(),
     include_package_data=True,
     install_requires = [
         "Click",
-        "metadata_tools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
     ],
     entry_points={
         "console_scripts": [
