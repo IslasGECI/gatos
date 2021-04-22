@@ -7,7 +7,6 @@ setup(
     include_package_data=True,
     install_requires = [
         "Click",
-        "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
     ],
     entry_points={
         "console_scripts": [
