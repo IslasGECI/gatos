@@ -16,12 +16,17 @@ def cli():
     pass
 
 
-def calculate(**argumentos): 
-    DatosSocorro = datatools.import_tabular_data_resource(argumentos["resource"])
-    nombre_esfuerzo: str = DatosSocorro.get_variable_name_from_standard_name(datatools.StandardName.effort)
-    nombre_capturas: str = "capturas"
-    esfuerzo: np.array = np.array(DatosSocorro.get_value(
-        nombre_esfuerzo)/(30 * 7 * 5))  # Días persona: 30 trampas, 7 personas, 5 días
+@cli.command(short_help="Cálcula la distribución posterior para el tamaño de la población inicial")
+@click.option("--resource", "-r", type=click.Path(), help="Nombre del recurso csv")
+@click.option("--output-file", "-o", type=click.Path(), help="Nombre del archivo de salida csv")
+@click.option("--iterations", "-i", default = 1_000_000, type=int, help="Número de iteraciones")
+def calculate(**argumentos):
+    DatosSocorro = metadatatools.import_tabular_data_resource(argumentos["resource"])
+    nombre_esfuerzo: str = "Esfuerzo"
+    nombre_capturas: str = "Capturas"
+    esfuerzo: np.array = np.array(
+        DatosSocorro.get_value(nombre_esfuerzo) / (30 * 7 * 5)
+    )  # Días hombre: 30 trampas, 7 tramperos, 5 días
     capturas: np.array = np.array(DatosSocorro.get_value(nombre_capturas))
 
     # region Se busca el tamaño de la población
