@@ -6,7 +6,7 @@ import json
 import pandas as pd
 
 
-@click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
+@click.group()
 def cli():
     pass
 
