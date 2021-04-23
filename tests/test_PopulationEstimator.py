@@ -9,3 +9,4 @@ def test_init():
     assert Estimator.esfuerzo == effort
     assert Estimator.capturas == catch
     assert Estimator._nombre_archivo == file_name
+    assert Estimator.tamanios_poblacion is None
