@@ -56,8 +56,8 @@ referencias/bitacora-semanal-isla-guadalupe.pdf: referencias/bitacora_semanal_is
 
 # Escritura de cabras-guadalupe.pdf
 reports/cabras-guadalupe.pdf: reports/cabras-guadalupe.tex
-	cd reports & del *.pythontex                            #borra dependencia pythontex
-	if exist "reports\pythontex-files-cabras-guadalupe" rm --force reports\pythontex-files-cabras-guadalupe
+	cd reports & del *.pythontex
+	rm --force reports\pythontex-files-cabras-guadalupe
 	cd reports & pdflatex cabras-guadalupe.tex
 	cd reports & bibtex cabras-guadalupe
 	cd reports & pythontex cabras-guadalupe.tex
@@ -74,14 +74,13 @@ reports/cabras-guadalupe.pdf: reports/cabras-guadalupe.tex
 # Corre bibtex y pythontex, genera el archivo pdf y los muestra.
 reports/estimacion_poblacion_inicial.pdf: reports/estimacion_poblacion_inicial.tex \
     $(referenciasLatex) $(resultadosEstimacionPoblacionInicial) python/bayes.py
-	cd reports & del *.pythontex                            #borra dependencia pythontex
-	if exist "reports\pythontex-files-estimacion_poblacion_inicial" del /Q reports\pythontex-files-estimacion_poblacion_inicial\* #borra dependencia pythontex
+	cd reports & del *.pythontex
+	rm --force reports\pythontex-files-estimacion_poblacion_inicial
 	cd reports & pdflatex estimacion_poblacion_inicial.tex
 	cd reports & bibtex estimacion_poblacion_inicial
 	cd reports & pythontex estimacion_poblacion_inicial.tex
 	cd reports & pdflatex estimacion_poblacion_inicial.tex
 	cd reports & pdflatex estimacion_poblacion_inicial.tex
-	start "" /max "reports\estimacion_poblacion_inicial.pdf"
 
 # Escritura de presentacion con nombre metodo_Ramsey.pdf
 # Los archivos que utiliza son los resultadosEstimacionPoblacionInicial (gráficas y datos-objetivo.json).
@@ -91,14 +90,13 @@ reports/estimacion_poblacion_inicial.pdf: reports/estimacion_poblacion_inicial.t
 reports/presentacion/metodo_ramsey.pdf: $(texMetodoRamsey) \
     $(resultadosEstimacionPoblacionInicial) $(imagenesMetodoRamsey) python/bayes.py \
     $(referenciasLatex)
-	cd reports/presentacion & del *.pythontex                            #borra dependencia pythontex
-	if exist "reports\presentacion\pythontex-files-metodo_ramsey" del /Q reports\presentacion\pythontex-files-metodo_ramsey\* #borra dependencia pythontex
+	cd reports/presentacion & del *.pythontex
+	rm --force reports\presentacion\pythontex-files-metodo_ramsey
 	cd reports/presentacion & pdflatex metodo_ramsey.tex
 	cd reports/presentacion & bibtex metodo_ramsey
 	cd reports/presentacion & pythontex metodo_ramsey.tex
 	cd reports/presentacion & pdflatex metodo_ramsey.tex
 	cd reports/presentacion & pdflatex metodo_ramsey.tex
-	start "" /max "reports\presentacion\metodo_ramsey.pdf"
 
 # Escritura de la presentación del artículo de cámaras trmapa sin identificación de individuos
 reports/camaras-trampa.pdf: $(texCamarasTrampa) $(imagenesCamarasTrampa) $(referenciasLatex)
@@ -106,7 +104,6 @@ reports/camaras-trampa.pdf: $(texCamarasTrampa) $(imagenesCamarasTrampa) $(refer
 	cd reports & bibtex camaras-trampa
 	cd reports & pdflatex camaras-trampa.tex
 	cd reports & pdflatex camaras-trampa.tex
-	start "" /max "reports\camaras-trampa.pdf"
 
 # 4.IV. Reglas para construir las dependencias de los objetivos principales
 # =======================================================================
@@ -135,7 +132,41 @@ $(imagenesCamarasTrampa):
 
 # V Reglas del resto de los phonies
 # =================================
+all: mutants
 
+repo = gatos
+codecov_token = 92c09c8a-f80e-4220-af6d-1b8bb79be8f1
+
+.PHONY: all clean format install lint mutants tests
+
+check:
+	black --check --line-length 100 ${repo}
+	black --check --line-length 100 tests
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+
+format:
+	black --line-length 100 ${repo}
+	black --line-length 100 tests
+
+install:
+	pip install --editable .
+
+lint:
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+	pylint ${repo}
+	pylint tests
+
+mutants:
+	mutmut run --paths-to-mutate ${repo}
+
+coverage: install
+	pytest --cov=${repo} --cov-report=xml --verbose && \
+	codecov --token=${codecov_token}
+
+tests: install
+	pytest --verbose
 
 # Elimina PDFs, PNGs y residuos de LaTeX
 clean:
@@ -157,3 +188,8 @@ clean:
 	rm --force reports/*.synctex.gz
 	rm --force reports/*.toc
 	rm --force --recursive reports/pythontex*
+	rm --force .mutmut-cache
+	rm --recursive --force ${repo}.egg-info
+	rm --recursive --force ${repo}/__pycache__
+	rm --recursive --force ${repo}/**/__pycache__
+	rm --recursive --force tests/__pycache__
