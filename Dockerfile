@@ -7,6 +7,8 @@ RUN pip install \
     codecov \
     flake8 \
     mutmut \
+    mypy \
+    pandas-stubs \
     pylint \
     pylint-fail-under \
     rope
