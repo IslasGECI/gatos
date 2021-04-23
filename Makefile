@@ -163,9 +163,6 @@ lint:
 mutants:
 	mutmut run --paths-to-mutate ${repo}
 
-coverage: install
-	pytest --cov=${repo} --cov-report=xml --verbose && \
-	codecov --token=${codecov_token}
 
 tests: install
 	pytest --verbose

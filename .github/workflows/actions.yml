@@ -12,6 +12,6 @@ jobs:
     - name: Verifica el formato
       run: docker run islasgeci/metadata_tools make check
     - name: Corre pruebas y evalua cobertura
-      run: docker run islasgeci/metadata_tools make coverage
+      run: docker run islasgeci/metadata_tools make tests
     - name: Evalua resistencia a mutaciones
       run: docker run islasgeci/metadata_tools make mutants
