@@ -1,0 +1,17 @@
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@v2
+    - name: Construye imagen
+      run: docker build --tag islasgeci/metadata_tools .
+    - name: Verifica el formato
+      run: docker run islasgeci/metadata_tools make check
+    - name: Corre pruebas y evalua cobertura
+      run: docker run islasgeci/metadata_tools make coverage
+    - name: Evalua resistencia a mutaciones
+      run: docker run islasgeci/metadata_tools make mutants
