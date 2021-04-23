@@ -1,5 +1,4 @@
 from gatos.calculator_p_value import CalculatorPValue
-import pandas as pd
 
 total_capturas = 15
 archivo = "tests/data/example.csv"
