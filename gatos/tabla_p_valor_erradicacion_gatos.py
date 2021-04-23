@@ -1,5 +1,5 @@
 import click
-from click_default_group import DefaultGroup
+from click_default_group import DefaultGroup  # type: ignore
 
 from gatos.calculator_p_value import CalculatorPValue
 import json

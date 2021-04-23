@@ -1,10 +1,10 @@
 # Clase encargada de encontrar el tama~no de la población de gatos
 
-from pymc import deterministic, MCMC, Normal
-from pymc import stochastic, DiscreteUniform, binomial_like
-from pymc.utils import hpd
-import numpy as np
-import pandas as pd
+from pymc import deterministic, MCMC, Normal  # type: ignore
+from pymc import stochastic, DiscreteUniform, binomial_like  # type: ignore
+from pymc.utils import hpd  # type: ignore
+import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
 
 
 class PopulationEstimator:
