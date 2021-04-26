@@ -36,6 +36,7 @@ def test_calculate_range_remanented_cats():
     np.testing.assert_array_equal(calculador.bins, expected_bins)
     np.testing.assert_array_equal(calculador.hist, expected_hist)
 
+
 def test_calculate_high_probability():
     calculador = CalculatorPValue()
     calculador.set_total_capturas(total_capturas)
@@ -51,3 +52,22 @@ def test_calculate_high_probability():
 
     assert calculador.maximo == maximo
     assert calculador.indice_mas_probable[0] == indice_mas_probable[0]
+
+
+def test_calculate_remanented_cat_more_probably():
+    calculador = CalculatorPValue()
+    calculador.set_total_capturas(total_capturas)
+    calculador.read_posterior(archivo)
+    calculador.calculate_range_remanented_cats()
+    calculador.calculate_high_probability()
+    calculador.calculate_remanented_cat_more_probably()
+
+    expected_n_bins = max(calculador.datos.No.unique()) - min(calculador.datos.No.unique())
+    expected_hist, expected_bins = np.histogram(calculador.remanented_cats, bins=expected_n_bins)
+
+    maximo = max(expected_hist)
+    indice_mas_probable = np.where(expected_hist == maximo)[0]
+
+    remanented_cat_more_probably = expected_bins[indice_mas_probable][0]
+
+    assert calculador.remanented_cat_more_probably == remanented_cat_more_probably
