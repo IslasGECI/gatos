@@ -192,3 +192,4 @@ clean:
 	rm --recursive --force ${repo}/__pycache__
 	rm --recursive --force ${repo}/**/__pycache__
 	rm --recursive --force tests/__pycache__
+	rm --recursive --force .*_cache
