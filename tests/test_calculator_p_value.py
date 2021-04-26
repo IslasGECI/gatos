@@ -1,9 +1,10 @@
 from gatos.calculator_p_value import CalculatorPValue
 from pandas.util.testing import assert_frame_equal
 import pandas as pd
+import numpy as np
 
 
-total_capturas = 2
+total_capturas = 15
 archivo = "tests/data/example.csv"
 
 
@@ -21,3 +22,16 @@ def test_set_total_capturas():
     calculador = CalculatorPValue()
     calculador.set_total_capturas(total_capturas)
     assert calculador.capturas == total_capturas
+
+
+def test_calculate_range_remanented_cats():
+    calculador = CalculatorPValue()
+    calculador.set_total_capturas(total_capturas)
+    calculador.read_posterior(archivo)
+    calculador.calculate_range_remanented_cats()
+
+    expected_n_bins = max(calculador.datos.No.unique()) - min(calculador.datos.No.unique())
+    expected_hist, expected_bins = np.histogram(calculador.remanented_cats, bins=expected_n_bins)
+
+    np.testing.assert_array_equal(calculador.bins, expected_bins)
+    np.testing.assert_array_equal(calculador.hist, expected_hist)
