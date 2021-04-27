@@ -74,7 +74,7 @@ class PopulationEstimator:
         self.tamanios_poblacion.Vmp.hist()
 
     def _Ramsey_model(self, v_effort, v_captures):
-        """Modelo jerarquico utilizado para determinar el tamaño de la población """
+        """Modelo jerarquico utilizado para determinar el tamaño de la población"""
         alpha = Normal("a_captura", mu=0.00, tau=1 / (2.50 * 2.50))
         beta = Normal("b_captura", mu=0.00, tau=1 / (2.50 * 2.50))
         No = DiscreteUniform("N_o", lower=sum(v_captures), upper=22000)
