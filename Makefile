@@ -1,74 +1,4 @@
-# I. Definición del _phony_ *all* que enlista todos los objetivos principales
-# ===========================================================================
-all: \
-    reports/cantidad_individuos_remanentes_en.pdf \
-    reports/erradicacion_gatos_socorro_es.html
-
-# 1. Erradicación de gato en Isla Socorro
-# 1.II Declaracion de las variables
-csvDistribucionPosteriorSocorro = \
-    resultados/distribucion_posterior_socorro.csv
-
-csvProbabilidadCapturaGatosSocorro = \
-    resultados/probabilidad_captura_remanentes_socorro.csv \
-    resultados/derivada_captura_esfuerzo_socorro.csv
-
-datapackageCapturaGatosSocorro = \
-    inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv \
-    inst/extdata/erradicaciones-mamiferos/datapackage.json\
-
-
-jsonValoresReporteGatosSocorro = \
-    resultados/tabla_valores_socorro.json
-
-pngGraficasCapturaGatoSocorro = \
-    resultados/accumulated-catch_accumulated-effort.png \
-    resultados/accumulated-catch_time-serie.png \
-    resultados/catch-per-unit-effort_accumulated-effort.png \
-    resultados/catch-per-unit-effort_time-serie.png
-
-resultadosEstimacionPoblacionInicial = \
-    resultados\datos-objetivo.json\
-    resultados\probabilidad_captura.png\
-    resultados\tamagno_inicial.png\
-    resultados\datos_histograma_No.csv\
-    resultados\datos_histograma_q.csv\
-    resultados\metadatos_histograma_q.json\
-    resultados\metadatos_histograma_No.json
-
-versionDatos = 36af819b340750050d95df466dcc35a55ca83494
-
-# 1.III. Reglas para construir los objetivos principales
-# ====================================================
-reports/erradicacion_gatos_socorro_es.html: python/generaReporteErradicacionGatosSocorro.py $(jsonValoresReporteGatosSocorro)
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	python python/generaReporteErradicacionGatosSocorro.py -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file $(csvProbabilidadCapturaGatosSocorro) --report-values $(jsonValoresReporteGatosSocorro) -o $(@) --espaniol
-
-reports/erradicacion_gatos_socorro_en.html: python/generaReporteErradicacionGatosSocorro.py $(jsonValoresReporteGatosSocorro)
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	python python/generaReporteErradicacionGatosSocorro.py -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file $(csvProbabilidadCapturaGatosSocorro) --report-values $(jsonValoresReporteGatosSocorro) -o $(@) --ingles
-
-# 1.IV. Reglas para construir las dependencias de los objetivos principales
-# =======================================================================
-$(datapackageCapturaGatosSocorro):
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	curl --output $@ --user ${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD} https://bitbucket.org/IslasGECI/datos-texto/raw/$(versionDatos)/datapackage/erradicaciones-mamiferos/$(@F)
-
-$(csvDistribucionPosteriorSocorro): $(datapackageCapturaGatosSocorro) log/install_requirements.log
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	crea_tamagno_poblacion_gatos calculate -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv -o $(@)
-
-resultados/probabilidad_captura_remanentes_socorro.csv: $(csvDistribucionPosteriorSocorro)
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	crea_probabilidad_atrapar_gatos remanent_cats -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) -o resultados/probabilidad_captura_remanentes_socorro.csv
-
-resultados/derivada_captura_esfuerzo_socorro.csv: $(csvDistribucionPosteriorSocorro)
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	crea_probabilidad_atrapar_gatos derivate_effort -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) -o resultados/derivada_captura_esfuerzo_socorro.csv
-
-$(jsonValoresReporteGatosSocorro): $(csvProbabilidadCapturaGatosSocorro)
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	crea_valores_reporte calculate -r inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv --initial-population-posterior-distribution $(csvDistribucionPosteriorSocorro) --probability-of-success-file resultados/probabilidad_captura_remanentes_socorro.csv  --derivate-effort-file resultados/derivada_captura_esfuerzo_socorro.csv -o $(@)
+all: mutants
 
 # 4. No análisis
 # 4.II. Declaración de las variables
@@ -125,8 +55,8 @@ referencias/bitacora-semanal-isla-guadalupe.pdf: referencias/bitacora_semanal_is
 
 # Escritura de cabras-guadalupe.pdf
 reports/cabras-guadalupe.pdf: reports/cabras-guadalupe.tex
-	cd reports & del *.pythontex                            #borra dependencia pythontex
-	if exist "reports\pythontex-files-cabras-guadalupe" rm --force reports\pythontex-files-cabras-guadalupe
+	cd reports & del *.pythontex
+	rm --force reports\pythontex-files-cabras-guadalupe
 	cd reports & pdflatex cabras-guadalupe.tex
 	cd reports & bibtex cabras-guadalupe
 	cd reports & pythontex cabras-guadalupe.tex
@@ -143,14 +73,13 @@ reports/cabras-guadalupe.pdf: reports/cabras-guadalupe.tex
 # Corre bibtex y pythontex, genera el archivo pdf y los muestra.
 reports/estimacion_poblacion_inicial.pdf: reports/estimacion_poblacion_inicial.tex \
     $(referenciasLatex) $(resultadosEstimacionPoblacionInicial) python/bayes.py
-	cd reports & del *.pythontex                            #borra dependencia pythontex
-	if exist "reports\pythontex-files-estimacion_poblacion_inicial" del /Q reports\pythontex-files-estimacion_poblacion_inicial\* #borra dependencia pythontex
+	cd reports & del *.pythontex
+	rm --force reports\pythontex-files-estimacion_poblacion_inicial
 	cd reports & pdflatex estimacion_poblacion_inicial.tex
 	cd reports & bibtex estimacion_poblacion_inicial
 	cd reports & pythontex estimacion_poblacion_inicial.tex
 	cd reports & pdflatex estimacion_poblacion_inicial.tex
 	cd reports & pdflatex estimacion_poblacion_inicial.tex
-	start "" /max "reports\estimacion_poblacion_inicial.pdf"
 
 # Escritura de presentacion con nombre metodo_Ramsey.pdf
 # Los archivos que utiliza son los resultadosEstimacionPoblacionInicial (gráficas y datos-objetivo.json).
@@ -160,14 +89,13 @@ reports/estimacion_poblacion_inicial.pdf: reports/estimacion_poblacion_inicial.t
 reports/presentacion/metodo_ramsey.pdf: $(texMetodoRamsey) \
     $(resultadosEstimacionPoblacionInicial) $(imagenesMetodoRamsey) python/bayes.py \
     $(referenciasLatex)
-	cd reports/presentacion & del *.pythontex                            #borra dependencia pythontex
-	if exist "reports\presentacion\pythontex-files-metodo_ramsey" del /Q reports\presentacion\pythontex-files-metodo_ramsey\* #borra dependencia pythontex
+	cd reports/presentacion & del *.pythontex
+	rm --force reports\presentacion\pythontex-files-metodo_ramsey
 	cd reports/presentacion & pdflatex metodo_ramsey.tex
 	cd reports/presentacion & bibtex metodo_ramsey
 	cd reports/presentacion & pythontex metodo_ramsey.tex
 	cd reports/presentacion & pdflatex metodo_ramsey.tex
 	cd reports/presentacion & pdflatex metodo_ramsey.tex
-	start "" /max "reports\presentacion\metodo_ramsey.pdf"
 
 # Escritura de la presentación del artículo de cámaras trmapa sin identificación de individuos
 reports/camaras-trampa.pdf: $(texCamarasTrampa) $(imagenesCamarasTrampa) $(referenciasLatex)
@@ -175,7 +103,6 @@ reports/camaras-trampa.pdf: $(texCamarasTrampa) $(imagenesCamarasTrampa) $(refer
 	cd reports & bibtex camaras-trampa
 	cd reports & pdflatex camaras-trampa.tex
 	cd reports & pdflatex camaras-trampa.tex
-	start "" /max "reports\camaras-trampa.pdf"
 
 # 4.IV. Reglas para construir las dependencias de los objetivos principales
 # =======================================================================
@@ -202,57 +129,29 @@ $(imagenesCamarasTrampa):
 #===============================================================================================
 # 5 II Declaracion de las variables
 
-histogramCapturedCatsPerYearSocorro = \
-	reports/figures/TotalCapturasPorAnioGatosSocorro.png
-
-timeSerieCPUE= \
-	reports/figures/timeSerieCPUEanual.png
-
-remainingMonths = \
-	reports/non-tabular/json_meses_faltantes.json
-
-pValueEradication = \
-	reports/non-tabular/json_p-valor.json
-
-# 5 III. Reglas para construir los objetivos principales
-
-reports/cantidad_individuos_remanentes_en.pdf: reports/cantidad_individuos_remanentes_en.tex $(timeSerieCPUE) $(datapackageCapturaGatosSocorro) $(histogramCapturedCatsPerYearSocorro) $(pValueEradication) $(remainingMonths)
-	cd $(<D) && pdflatex $(<F)
-	cd $(<D) && pythontex $(<F)
-	cd $(<D) && pdflatex $(<F)
-
-# 5 IV. Reglas para construir las dependencias de los objetivos principales
-
-$(pValueEradication): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/tabla_p-valor_erradicacion_gatos.py
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	src/tabla_p-valor_erradicacion_gatos.py
-
-$(remainingMonths): $(datapackageCapturaGatosSocorro) $(csvDistribucionPosteriorSocorro) src/simulaciones_posterior.py
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	src/simulaciones_posterior.py
-
-$(histogramCapturedCatsPerYearSocorro):$(datapackageCapturaGatosSocorro) src/histogramaCapturasPorAnioGatosSocorro
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	src/histogramaCapturasPorAnioGatosSocorro $< $@
-
-$(timeSerieCPUE): inst/extdata/erradicaciones-mamiferos/captura_gatos_socorro.csv src/serieDeTiempoCPUEPorAnioGatosSocorro
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	$(word 2,$^) $<
-
 # V Reglas del resto de los phonies
 # =================================
-datos: $(datapackageCapturaGatosSocorro)
 
-# Esta sección las pruebas y demostraciones
-pruebas: # Corre las pruebas de las funciones
-	python -m doctest -v python/tests/test_unidad-pruebas.py
+repo = gatos
+codecov_token = 92c09c8a-f80e-4220-af6d-1b8bb79be8f1
 
-log/install_requirements.log: src/install_requirements.sh
-	if [ ! -d $(@D) ]; then mkdir --parents $(@D); fi
-	$< > $@
+.PHONY: \
+		all \
+		clean \
+		format \
+		install \
+		lint \
+		mutants \
+		tests
 
-# Elimina PDFs, PNGs y residuos de LaTeX
 clean:
+	rm --force --recursive .*_cache
+	rm --force --recursive ${repo}.egg-info
+	rm --force --recursive ${repo}/__pycache__
+	rm --force --recursive ${repo}/**/__pycache__
+	rm --force --recursive reports/pythontex*
+	rm --force --recursive tests/__pycache__
+	rm --force .mutmut-cache
 	rm --force README.pdf
 	rm --force reports/*.aux
 	rm --force reports/*.bbl
@@ -270,4 +169,30 @@ clean:
 	rm --force reports/*.snm
 	rm --force reports/*.synctex.gz
 	rm --force reports/*.toc
-	rm --force --recursive reports/pythontex*
+
+format:
+	black --line-length 100 ${repo}
+	black --line-length 100 tests
+
+install:
+	pip install --editable .
+
+check:
+	black --check --line-length 100 ${repo}
+	black --check --line-length 100 tests
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+	mypy ${repo}
+	mypy tests
+
+lint:
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+	pylint ${repo}
+	pylint tests
+
+mutants: install
+	mutmut run --paths-to-mutate ${repo}
+
+tests: install
+	pytest --verbose
