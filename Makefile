@@ -1,5 +1,4 @@
-# I. Definición del _phony_ *all* que enlista todos los objetivos principales
-# ===========================================================================
+all: mutants
 
 # 4. No análisis
 # 4.II. Declaración de las variables
@@ -132,43 +131,27 @@ $(imagenesCamarasTrampa):
 
 # V Reglas del resto de los phonies
 # =================================
-all: mutants
 
 repo = gatos
 codecov_token = 92c09c8a-f80e-4220-af6d-1b8bb79be8f1
 
-.PHONY: all clean format install lint mutants tests
+.PHONY: \
+		all \
+		clean \
+		format \
+		install \
+		lint \
+		mutants \
+		tests
 
-check:
-	black --check --line-length 100 ${repo}
-	black --check --line-length 100 tests
-	flake8 --max-line-length 100 ${repo}
-	flake8 --max-line-length 100 tests
-	mypy ${repo}
-	mypy tests
-
-format:
-	black --line-length 100 ${repo}
-	black --line-length 100 tests
-
-install:
-	pip install --editable .
-
-lint:
-	flake8 --max-line-length 100 ${repo}
-	flake8 --max-line-length 100 tests
-	pylint ${repo}
-	pylint tests
-
-mutants: install
-	mutmut run --paths-to-mutate ${repo}
-
-
-tests: install
-	pytest --verbose
-
-# Elimina PDFs, PNGs y residuos de LaTeX
 clean:
+	rm --force --recursive .*_cache
+	rm --force --recursive ${repo}.egg-info
+	rm --force --recursive ${repo}/__pycache__
+	rm --force --recursive ${repo}/**/__pycache__
+	rm --force --recursive reports/pythontex*
+	rm --force --recursive tests/__pycache__
+	rm --force .mutmut-cache
 	rm --force README.pdf
 	rm --force reports/*.aux
 	rm --force reports/*.bbl
@@ -186,10 +169,30 @@ clean:
 	rm --force reports/*.snm
 	rm --force reports/*.synctex.gz
 	rm --force reports/*.toc
-	rm --force --recursive reports/pythontex*
-	rm --force .mutmut-cache
-	rm --recursive --force ${repo}.egg-info
-	rm --recursive --force ${repo}/__pycache__
-	rm --recursive --force ${repo}/**/__pycache__
-	rm --recursive --force tests/__pycache__
-	rm --recursive --force .*_cache
+
+format:
+	black --line-length 100 ${repo}
+	black --line-length 100 tests
+
+install:
+	pip install --editable .
+
+check:
+	black --check --line-length 100 ${repo}
+	black --check --line-length 100 tests
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+	mypy ${repo}
+	mypy tests
+
+lint:
+	flake8 --max-line-length 100 ${repo}
+	flake8 --max-line-length 100 tests
+	pylint ${repo}
+	pylint tests
+
+mutants: install
+	mutmut run --paths-to-mutate ${repo}
+
+tests: install
+	pytest --verbose
