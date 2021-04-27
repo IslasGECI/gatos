@@ -1,14 +1,14 @@
 import click
-from click_default_group import DefaultGroup
+from click_default_group import DefaultGroup  # type: ignore
 
 # Programa para crear `json`` del tamaño de la población a partir de archivos
 # que contienen las distribuciones posteriores.
 
-import numpy as np
+import numpy as np  # type: ignore
 
 
 from gatos.PopulationEstimator import PopulationEstimator
-import metadatatools
+import metadatatools  # type: ignore
 
 
 @click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
@@ -19,7 +19,7 @@ def cli():
 @cli.command(short_help="Cálcula la distribución posterior para el tamaño de la población inicial")
 @click.option("--resource", "-r", type=click.Path(), help="Nombre del recurso csv")
 @click.option("--output-file", "-o", type=click.Path(), help="Nombre del archivo de salida csv")
-@click.option("--iterations", "-i", default = 1_000_000, type=int, help="Número de iteraciones")
+@click.option("--iterations", "-i", default=1_000_000, type=int, help="Número de iteraciones")
 def calculate(**argumentos):
     DatosSocorro = metadatatools.import_tabular_data_resource(argumentos["resource"])
     nombre_esfuerzo: str = "Esfuerzo"

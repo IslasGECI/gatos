@@ -1,14 +1,11 @@
-# Clase encargada de encontrar el tama~no de la población de gatos
-
-from pymc import deterministic, MCMC, Normal
-from pymc import stochastic, DiscreteUniform, binomial_like
-from pymc.utils import hpd
-import numpy as np
-import pandas as pd
+from pymc import deterministic, MCMC, Normal  # type: ignore
+from pymc import stochastic, DiscreteUniform, binomial_like  # type: ignore
+from pymc.utils import hpd  # type: ignore
+import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
 
 
 class PopulationEstimator:
-    # region Documentación
     """Clase encargada de encontrar el tamaño inicial de la población utilizando
     el método de Ramsey
 
@@ -28,7 +25,6 @@ class PopulationEstimator:
     Para borrar los archivos temporales se debe llamar al método
     `remove_temporal_data()`
     """
-    # endregion
 
     def __init__(self, esfuerzo: np.array, capturas: np.array, nombre_archivo):
         self.esfuerzo = esfuerzo
@@ -39,7 +35,6 @@ class PopulationEstimator:
     def run(
         self, repeticiones: int = 3, iteraciones: int = 6000000, n_datos_descartados: int = 30000
     ):
-        # region documentación
         """Método encargado de correr el modelo de Ramsey una cierta cantidad de
         repeticiones para determinar el tamaño de la población.
 
@@ -64,7 +59,6 @@ class PopulationEstimator:
         Para borrar los archivos temporales se debe llamar al método
         `remove_temporal_data()`
         """
-        # endregion
         repeticion: int = 0
         Modelo_gatitos: MCMC = MCMC(self._Ramsey_model(self.esfuerzo, self.capturas))
         while repeticion < repeticiones:
@@ -80,7 +74,7 @@ class PopulationEstimator:
         self.tamanios_poblacion.Vmp.hist()
 
     def _Ramsey_model(self, v_effort, v_captures):
-        """ Modelo jerarquico utilizado para determinar el tamaño de la población """
+        """Modelo jerarquico utilizado para determinar el tamaño de la población"""
         alpha = Normal("a_captura", mu=0.00, tau=1 / (2.50 * 2.50))
         beta = Normal("b_captura", mu=0.00, tau=1 / (2.50 * 2.50))
         No = DiscreteUniform("N_o", lower=sum(v_captures), upper=22000)
@@ -106,7 +100,6 @@ class PopulationEstimator:
 
 
 def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float = 0.95):
-    # region Documentación
     """Función para encontrar el cuartil 2.5 y el Valor más probable del tamaño
     inicial de la población.
 
@@ -120,7 +113,6 @@ def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float = 0.95):
     Porcentaje de los datos que no se va a considerar. `default=0.95`, esto quiere
     decir que solo se considera el 5% de los datos.
     """
-    # endregion
     datos: pd.DataFrame = pd.read_csv(archivo)
     intervalo = hpd(datos.No, alpha=porcentaje_datos_excluidos)
     return {
