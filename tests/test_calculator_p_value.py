@@ -1,6 +1,6 @@
 from gatos.calculator_p_value import CalculatorPValue
 from pandas.util.testing import assert_frame_equal
-import pandas as pd
+import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 
 
