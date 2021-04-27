@@ -1,7 +1,7 @@
 from gatos.calculator_p_value import CalculatorPValue
 from pandas.util.testing import assert_frame_equal
 import pandas as pd
-import numpy as np
+import numpy as np  # type: ignore
 
 
 total_capturas = 15
