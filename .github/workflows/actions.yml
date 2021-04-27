@@ -15,10 +15,10 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@v2
     - name: Construye imagen
-      run: docker build --tag islasgeci/metadata_tools .
+      run: docker build --tag islasgeci/gatos .
     - name: Verifica el formato
-      run: docker run islasgeci/metadata_tools make check
-    - name: Corre pruebas y evalua cobertura
-      run: docker run islasgeci/metadata_tools make tests
+      run: docker run islasgeci/gatos make check
+    - name: Corre pruebas
+      run: docker run islasgeci/gatos make tests
     - name: Evalua resistencia a mutaciones
-      run: docker run islasgeci/metadata_tools make mutants
+      run: docker run islasgeci/gatos make mutants
