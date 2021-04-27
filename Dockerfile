@@ -1,6 +1,6 @@
 FROM islasgeci/gatos:93b1
-COPY . /workdir
 WORKDIR /workdir
+COPY . .
 RUN pip install \
     autopep8 \
     black \
