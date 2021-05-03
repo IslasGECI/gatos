@@ -1,6 +1,10 @@
-from pymc import deterministic, MCMC, Normal  # type: ignore
-from pymc import stochastic, DiscreteUniform, binomial_like  # type: ignore
-from pymc.utils import hpd  # type: ignore
+#from pymc import deterministic, MCMC, Normal  # type: ignore
+#from pymc import stochastic, DiscreteUniform, binomial_like  # type: ignore
+#from pymc.utils import hpd  # type: ignore
+
+
+import pymc3 as pm3
+from pymc3.distributions.discrete import DiscreteUniform
 import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
 
@@ -86,7 +90,7 @@ class PopulationEstimator:
                 1 + np.exp(alfa_m + esfuerzo_m * beta_m)
             )
             return np.array(probabilidadCaptura)
-
+        
         @stochastic(observed=True)
         def captures(p=catchProbability, nInicial=No, value=v_captures):
             salida = 0
@@ -97,6 +101,12 @@ class PopulationEstimator:
             return salida
 
         return locals()
+
+    def _Ramsey_model_pymc3(self, v_effort, v_captures):
+        with pm3.Model() as model_ramsey:
+            alpha = pm3.Normal("a_captura", mu=0.00, tau=1 / (2.50 * 2.50))
+            beta = pm3.Normal("b_captura", mu=0.00, tau=1 / (2.50 * 2.50))
+            No = pm3.DiscreteUniform("N_o", lower=sum(v_captures), upper=22000)
 
 
 def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float = 0.95):
