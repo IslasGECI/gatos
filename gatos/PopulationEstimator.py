@@ -73,7 +73,7 @@ class PopulationEstimator:
     def plot_Vmp_histogram(self):
         self.tamanios_poblacion.Vmp.hist()
 
-    def _Ramsey_model_pymc3(v_effort, v_captures, v_cumulative_captures):
+    def _Ramsey_model_pymc3(self, v_effort, v_captures, v_cumulative_captures):
         with pm3.Model() as model_ramsey:
             effort = pm3.Data("effort", v_effort)
             captures = pm3.Data("captures", v_captures)
