@@ -14,7 +14,7 @@ class CalculatorPValue:
         self.capturas = capturas
 
     def calculate_range_remanented_cats(self):
-        n_bins = max(self.datos.No.unique()) - min(self.datos.No.unique())
+        n_bins = int(np.ceil(max(self.datos.No.unique()) - min(self.datos.No.unique())))
         self.hist, self.bins = np.histogram(self.remanented_cats, bins=n_bins)
 
     def calculate_high_probability(self):
