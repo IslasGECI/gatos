@@ -65,9 +65,9 @@ class PopulationEstimator:
         for i in range(repeticiones):
             with Modelo_gatitos:
                 trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True)
-            results_df["a"] = results_df["a"].append(pd.Series(trace["alpha"]))
-            results_df["b"] = results_df["b"].append(pd.Series(trace["beta"]))
-            results_df["No"] = results_df["No"].append(pd.Series(trace["initial_population"]))
+            results_df["a"] = results_df["a"].append(pd.Series(trace["alpha"]), ignore_index=True)
+            results_df["b"] = results_df["b"].append(pd.Series(trace["beta"]), ignore_index=True)
+            results_df["No"] = results_df["No"].append(pd.Series(trace["initial_population"]), ignore_index=True)
         results_df.to_csv(self._nombre_archivo, index=False)
 
     def plot_Vmp_histogram(self):
