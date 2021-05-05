@@ -29,7 +29,7 @@ class PopulationEstimator:
     def __init__(self, esfuerzo: np.array, capturas: np.array, nombre_archivo):
         self.esfuerzo = esfuerzo
         self.capturas = capturas
-        self.capturas_acumuladas = np.cumsum(self.capturas)
+        self.capturas_acumuladas = np.cumsum(capturas)
         self._nombre_archivo = nombre_archivo
         self.tamanios_poblacion = None
 
