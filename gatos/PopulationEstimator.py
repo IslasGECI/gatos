@@ -1,12 +1,8 @@
-#from pymc import deterministic, MCMC, Normal  # type: ignore
-#from pymc import stochastic, DiscreteUniform, binomial_like  # type: ignore
-#from pymc.utils import hpd  # type: ignore
-
-
-import pymc3 as pm3
 from pymc3.distributions.discrete import DiscreteUniform
-import numpy as np  # type: ignore
-import pandas as pd  # type: ignore
+
+import numpy as np
+import pandas as pd
+import pymc3 as pm3
 
 
 class PopulationEstimator:
@@ -33,6 +29,7 @@ class PopulationEstimator:
     def __init__(self, esfuerzo: np.array, capturas: np.array, nombre_archivo):
         self.esfuerzo = esfuerzo
         self.capturas = capturas
+        self.capturas_acumuladas = np.cumsum(self.capturas)
         self._nombre_archivo = nombre_archivo
         self.tamanios_poblacion = None
 
@@ -63,50 +60,32 @@ class PopulationEstimator:
         Para borrar los archivos temporales se debe llamar al método
         `remove_temporal_data()`
         """
-        repeticion: int = 0
-        Modelo_gatitos: MCMC = MCMC(self._Ramsey_model(self.esfuerzo, self.capturas))
-        while repeticion < repeticiones:
-            Modelo_gatitos.sample(iter=iteraciones, burn=n_datos_descartados)
-            a = pd.Series(Modelo_gatitos.trace("a_captura")[:])
-            b = pd.Series(Modelo_gatitos.trace("b_captura")[:])
-            No = pd.Series(Modelo_gatitos.trace("N_o")[:])
-            repeticion += 1
-        print("\n")
-        pd.DataFrame({"a": a, "b": b, "No": No}).to_csv(self._nombre_archivo, index=False)
+        Modelo_gatitos = self._Ramsey_model_pymc3(self.esfuerzo, self.capturas, self.capturas_acumuladas)
+        results_df = pd.DataFrame({"a": [], "b": [], "No": []})
+        for i in range(repeticiones):
+            with Modelo_gatitos:
+                trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True)
+            results_df["a"].append(pd.Series(trace["alpha"]))
+            results_df["b"].append(pd.Series(trace["beta"]))
+            results_df["No"].append(pd.Series(trace["initial_population"]))
+        results_df.to_csv(self._nombre_archivo, index=False)
 
     def plot_Vmp_histogram(self):
         self.tamanios_poblacion.Vmp.hist()
 
-    def _Ramsey_model(self, v_effort, v_captures):
-        """Modelo jerarquico utilizado para determinar el tamaño de la población"""
-        alpha = Normal("a_captura", mu=0.00, tau=1 / (2.50 * 2.50))
-        beta = Normal("b_captura", mu=0.00, tau=1 / (2.50 * 2.50))
-        No = DiscreteUniform("N_o", lower=sum(v_captures), upper=22000)
-
-        @deterministic
-        def catchProbability(alfa_m=alpha, beta_m=beta, esfuerzo_m=v_effort):
-            probabilidadCaptura = []
-            probabilidadCaptura = np.exp(alfa_m + esfuerzo_m * beta_m) / (
-                1 + np.exp(alfa_m + esfuerzo_m * beta_m)
-            )
-            return np.array(probabilidadCaptura)
-        
-        @stochastic(observed=True)
-        def captures(p=catchProbability, nInicial=No, value=v_captures):
-            salida = 0
-            nAux = nInicial + 0
-            for iEvento in range(len(v_captures)):
-                salida += binomial_like(x=value[iEvento], n=nAux, p=p[iEvento])
-                nAux -= value[iEvento]
-            return salida
-
-        return locals()
-
-    def _Ramsey_model_pymc3(self, v_effort, v_captures):
+    def _Ramsey_model_pymc3(v_effort, v_captures, v_cumulative_captures):
         with pm3.Model() as model_ramsey:
-            alpha = pm3.Normal("a_captura", mu=0.00, tau=1 / (2.50 * 2.50))
-            beta = pm3.Normal("b_captura", mu=0.00, tau=1 / (2.50 * 2.50))
-            No = pm3.DiscreteUniform("N_o", lower=sum(v_captures), upper=22000)
+            effort = pm3.Data("effort", v_effort)
+            captures = pm3.Data("captures", v_captures)
+            cumulative_captures = pm3.Data("cumulative_captures", v_cumulative_captures)
+            alpha = pm3.Normal("alpha", mu=0.00, tau=1 / (2.50 * 2.50))
+            beta = pm3.Normal("beta", mu=0.00, tau=1 / (2.50 * 2.50))
+            linear_logistic_link = pm3.math.invlogit(alpha + beta*effort)
+            catch_probability = pm3.Deterministic('catch_probability', linear_logistic_link)
+            initial_population = pm3.DiscreteUniform("initial_population", lower=500, upper=22000)
+            initial_population_updated = pm3.Deterministic('initial_population_updated', initial_population-cumulative_captures)
+            captures_obs = pm3.Binomial("captures_obs", n=initial_population_updated, p=catch_probability, observed=captures)
+        return model_ramsey
 
 
 def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float = 0.95):
