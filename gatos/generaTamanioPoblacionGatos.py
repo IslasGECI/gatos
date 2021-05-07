@@ -36,5 +36,7 @@ def calculate(**argumentos):
         esfuerzo, capturas, argumentos["output_file"]
     )
     estimador_poblacion_inicial.run(
-        repeticiones=repeticiones, iteraciones=iteraciones, n_datos_descartados=int(np.ceil(iteraciones * 0.1))
+        repeticiones=repeticiones,
+        iteraciones=iteraciones,
+        n_datos_descartados=int(np.ceil(iteraciones * 0.1)),
     )

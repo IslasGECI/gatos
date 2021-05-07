@@ -1,5 +1,3 @@
-from pymc3.distributions.discrete import DiscreteUniform
-
 import numpy as np
 import pandas as pd
 import pymc3 as pm3
@@ -60,12 +58,16 @@ class PopulationEstimator:
         Para borrar los archivos temporales se debe llamar al método
         `remove_temporal_data()`
         """
-        Modelo_gatitos = self._Ramsey_model_pymc3(self.esfuerzo, self.capturas, self.capturas_acumuladas)
+        Modelo_gatitos = self._Ramsey_model_pymc3(
+            self.esfuerzo, self.capturas, self.capturas_acumuladas
+        )
         results_df = pd.DataFrame({"a": [], "b": [], "No": []})
         for i in range(repeticiones):
             with Modelo_gatitos:
                 trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True)
-            results_trace = pd.DataFrame({"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]})
+            results_trace = pd.DataFrame(
+                {"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]}
+            )
             results_df = results_df.append(results_trace, ignore_index=True)
         results_df.to_csv(self._nombre_archivo, index=False)
 
@@ -79,11 +81,15 @@ class PopulationEstimator:
             cumulative_captures = pm3.Data("cumulative_captures", v_cumulative_captures)
             alpha = pm3.Normal("alpha", mu=0.00, tau=1 / (2.50 * 2.50))
             beta = pm3.Normal("beta", mu=0.00, tau=1 / (2.50 * 2.50))
-            linear_logistic_link = pm3.math.invlogit(alpha + beta*effort)
-            catch_probability = pm3.Deterministic('catch_probability', linear_logistic_link)
+            linear_logistic_link = pm3.math.invlogit(alpha + beta * effort)
+            catch_probability = pm3.Deterministic("catch_probability", linear_logistic_link)
             initial_population = pm3.DiscreteUniform("initial_population", lower=500, upper=22000)
-            initial_population_updated = pm3.Deterministic('initial_population_updated', initial_population-cumulative_captures)
-            captures_obs = pm3.Binomial("captures_obs", n=initial_population_updated, p=catch_probability, observed=captures)
+            initial_population_updated = pm3.Deterministic(
+                "initial_population_updated", initial_population - cumulative_captures
+            )
+            captures_obs = pm3.Binomial(
+                "captures_obs", n=initial_population_updated, p=catch_probability, observed=captures
+            )
         return model_ramsey
 
 
