@@ -1,7 +1,7 @@
 all: mutants
 
 module = gatos
-codecov_token = 92c09c8a-f80e-4220-af6d-1b8bb79be8f1
+codecov_token = 6b2efeba-6b2f-4225-bf99-dbe2fa826423
 
 .PHONY: all check clean coverage format install linter mutants tests
 

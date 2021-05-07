@@ -17,6 +17,7 @@ RUN pip install --upgrade pip && \
     pylint-fail-under \
     pymc3 \
     pytest \
+    pytest-cov \
     rope
 
 CMD make
