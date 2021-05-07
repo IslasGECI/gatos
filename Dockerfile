@@ -19,5 +19,4 @@ RUN pip install --upgrade pip && \
     pytest \
     rope
 
-RUN pip install git+https://github.com/IslasGECI/metadata_tools.git@v0.2.2
 CMD make
