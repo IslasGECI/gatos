@@ -30,13 +30,11 @@ def calculate(**argumentos):
     capturas: np.array = np.array(DatosSocorro.get_value(nombre_capturas))
 
     # region Se busca el tamaño de la población
-    repeticiones = 3
     iteraciones = argumentos["iterations"]
     estimador_poblacion_inicial: PopulationEstimator = PopulationEstimator(
         esfuerzo, capturas, argumentos["output_file"]
     )
     estimador_poblacion_inicial.run(
-        repeticiones=repeticiones,
         iteraciones=iteraciones,
         n_datos_descartados=int(np.ceil(iteraciones * 0.1)),
     )

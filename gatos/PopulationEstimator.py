@@ -31,9 +31,7 @@ class PopulationEstimator:
         self._nombre_archivo = nombre_archivo
         self.tamanios_poblacion = None
 
-    def run(
-        self, repeticiones: int = 3, iteraciones: int = 6000000, n_datos_descartados: int = 30000
-    ):
+    def run(self, iteraciones: int = 6000000, n_datos_descartados: int = 30000):
         """Método encargado de correr el modelo de Ramsey una cierta cantidad de
         repeticiones para determinar el tamaño de la población.
 
@@ -41,10 +39,6 @@ class PopulationEstimator:
         se calcula el tamaño de la población.
 
         # Parámetros
-        `repeticiones int`
-
-        Número de repeticiones que se utilizarán para encontrar el tamaño inicial
-        de la población.
 
         `iter int`
 
@@ -64,7 +58,7 @@ class PopulationEstimator:
         results_df = pd.DataFrame({"a": [], "b": [], "No": []})
         for i in range(repeticiones):
             with Modelo_gatitos:
-                trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True)
+                trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False)
             results_trace = pd.DataFrame(
                 {"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]}
             )
@@ -79,8 +73,8 @@ class PopulationEstimator:
             effort = pm3.Data("effort", v_effort)
             captures = pm3.Data("captures", v_captures)
             cumulative_captures = pm3.Data("cumulative_captures", v_cumulative_captures)
-            alpha = pm3.Normal("alpha", mu=0.00, tau=1 / (2.50 * 2.50))
-            beta = pm3.Normal("beta", mu=0.00, tau=1 / (2.50 * 2.50))
+            alpha = pm3.Normal("alpha", mu=0.00, tau=1 /5 )
+            beta = pm3.Normal("beta", mu=0.00, tau=1 / 5 )
             linear_logistic_link = pm3.math.invlogit(alpha + beta * effort)
             catch_probability = pm3.Deterministic("catch_probability", linear_logistic_link)
             initial_population = pm3.DiscreteUniform("initial_population", lower=500, upper=22000)
