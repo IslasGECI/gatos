@@ -56,14 +56,12 @@ class PopulationEstimator:
             self.esfuerzo, self.capturas, self.capturas_acumuladas
         )
         results_df = pd.DataFrame({"a": [], "b": [], "No": []})
-        for i in range(repeticiones):
-            with Modelo_gatitos:
-                trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False)
-            results_trace = pd.DataFrame(
-                {"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]}
-            )
-            results_df = results_df.append(results_trace, ignore_index=True)
-        results_df.to_csv(self._nombre_archivo, index=False)
+        with Modelo_gatitos:
+            trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False)
+        results_trace = pd.DataFrame(
+            {"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]}
+        )
+        results_trace.to_csv(self._nombre_archivo, index=False)
 
     def plot_Vmp_histogram(self):
         self.tamanios_poblacion.Vmp.hist()
