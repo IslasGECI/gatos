@@ -57,7 +57,9 @@ class PopulationEstimator:
         )
         results_df = pd.DataFrame({"a": [], "b": [], "No": []})
         with Modelo_gatitos:
-            trace = pm3.sample(iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False)
+            trace = pm3.sample(
+                iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False
+            )
         results_trace = pd.DataFrame(
             {"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]}
         )
@@ -71,8 +73,8 @@ class PopulationEstimator:
             effort = pm3.Data("effort", v_effort)
             captures = pm3.Data("captures", v_captures)
             cumulative_captures = pm3.Data("cumulative_captures", v_cumulative_captures)
-            alpha = pm3.Normal("alpha", mu=0.00, tau=1 /5 )
-            beta = pm3.Normal("beta", mu=0.00, tau=1 / 5 )
+            alpha = pm3.Normal("alpha", mu=0.00, tau=1 / 5)
+            beta = pm3.Normal("beta", mu=0.00, tau=1 / 5)
             linear_logistic_link = pm3.math.invlogit(alpha + beta * effort)
             catch_probability = pm3.Deterministic("catch_probability", linear_logistic_link)
             initial_population = pm3.DiscreteUniform("initial_population", lower=500, upper=22000)
