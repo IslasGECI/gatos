@@ -82,7 +82,7 @@ class PopulationEstimator:
             initial_population_updated = pm3.Deterministic(
                 "initial_population_updated", initial_population - cumulative_captures
             )
-            captures_obs = pm3.Binomial(
+            captures_obs = pm3.Binomial(  # noqa
                 "captures_obs", n=initial_population_updated, p=catch_probability, observed=captures
             )
         return model_ramsey
