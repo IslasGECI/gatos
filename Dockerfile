@@ -10,12 +10,9 @@ RUN pip install --upgrade pip && \
     flake8 \
     mutmut \
     mypy \
-    numpy \
-    pandas \
     pandas-stubs \
     pylint \
     pylint-fail-under \
-    pymc3 \
     pytest \
     pytest-cov \
     rope
