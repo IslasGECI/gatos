@@ -1,5 +1,3 @@
-from pymc3.stats import hpd
-
 import numpy as np
 import pandas as pd
 import pymc3 as pm3
@@ -86,31 +84,6 @@ class PopulationEstimator:
                 "captures_obs", n=initial_population_updated, p=catch_probability, observed=captures
             )
         return model_ramsey
-
-
-def _find_quartil_hpd(archivo: str, porcentaje_datos_excluidos: float = 0.95):
-    """Función para encontrar el cuartil 2.5 y el Valor más probable del tamaño
-    inicial de la población.
-
-    # Parámetros
-    `archivo str`
-
-    Dirección del archivo donde se encuentra la distribución posterior de `No`.
-
-    `porcentaje_datos_excluidos float`
-
-    Porcentaje de los datos que no se va a considerar. `default=0.95`, esto quiere
-    decir que solo se considera el 5% de los datos.
-    """
-    datos: pd.DataFrame = pd.read_csv(archivo)
-    intervalo = hpd(datos.No, alpha=porcentaje_datos_excluidos)
-    return {
-        "q": datos.No.quantile(q=0.025),
-        "Vmp": intervalo.mean(),
-        "max": intervalo.max(),
-        "min": intervalo.min(),
-    }
-
 
 def calc_min_interval(x, alpha):
     """Internal method to determine the minimum interval of
