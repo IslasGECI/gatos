@@ -8,6 +8,7 @@ RUN pip install --upgrade pip && \
     click \
     codecov \
     flake8 \
+    hammett \
     mutmut \
     mypy \
     pandas-stubs \
