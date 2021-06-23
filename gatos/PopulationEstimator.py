@@ -55,7 +55,6 @@ class PopulationEstimator:
         Modelo_gatitos = self._Ramsey_model_pymc3(
             self.esfuerzo, self.capturas, self.capturas_acumuladas
         )
-        results_df = pd.DataFrame({"a": [], "b": [], "No": []})
         with Modelo_gatitos:
             trace = pm3.sample(
                 iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False
