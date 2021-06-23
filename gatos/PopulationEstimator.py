@@ -1,3 +1,5 @@
+from pymc3.stats import hpd
+
 import numpy as np
 import pandas as pd
 import pymc3 as pm3
