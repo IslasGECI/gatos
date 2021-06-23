@@ -85,6 +85,7 @@ class PopulationEstimator:
             )
         return model_ramsey
 
+
 def calc_min_interval(x, alpha):
     """Internal method to determine the minimum interval of
     a given width
