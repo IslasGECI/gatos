@@ -9,6 +9,8 @@ setup(
     install_requires=[
         "Click",
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
+        "numpy",
+        "pandas",
         "pymc3",
     ],
     entry_points={
