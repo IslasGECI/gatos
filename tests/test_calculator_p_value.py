@@ -7,11 +7,15 @@ import numpy as np  # type: ignore
 total_capturas = 15
 archivo = "tests/data/example.csv"
 
+calculador = CalculatorPValue()
+calculador.set_total_capturas(total_capturas)
+calculador.read_posterior(archivo)
+calculador.calculate_range_remanented_cats()
+calculador.calculate_high_probability()
+calculador.calculate_remanented_cat_more_probably()
+
 
 def test_read_posterior():
-    calculador = CalculatorPValue()
-    calculador.set_total_capturas(total_capturas)
-    calculador.read_posterior(archivo)
     expected_datos = pd.read_csv(archivo)
     assert_frame_equal(expected_datos, calculador.datos)
     expected_remanented_cats = expected_datos.No + total_capturas
@@ -19,17 +23,10 @@ def test_read_posterior():
 
 
 def test_set_total_capturas():
-    calculador = CalculatorPValue()
-    calculador.set_total_capturas(total_capturas)
     assert calculador.capturas == total_capturas
 
 
 def test_calculate_range_remanented_cats():
-    calculador = CalculatorPValue()
-    calculador.set_total_capturas(total_capturas)
-    calculador.read_posterior(archivo)
-    calculador.calculate_range_remanented_cats()
-
     expected_n_bins = max(calculador.datos.No.unique()) - min(calculador.datos.No.unique())
     expected_hist, expected_bins = np.histogram(calculador.remanented_cats, bins=expected_n_bins)
 
@@ -38,12 +35,6 @@ def test_calculate_range_remanented_cats():
 
 
 def test_calculate_high_probability():
-    calculador = CalculatorPValue()
-    calculador.set_total_capturas(total_capturas)
-    calculador.read_posterior(archivo)
-    calculador.calculate_range_remanented_cats()
-    calculador.calculate_high_probability()
-
     expected_n_bins = max(calculador.datos.No.unique()) - min(calculador.datos.No.unique())
     expected_hist, expected_bins = np.histogram(calculador.remanented_cats, bins=expected_n_bins)
 
@@ -55,13 +46,6 @@ def test_calculate_high_probability():
 
 
 def test_calculate_remanented_cat_more_probably():
-    calculador = CalculatorPValue()
-    calculador.set_total_capturas(total_capturas)
-    calculador.read_posterior(archivo)
-    calculador.calculate_range_remanented_cats()
-    calculador.calculate_high_probability()
-    calculador.calculate_remanented_cat_more_probably()
-
     expected_n_bins = max(calculador.datos.No.unique()) - min(calculador.datos.No.unique())
     expected_hist, expected_bins = np.histogram(calculador.remanented_cats, bins=expected_n_bins)
 
