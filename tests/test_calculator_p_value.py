@@ -39,8 +39,7 @@ class Test_CalculatorPValue:
         assert self.calculador.remanented_cat_more_probably == remanented_cat_more_probably
 
     def test_probability(self):
-        self.__set_calculate_remanented_cat_more_probably()
-        self.calculador.probability()
+        self.__set_probability()
         expected_probabilities = [33.33333333333333, 0.0, 66.66666666666666]
         obtained_probabilities = self.calculador.probabilidades.tolist()
         assert expected_probabilities == obtained_probabilities
@@ -60,3 +59,7 @@ class Test_CalculatorPValue:
     def __set_calculate_remanented_cat_more_probably(self):
         self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
         self.calculador.calculate_remanented_cat_more_probably()
+
+    def __set_probability(self):
+        self.__set_calculate_remanented_cat_more_probably()
+        self.calculador.probability()
