@@ -16,11 +16,16 @@ calculador.calculate_remanented_cat_more_probably()
 calculador.probability()
 
 class Test_CalculatorPValue:
+    def setup(self):
+        self.calculador = CalculatorPValue()
+        self.calculador.set_total_capturas(total_capturas)
+        self.calculador.read_posterior(archivo)
+
     def test_read_posterior(self):
         expected_datos = pd.read_csv(archivo)
-        assert_frame_equal(expected_datos, calculador.datos)
+        assert_frame_equal(expected_datos, self.calculador.datos)
         expected_remanented_cats = expected_datos.No + total_capturas
-        assert expected_remanented_cats[0] != calculador.remanented_cats[0]
+        assert expected_remanented_cats[0] != self.calculador.remanented_cats[0]
 
 
     def test_set_total_capturas(self):
@@ -28,11 +33,12 @@ class Test_CalculatorPValue:
 
 
     def test_calculate_range_remanented_cats(self):
-        expected_n_bins = max(calculador.datos.No.unique()) - min(calculador.datos.No.unique())
-        expected_hist, expected_bins = np.histogram(calculador.remanented_cats, bins=expected_n_bins)
+        self.calculador.calculate_range_remanented_cats()
+        expected_n_bins = max(self.calculador.datos.No.unique()) - min(self.calculador.datos.No.unique())
+        expected_hist, expected_bins = np.histogram(self.calculador.remanented_cats, bins=expected_n_bins)
 
-        np.testing.assert_array_equal(calculador.bins, expected_bins)
-        np.testing.assert_array_equal(calculador.hist, expected_hist)
+        np.testing.assert_array_equal(self.calculador.bins, expected_bins)
+        np.testing.assert_array_equal(self.calculador.hist, expected_hist)
 
 
     def test_calculate_high_probability(self):
