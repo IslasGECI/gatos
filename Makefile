@@ -37,7 +37,7 @@ linter:
 	$(call lint, tests)
 
 mutants: install
-	mutmut run --paths-to-mutate ${module} --runner 'python -m hammett -x'
+	mutmut run --paths-to-mutate ${module} --runner 'pytest'
 
 tests: install
 	pytest --verbose
