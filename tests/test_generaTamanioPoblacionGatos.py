@@ -10,6 +10,7 @@ def test_crea_tamagno_poblacion_gatos_help():
     is_there = re.search(expected, obtained_version)
     assert is_there
 
+
 def test_crea_tamagno_poblacion_gatos_calculate_help():
     bash_command = "crea_tamagno_poblacion_gatos calculate --help"
     subprocess.check_call(bash_command, shell=True)

@@ -10,7 +10,7 @@ from gatos.PopulationEstimator import PopulationEstimator
 import metadatatools  # type: ignore
 
 
-#@click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
+# @click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
 @click.group()
 def cli():
     pass
