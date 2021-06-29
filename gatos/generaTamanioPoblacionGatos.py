@@ -1,5 +1,4 @@
 import click
-from click_default_group import DefaultGroup  # type: ignore
 
 # Programa para crear `json`` del tamaño de la población a partir de archivos
 # que contienen las distribuciones posteriores.
@@ -11,7 +10,8 @@ from gatos.PopulationEstimator import PopulationEstimator
 import metadatatools  # type: ignore
 
 
-@click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
+# @click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
+@click.group()
 def cli():
     pass
 
@@ -30,11 +30,11 @@ def calculate(**argumentos):
     capturas: np.array = np.array(DatosSocorro.get_value(nombre_capturas))
 
     # region Se busca el tamaño de la población
-    repeticiones = 3
     iteraciones = argumentos["iterations"]
     estimador_poblacion_inicial: PopulationEstimator = PopulationEstimator(
         esfuerzo, capturas, argumentos["output_file"]
     )
     estimador_poblacion_inicial.run(
-        repeticiones=repeticiones, iteraciones=iteraciones, n_datos_descartados=iteraciones * 0.1
+        iteraciones=iteraciones,
+        n_datos_descartados=int(np.ceil(iteraciones * 0.1)),
     )

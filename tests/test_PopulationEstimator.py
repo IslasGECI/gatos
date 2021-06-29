@@ -1,12 +1,21 @@
 from gatos.PopulationEstimator import PopulationEstimator
 
 
-def test_init():
-    catch = [1, 2]
-    effort = [100, 200]
-    file_name = "nombre_archivo"
-    Estimator = PopulationEstimator(effort, catch, file_name)
-    assert Estimator.esfuerzo == effort
-    assert Estimator.capturas == catch
-    assert Estimator._nombre_archivo == file_name
-    assert Estimator.tamanios_poblacion is None
+class Test_PopulationEstimator:
+    def setup(self):
+        effort = [100, 200]
+        catch = [1, 2]
+        file_name = "nombre_archivo"
+        self.Estimator = PopulationEstimator(effort, catch, file_name)
+
+    def test_init(self):
+        expected_effort = [100, 200]
+        expected_catch = [1, 2]
+        expected_file_name = "nombre_archivo"
+        assert self.Estimator.esfuerzo == expected_effort
+        assert self.Estimator.capturas == expected_catch
+        assert self.Estimator._nombre_archivo == expected_file_name
+        assert self.Estimator.tamanios_poblacion is None
+
+    def test_run(self):
+        self.Estimator.run(iteraciones=100, n_datos_descartados=3)
