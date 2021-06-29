@@ -1,7 +1,7 @@
 from gatos.PopulationEstimator import PopulationEstimator
 
 
-class Test_PopulationEstimator():
+class Test_PopulationEstimator:
     def setup(self):
         effort = [100, 200]
         catch = [1, 2]
@@ -18,5 +18,4 @@ class Test_PopulationEstimator():
         assert self.Estimator.tamanios_poblacion is None
 
     def test_run(self):
-        self.Estimator.run(iteraciones = 100, n_datos_descartados = 3)
-        
+        self.Estimator.run(iteraciones=100, n_datos_descartados=3)
