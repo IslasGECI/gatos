@@ -1,5 +1,4 @@
 import click
-from click_default_group import DefaultGroup  # type: ignore
 
 # Programa para crear `json`` del tamaño de la población a partir de archivos
 # que contienen las distribuciones posteriores.
@@ -11,7 +10,8 @@ from gatos.PopulationEstimator import PopulationEstimator
 import metadatatools  # type: ignore
 
 
-@click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
+#@click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
+@click.group()
 def cli():
     pass
 
