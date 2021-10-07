@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import pymc3 as pm3
+import arviz as az
+from geci_plots import geci_plot
 
 
 class PopulationEstimator:
@@ -30,6 +32,13 @@ class PopulationEstimator:
         self.capturas_acumuladas = np.cumsum(capturas)
         self._nombre_archivo = nombre_archivo
         self.tamanios_poblacion = None
+        self.trace = None
+        self.cats_model = None
+
+    def init_model(self):
+        return self._Ramsey_model_pymc3(
+            self.esfuerzo, self.capturas, self.capturas_acumuladas
+        )
 
     def run(self, iteraciones: int = 6000000, n_datos_descartados: int = 30000):
         """Método encargado de correr el modelo de Ramsey una cierta cantidad de
@@ -52,15 +61,14 @@ class PopulationEstimator:
         Para borrar los archivos temporales se debe llamar al método
         `remove_temporal_data()`
         """
-        Modelo_gatitos = self._Ramsey_model_pymc3(
-            self.esfuerzo, self.capturas, self.capturas_acumuladas
-        )
-        with Modelo_gatitos:
-            trace = pm3.sample(
+        self.cats_model = init_model()
+
+        with self.cats_model:
+            self.trace = pm3.sample(
                 iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False
             )
         results_trace = pd.DataFrame(
-            {"a": trace["alpha"], "b": trace["beta"], "No": trace["initial_population"]}
+            {"a": self.trace["alpha"], "b": self.trace["beta"], "No": self.trace["initial_population"]}
         )
         results_trace.to_csv(self._nombre_archivo, index=False)
 
@@ -84,6 +92,20 @@ class PopulationEstimator:
                 "captures_obs", n=initial_population_updated, p=catch_probability, observed=captures
             )
         return model_ramsey
+
+        def run_loo_diagnostic(self, plot_path):
+            df_loo = az.loo(self.trace)
+            print(df_loo)
+            fig , ax = geci_plot()
+            az.plot_khat(df_loo, ax=ax)
+            ax.set_ylim(0,2)
+            plt.savefig(plot_path, transparent=True, dpi=300)
+
+        def run_waic_diagnostic(self):
+            df_waic = az.waic(self.trace)
+            print(df_waic)
+
+
 
 
 def calc_min_interval(x, alpha):
