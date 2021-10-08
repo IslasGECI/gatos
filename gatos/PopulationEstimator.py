@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pymc3 as pm3
 import arviz as az
-from geci_plots import geci_plot
+from geci_plots import geci_plot, roundup
 
 
 class PopulationEstimator:
@@ -93,20 +93,31 @@ class PopulationEstimator:
             )
         return model_ramsey
 
-        def run_loo_diagnostic(self, plot_path):
-            df_loo = az.loo(self.trace)
-            print(df_loo)
-            fig , ax = geci_plot()
-            az.plot_khat(df_loo, ax=ax)
-            ax.set_ylim(0,2)
-            plt.savefig(plot_path, transparent=True, dpi=300)
+    def run_loo_diagnostic(self, plot_path):
+        df_loo = az.loo(self.trace)
+        print(df_loo)
+        fig , ax = geci_plot()
+        az.plot_khat(df_loo, ax=ax)
+        ax.set_ylim(0,2)
+        plt.savefig(plot_path, transparent=True, dpi=300)
 
-        def run_waic_diagnostic(self):
-            df_waic = az.waic(self.trace)
-            print(df_waic)
+    def run_waic_diagnostic(self):
+        df_waic = az.waic(self.trace)
+        print(df_waic)
 
+    def sample_predictive_posterior(self):
+        self.ppc = pm3.sample_ppc(self.trace, model=self.cats_model, samples=100)
 
-
+    def plot_data_and_predictive_points(self, plot_path):
+        fig , ax = geci_plot()
+        ax.plot(self.ppc['captures_obs'].T, 'o', color='k', alpha=.025)
+        ax.plot(self.capturas, 'o', color='red')
+        ax.set_ylabel("Captures", size=20)
+        ax.set_xlabel("Months", size=20)
+        ax.tick_params(labelsize=20)
+        ax.set_ylim(-1,80)
+        ax.set_xlim(-1, roundup(len(self.capturas),10))
+        plt.savefig(plot_path, transparent=True, dpi=300)
 
 def calc_min_interval(x, alpha):
     """Internal method to determine the minimum interval of
