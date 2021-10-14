@@ -8,10 +8,11 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "Click",
+        "geci_plots",
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
         "numpy",
         "pandas",
-        "pymc3",
+        "pymc3"
     ],
     entry_points={
         "console_scripts": [
