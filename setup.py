@@ -9,6 +9,7 @@ setup(
     install_requires=[
         "Click",
         "geci_plots @ git+https://github.com/IslasGECI/geci_plots.git@v0.4.0",
+        "matplotlib",
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
         "numpy",
         "pandas",

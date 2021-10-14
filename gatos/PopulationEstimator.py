@@ -3,6 +3,7 @@ import pandas as pd
 import pymc3 as pm3
 import arviz as az
 from geci_plots import geci_plot, roundup
+import matplotlib.pyplot as plt
 
 RANDOM_SEED = 22
 
