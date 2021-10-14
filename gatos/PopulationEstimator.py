@@ -31,6 +31,8 @@ class PopulationEstimator:
         self.capturas = capturas
         self.capturas_acumuladas = np.cumsum(capturas)
         self._nombre_archivo = nombre_archivo
+        self.json_output_path = "reports/non-tabular/"
+        self.plot_output_path = "reports/figures/" 
         self.tamanios_poblacion = None
         self.trace = None
         self.cats_model = None
@@ -93,22 +95,30 @@ class PopulationEstimator:
             )
         return model_ramsey
 
-    def run_loo_diagnostic(self, plot_path):
+    def run_model_diagnostics(self):
+        self.sample_predictive_posterior()
+        self.run_loo_diagnostic()
+        self.run_waic_diagnostic()
+        self.plot_data_and_predictive_points()
+
+    def run_loo_diagnostic(self, plot_name="loo_diagnostic.png"):
         df_loo = az.loo(self.trace)
         print(df_loo)
+        df_loo[['loo', 'loo_se', 'p_loo']].to_json(self.json_output_path + "loo_results.json")
         fig , ax = geci_plot()
         az.plot_khat(df_loo, ax=ax)
         ax.set_ylim(0,2)
-        plt.savefig(plot_path, transparent=True, dpi=300)
+        plt.savefig(self.plot_output_path + plot_name, transparent=True, dpi=300)
 
     def run_waic_diagnostic(self):
         df_waic = az.waic(self.trace)
         print(df_waic)
+        df_loo.keys(['waic', 'waic_se', 'p_waic']).to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
         self.ppc = pm3.sample_ppc(self.trace, model=self.cats_model, samples=100)
 
-    def plot_data_and_predictive_points(self, plot_path):
+    def plot_data_and_predictive_points(self, plot_name="predictive_posterior.png"):
         fig , ax = geci_plot()
         ax.plot(self.ppc['captures_obs'].T, 'o', color='k', alpha=.025)
         ax.plot(self.capturas, 'o', color='red')
@@ -117,7 +127,7 @@ class PopulationEstimator:
         ax.tick_params(labelsize=20)
         ax.set_ylim(-1,80)
         ax.set_xlim(-1, roundup(len(self.capturas),10))
-        plt.savefig(plot_path, transparent=True, dpi=300)
+        plt.savefig(self.plot_output_path + plot_name, transparent=True, dpi=300)
 
 def calc_min_interval(x, alpha):
     """Internal method to determine the minimum interval of
