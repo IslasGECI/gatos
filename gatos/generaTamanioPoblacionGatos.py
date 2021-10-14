@@ -38,3 +38,4 @@ def calculate(**argumentos):
         iteraciones=iteraciones,
         n_datos_descartados=int(np.ceil(iteraciones * 0.1)),
     )
+    estimador_poblacion_inicial.run_model_diagnostics()
