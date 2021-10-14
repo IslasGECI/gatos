@@ -103,7 +103,7 @@ class PopulationEstimator:
         self.plot_data_and_predictive_points()
 
     def run_loo_diagnostic(self, plot_name="loo_diagnostic.png"):
-        df_loo = az.loo(self.trace)
+        df_loo = az.loo(self.trace, pointwise=True)
         print(df_loo)
         df_loo[['loo', 'loo_se', 'p_loo']].to_json(self.json_output_path + "loo_results.json")
         fig , ax = geci_plot()
