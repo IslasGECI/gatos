@@ -63,7 +63,7 @@ class PopulationEstimator:
         Para borrar los archivos temporales se debe llamar al método
         `remove_temporal_data()`
         """
-        self.cats_model = init_model()
+        self.cats_model = self.init_model()
 
         with self.cats_model:
             self.trace = pm3.sample(
