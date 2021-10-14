@@ -115,7 +115,7 @@ class PopulationEstimator:
     def run_waic_diagnostic(self):
         df_waic = az.waic(self.trace)
         print(df_waic)
-        df_waic.keys(['waic', 'waic_se', 'p_waic']).to_json(self.json_output_path + "waic_results.json")
+        df_waic[['waic', 'waic_se', 'p_waic']].to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
         self.ppc = pm3.sample_posterior_predictive(self.trace, model=self.cats_model, samples=100, random_seed=RANDOM_SEED)
