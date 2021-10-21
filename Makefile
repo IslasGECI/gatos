@@ -5,6 +5,15 @@ codecov_token = 6b2efeba-6b2f-4225-bf99-dbe2fa826423
 
 .PHONY: all check clean coverage format install linter mutants tests
 
+define lint
+	pylint \
+        --disable=bad-continuation \
+        --disable=missing-class-docstring \
+        --disable=missing-function-docstring \
+        --disable=missing-module-docstring \
+        ${1}
+endef
+
 check:
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 tests
