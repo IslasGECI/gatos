@@ -1,0 +1,6 @@
+.coverage
+.devcontainer
+*cache*
+*egg-info
+coverage.xml
+nombre_archivo
