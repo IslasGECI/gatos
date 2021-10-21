@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 RANDOM_SEED = 22
 
+
 class PopulationEstimator:
     """Clase encargada de encontrar el tamaño inicial de la población utilizando
     el método de Ramsey
@@ -34,15 +35,13 @@ class PopulationEstimator:
         self.capturas_acumuladas = np.cumsum(capturas)
         self._nombre_archivo = nombre_archivo
         self.json_output_path = "reports/non-tabular/"
-        self.plot_output_path = "reports/figures/" 
+        self.plot_output_path = "reports/figures/"
         self.tamanios_poblacion = None
         self.trace = None
         self.cats_model = None
 
     def init_model(self):
-        return self._Ramsey_model_pymc3(
-            self.esfuerzo, self.capturas, self.capturas_acumuladas
-        )
+        return self._Ramsey_model_pymc3(self.esfuerzo, self.capturas, self.capturas_acumuladas)
 
     def run(self, iteraciones: int = 6000000, n_datos_descartados: int = 30000):
         """Método encargado de correr el modelo de Ramsey una cierta cantidad de
@@ -72,7 +71,11 @@ class PopulationEstimator:
                 iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False
             )
         results_trace = pd.DataFrame(
-            {"a": self.trace["alpha"], "b": self.trace["beta"], "No": self.trace["initial_population"]}
+            {
+                "a": self.trace["alpha"],
+                "b": self.trace["beta"],
+                "No": self.trace["initial_population"],
+            }
         )
         results_trace.to_csv(self._nombre_archivo, index=False)
 
@@ -106,30 +109,33 @@ class PopulationEstimator:
     def run_loo_diagnostic(self, plot_name="loo_diagnostic.png"):
         df_loo = az.loo(self.trace, pointwise=True)
         print(df_loo)
-        df_loo[['loo', 'loo_se', 'p_loo']].to_json(self.json_output_path + "loo_results.json")
-        fig , ax = geci_plot()
+        df_loo[["loo", "loo_se", "p_loo"]].to_json(self.json_output_path + "loo_results.json")
+        fig, ax = geci_plot()
         az.plot_khat(df_loo, ax=ax)
-        ax.set_ylim(0,2)
+        ax.set_ylim(0, 2)
         plt.savefig(self.plot_output_path + plot_name, transparent=True, dpi=300)
 
     def run_waic_diagnostic(self):
         df_waic = az.waic(self.trace)
         print(df_waic)
-        df_waic[['waic', 'waic_se', 'p_waic']].to_json(self.json_output_path + "waic_results.json")
+        df_waic[["waic", "waic_se", "p_waic"]].to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
-        self.ppc = pm3.sample_posterior_predictive(self.trace, model=self.cats_model, samples=100, random_seed=RANDOM_SEED)
+        self.ppc = pm3.sample_posterior_predictive(
+            self.trace, model=self.cats_model, samples=100, random_seed=RANDOM_SEED
+        )
 
     def plot_data_and_predictive_points(self, plot_name="predictive_posterior.png"):
-        fig , ax = geci_plot()
-        ax.plot(self.ppc['captures_obs'].T, 'o', color='k', alpha=.025)
-        ax.plot(self.capturas, 'o', color='red')
+        fig, ax = geci_plot()
+        ax.plot(self.ppc["captures_obs"].T, "o", color="k", alpha=0.025)
+        ax.plot(self.capturas, "o", color="red")
         ax.set_ylabel("Captures", size=20)
         ax.set_xlabel("Months", size=20)
         ax.tick_params(labelsize=20)
-        ax.set_ylim(-1,80)
-        ax.set_xlim(-1, roundup(len(self.capturas),10))
+        ax.set_ylim(-1, 80)
+        ax.set_xlim(-1, roundup(len(self.capturas), 10))
         plt.savefig(self.plot_output_path + plot_name, transparent=True, dpi=300)
+
 
 def calc_min_interval(x, alpha):
     """Internal method to determine the minimum interval of
