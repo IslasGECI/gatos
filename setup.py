@@ -13,7 +13,7 @@ setup(
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
         "numpy",
         "pandas",
-        "pymc3"
+        "pymc3",
     ],
     entry_points={
         "console_scripts": [

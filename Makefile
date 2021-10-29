@@ -26,8 +26,10 @@ endef
 check:
 	black --check --line-length 100 ${module}
 	black --check --line-length 100 tests
+	black --line-length 100 setup.py
 	flake8 --max-line-length 100 ${module}
 	flake8 --max-line-length 100 tests
+	flake8 --max-line-length 100 setup.py
 
 clean:
 	rm --force .mutmut-cache
@@ -46,6 +48,7 @@ coverage: install
 format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
+	black --line-length 100 setup.py
 
 install:
 	pip install --editable .
