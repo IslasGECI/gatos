@@ -1,0 +1,73 @@
+{
+    "name": "esfuerzos_capturas_gatos_socorro",
+    "schema": "tabular-data-package",
+    "profile": "tabular-data-package",
+    "institution": "Grupo de Ecología y Conservación de Islas",
+    "resources": [
+        {
+            "path": "esfuerzo_capturas_mensuales_gatos_socorro.csv",
+            "profile": "tabular-data-resource",
+            "name": "esfuerzo_capturas_mensuales_gatos_socorro",
+            "format": "csv",
+            "mediatype": "text/csv",
+            "encoding": "utf-8",
+            "title": "Monthly effort and catches of feral cat eradication on Socorro island",
+            "titulo": "Esfuerzos y capturas mensuales de gato feral en isla Socorro",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "Esfuerzo",
+                        "type": "integer",
+                        "format": "default",
+                        "constraints": {
+                            "minimum": 0
+                        },
+                        "description": "Indica la cantidad de trampas por noche utilizadas para la erradicación",
+                        "long_name": "Effort",
+                        "nombre_largo": "Esfuerzo"
+                    },
+                    {
+                        "name": "Capturas",
+                        "type": "integer",
+                        "format": "default",
+                        "constraints": {
+                            "minimum": 0
+                        },
+                        "description": "Indica la cantidad de capturas de gatos realizadas hasta la fecha indicada",
+                        "long_name": "Cat catchs",
+                        "nombre_largo": "Capturas de gatos"
+                    },
+                    {
+                        "name": "Fecha",
+                        "type": "string",
+                        "format": "default",
+                        "constraints": {
+                            "pattern": "20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])"
+                        },
+                        "description": "Indica la fecha a la que corresponde el resumen semanal o mensual de las capturas y esfuerzo. Formato: 'yyyy-mm-dd'",
+                        "long_name": "Fecha",
+                        "nombre_largo": "Date", 
+                        "axis": "T"
+                    },
+                    {
+                        "name": "Tramperos",
+                        "type": "integer",
+                        "format": "default",
+                        "constraints": {
+                            "minimum": 0
+                        },
+                        "description": "Indica el número de tramperos en ese mes",
+                        "long_name": "Tramperos",
+                        "nombre_largo": "Trappers"
+                    }
+                ],
+                "missingValues": [
+                    "NA"
+                ],
+                "primaryKey": [
+                    "Fecha"
+                ]
+            }
+        }
+    ]
+}
