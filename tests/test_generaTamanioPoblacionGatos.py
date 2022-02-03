@@ -1,6 +1,6 @@
 import metadatatools
 from pandas.util.testing import assert_frame_equal
-from gatos.generaTamanioPoblacionGatos import *
+from gatos.generaTamanioPoblacionGatos import get_effort
 import subprocess
 import re
 
