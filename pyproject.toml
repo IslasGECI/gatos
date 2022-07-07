@@ -1,0 +1,25 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+author = "Ciencia de Datos • GECI"
+author-email = "ciencia.datos@islas.org.mx"
+classifiers = [ "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",]
+description-file = "README.md"
+home-page = "https://github.com/IslasGECI/gatos"
+module = "gatos"
+requires = [
+        "Click",
+        "geci_plots @ git+https://github.com/IslasGECI/geci_plots.git@v0.4.2",
+        "matplotlib",
+        "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
+        "numpy",
+        "pandas",
+        "pymc3"
+    ]
+requires-python=">=3.8"
+
+[tool.flit.scripts]
+crea_tabla_pvalor = "gatos.tabla_p_valor_erradicacion_gatos:cli"
+crea_tamagno_poblacion_gatos = "gatos.generaTamanioPoblacionGatos:cli"
