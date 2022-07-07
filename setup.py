@@ -8,7 +8,7 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "Click",
-        "geci_plots @ git+https://github.com/IslasGECI/geci_plots.git@v0.4.0",
+        "geci_plots @ git+https://github.com/IslasGECI/geci_plots.git@v0.4.2",
         "matplotlib",
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
         "numpy",
