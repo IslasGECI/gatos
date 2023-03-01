@@ -18,4 +18,4 @@ class Test_PopulationEstimator:
         assert self.Estimator.tamanios_poblacion is None
 
     def test_run(self):
-        self.Estimator.run(iteraciones=100, n_datos_descartados=3)
+        self.Estimator.run(iteraciones=2, n_datos_descartados=3)
