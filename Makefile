@@ -6,9 +6,11 @@ all: check coverage mutants
 		clean \
 		coverage \
 		format \
+		init \
 		install \
 		linter \
 		mutants \
+		setup \
 		tests
 
 module = gatos
@@ -47,6 +49,8 @@ format:
 	black --line-length 100 ${module}
 	black --line-length 100 tests
 
+init: setup tests
+
 install:
 	pip install --editable .
 
@@ -57,5 +61,7 @@ linter:
 mutants: install
 	mutmut run --paths-to-mutate ${module} --runner 'pytest'
 
-tests: install
+setup: clean install
+
+tests:
 	pytest --verbose
