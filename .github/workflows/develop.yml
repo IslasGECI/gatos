@@ -15,8 +15,12 @@ jobs:
       run: docker run islasgeci/gatos:latest make check
     - name: Corre pruebas y evalúa cobertura
       run: docker run islasgeci/gatos:latest make coverage
-    - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/gatos:latest make mutants
+    - name: Create/Update tag
+      uses: rickstaa/action-create-tag@v1.5.4
+      with:
+        tag: "latest"
+        message: "Latest release"
+        force_push_tag: true
     - name: Docker log-in
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -26,3 +30,9 @@ jobs:
       run: docker push islasgeci/gatos:latest
     - name: Sube sha a Docker Hub
       run: docker push islasgeci/gatos:${GITHUB_SHA:0:4}
+  Run mutants:
+    name: Run mutation testing 👾
+    runs-on: ubuntu-latest
+    steps:
+    - name: Evalúa resistencia a mutaciones
+      run: docker run islasgeci/gatos:latest make mutants
