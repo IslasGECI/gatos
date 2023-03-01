@@ -30,7 +30,7 @@ jobs:
       run: docker push islasgeci/gatos:latest
     - name: Sube sha a Docker Hub
       run: docker push islasgeci/gatos:${GITHUB_SHA:0:4}
-  Run mutants:
+  run-mutants:
     name: Run mutation testing 👾
     runs-on: ubuntu-latest
     steps:
