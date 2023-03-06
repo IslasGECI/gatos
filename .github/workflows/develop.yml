@@ -30,6 +30,12 @@ jobs:
       run: docker push islasgeci/gatos:latest
     - name: Sube sha a Docker Hub
       run: docker push islasgeci/gatos:${GITHUB_SHA:0:4}
+    - name: Create/Update tag
+      uses: rickstaa/action-create-tag@v1.5.4
+      with:
+        tag: "latest"
+        message: "Latest release"
+        force_push_tag: true
   run-mutants:
     name: Run mutation testing 👾
     runs-on: ubuntu-latest
