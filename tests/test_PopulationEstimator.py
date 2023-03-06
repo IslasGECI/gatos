@@ -2,7 +2,7 @@ from gatos.PopulationEstimator import PopulationEstimator
 
 
 class Test_PopulationEstimator:
-    def setup(self):
+    def setup_method(self):
         effort = [100, 200]
         catch = [1, 2]
         file_name = "nombre_archivo"

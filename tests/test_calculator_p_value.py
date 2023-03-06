@@ -1,5 +1,5 @@
 from gatos.calculator_p_value import CalculatorPValue
-from pandas.util.testing import assert_frame_equal
+from pandas.testing import assert_frame_equal
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 
@@ -9,7 +9,7 @@ archivo = "tests/data/example.csv"
 
 
 class Test_CalculatorPValue:
-    def setup(self):
+    def setup_method(self):
         self.calculador = CalculatorPValue()
         self.calculador.set_total_capturas(total_capturas)
         self.calculador.read_posterior(archivo)
