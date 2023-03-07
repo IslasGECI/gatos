@@ -1,7 +1,8 @@
 from gatos import (
     get_capture_and_effort_by_zone,
-    write_effort_and_captures_by_zone,
     get_yearly_capture_and_effort_by_zone,
+    select_effort_and_captures_by_year,
+    write_effort_and_captures_by_zone_for_year,
 )
 
 import pandas as pd
@@ -18,11 +19,11 @@ def test_get_capture_and_effort_by_zone():
     obtained_columns = obtained.columns
     assert (obtained_columns == expected_columns).all()
 
-    expected_dates = ["2023-01", "2023-02", "2023-03"]
+    expected_dates = ["2022-03", "2023-01", "2023-02", "2023-03"]
     obtained_dates = obtained.Date.unique()
     assert (expected_dates == obtained_dates).all()
 
-    expected_length = 15
+    expected_length = 18
     obtained_length = len(obtained)
     assert obtained_length == expected_length
 
@@ -34,18 +35,30 @@ def test_get_yearly_capture_and_effort_by_zone():
     obtained_columns = obtained.columns
     assert (obtained_columns == expected_columns).all()
 
-    expected_dates = ["2023"]
+    expected_dates = ["2022", "2023"]
     obtained_dates = obtained.Date.unique()
     assert (expected_dates == obtained_dates).all()
 
-    expected_length = 8
+    expected_length = 11
     obtained_length = len(obtained)
     assert obtained_length == expected_length
 
-    assert False
+
+def test_select_effort_and_captures_by_year():
+    multiyear_data = pd.read_csv(
+        "tests/data/yearly_capture_and_effort_by_zone.csv", dtype={"Date": str}
+    )
+    year = "2022"
+    selected_data = select_effort_and_captures_by_year(multiyear_data, year)
+    expected_length = 8
+    obtained_length = len(selected_data)
+    assert obtained_length == expected_length
 
 
 def test_write_effort_and_captures_by_zone():
     output_path = "tests/data/effort_and_captures_by_zone.csv"
-    write_effort_and_captures_by_zone(input_path, output_path)
+    if os.path.exists(output_path):
+        os.remove(output_path)
+    year = "2022"
+    write_effort_and_captures_by_zone_for_year(input_path, output_path, year)
     assert os.path.exists(output_path)

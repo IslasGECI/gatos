@@ -6,13 +6,20 @@ app = typer.Typer()
 
 
 @app.command()
-def write_effort_and_captures_by_zone(
+def write_effort_and_captures_by_zone_for_year(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
+    year: str = typer.Option("", help="Year of interest"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)
-    grouped_data = get_monthly_capture_and_effort_by_zone(weekly_effort_and_capture)
-    grouped_data.to_csv(output_path, index=False)
+    grouped_data = get_yearly_capture_and_effort_by_zone(weekly_effort_and_capture)
+    print(year)
+    data_for_year = select_effort_and_captures_by_year(grouped_data, year)
+    data_for_year.to_csv(output_path, index=False)
+
+
+def select_effort_and_captures_by_year(multiyear_data, year):
+    return multiyear_data[multiyear_data["Date"].str.contains(year)]
 
 
 def get_capture_and_effort_by_zone(weekly_effort_and_captures_data: pd.DataFrame):
@@ -23,29 +30,25 @@ def get_capture_and_effort_by_zone(weekly_effort_and_captures_data: pd.DataFrame
     return get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data)
 
 
-def get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data: pd.DataFrame):
-    return get_year_and_month_from_date(weekly_effort_and_captures_data)
-
-
-def get_yearly_capture_and_effort_by_zone(weekly_effort_and_captures_data: pd.DataFrame):
-    return get_year_from_date(weekly_effort_and_captures_data)
-
-
-def get_year_and_month_from_date(weekly_effort_and_captures_data):
+def get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
     string_length = 7
-    return cut_date_string(weekly_effort_and_captures_data, string_length)
+    return get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length)
 
 
-def get_year_from_date(weekly_effort_and_captures_data):
+def get_yearly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
     string_length = 4
-    return cut_date_string(weekly_effort_and_captures_data, string_length)
+    return get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length)
+
+
+def get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length):
+    weekly_effort_and_captures_data.Fecha = cut_date_string(
+        weekly_effort_and_captures_data, string_length
+    )
+    return sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data)
 
 
 def cut_date_string(weekly_effort_and_captures_data, string_length):
-    weekly_effort_and_captures_data.Fecha = weekly_effort_and_captures_data.Fecha.apply(
-        lambda x: x[0:string_length]
-    )
-    return sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data)
+    return weekly_effort_and_captures_data.Fecha.apply(lambda x: x[0:string_length])
 
 
 def sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data):
