@@ -9,11 +9,10 @@ app = typer.Typer()
 def write_effort_and_captures_by_zone_for_year(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
-    year: str = typer.Option("", help="Year of interest"),
+    year: str = typer.Option("2022", help="Year of interest"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)
     grouped_data = get_yearly_capture_and_effort_by_zone(weekly_effort_and_capture)
-    print(year)
     data_for_year = select_effort_and_captures_by_year(grouped_data, year)
     data_for_year.to_csv(output_path, index=False)
 
