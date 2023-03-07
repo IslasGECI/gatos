@@ -16,6 +16,7 @@ RUN pip install --upgrade pip && \
     pylint-fail-under \
     pytest \
     pytest-cov \
-    rope
+    rope \
+    typer
 
 CMD make
