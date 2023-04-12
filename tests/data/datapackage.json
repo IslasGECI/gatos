@@ -1,0 +1,71 @@
+{
+    "name": "esfuerzos_capturas_gatos_socorro",
+    "schema": "tabular-data-package",
+    "profile": "tabular-data-package",
+    "institution": "Grupo de Ecología y Conservación de Islas",
+    "resources": [
+        {
+            "path": "monthly_effort_and_captures.csv",
+            "profile": "tabular-data-resource",
+            "name": "monthly_effort_and_captures",
+            "format": "csv",
+            "mediatype": "text/csv",
+            "encoding": "utf-8",
+            "title": "Effort and captures of feral cat eradication on Socorro Island",
+            "titulo": "Esfuerzos y capturas de erradicación de gato feral en Isla Socorro",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "Fecha",
+                        "type": "string",
+                        "format": "default",
+                        "description": "Fecha en la que se hizo el esfuerzo de trampeo o captura del individuo.",
+                        "long_name":"Date",
+                        "nombre_largo":"Fecha",
+                        "axis": "T"
+                    },
+                    {
+                        "name": "Zona",
+                        "type": "string",
+                        "format": "default",
+                        "constraints": {
+                            "pattern": "[0-7]0"
+                        },
+                        "description": "Zona de la isla en la que se realizó el esfuerzo de trampeo o se capturó al individuo.",
+                        "long_name":"Zone",
+                        "nombre_largo":"Zona"
+                    },
+                    {
+                        "name": "Esfuerzo",
+                        "type": "integer",
+                        "format": "default",
+                        "constraints": {
+                            "minimum": 0
+                        },
+                        "description": "Cantidad de trampas utilizadas para capturar individuos por zona.",
+                        "long_name":"Effort",
+                        "nombre_largo":"Esfuerzo"
+                    },
+                    {
+                        "name": "Capturas",
+                        "type": "integer",
+                        "format": "default",
+                        "constraints": {
+                            "minimum": 0
+                        },
+                        "description": "Cantidad de individuos capturados por zona.",
+                        "long_name":"Captures",
+                        "nombre_largo":"Capturas"
+                    }
+                ],
+                "missingValues": [
+                    "NA"
+                ],
+                "primaryKey": [
+                    "Fecha",
+                    "Zona"
+                ]
+            }
+        }
+    ]
+}
