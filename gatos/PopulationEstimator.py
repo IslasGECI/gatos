@@ -68,7 +68,11 @@ class PopulationEstimator:
 
         with self.cats_model:
             self.trace = pm3.sample(
-                iteraciones, tune=n_datos_descartados, progressbar=True, return_inferencedata=False
+                iteraciones,
+                tune=n_datos_descartados,
+                progressbar=True,
+                return_inferencedata=False,
+                random_seed=[i for i in range(iteraciones)],
             )
         results_trace = pd.DataFrame(
             {
