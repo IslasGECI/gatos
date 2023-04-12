@@ -4,6 +4,7 @@ import click
 # que contienen las distribuciones posteriores.
 
 import numpy as np  # type: ignore
+import pandas as pd
 
 
 from gatos.PopulationEstimator import PopulationEstimator
@@ -21,15 +22,26 @@ def cli():
 @click.option("--output-file", "-o", type=click.Path(), help="Nombre del archivo de salida csv")
 @click.option("--iterations", "-i", default=1_000_000, type=int, help="Número de iteraciones")
 def calculate(**argumentos):
-    DatosSocorro = metadatatools.import_tabular_data_resource(argumentos["resource"])
-    nombre_esfuerzo: str = "Esfuerzo"
-    nombre_capturas: str = "Capturas"
-    esfuerzo: np.array = np.array(
-        DatosSocorro.get_value(nombre_esfuerzo) / (30 * 7 * 5)
-    )  # Días hombre: 30 trampas, 7 tramperos, 5 días
-    capturas: np.array = np.array(DatosSocorro.get_value(nombre_capturas))
+    run_population_estimator(argumentos)
 
-    # region Se busca el tamaño de la población
+
+def run_population_estimator(argumentos):
+    if argumentos["datapackage"]:
+        DatosSocorro = metadatatools.import_tabular_data_resource(argumentos["resource"])
+        nombre_esfuerzo: str = "Esfuerzo"
+        nombre_capturas: str = "Capturas"
+        esfuerzo: np.array = np.array(
+            DatosSocorro.get_value(nombre_esfuerzo) / (30 * 7 * 5)
+        )  # Días hombre: 30 trampas, 7 tramperos, 5 días
+        capturas: np.array = np.array(DatosSocorro.get_value(nombre_capturas))
+    else:
+        monthly_summary = pd.read_csv(argumentos["resource"])
+        esfuerzo = monthly_summary.Esfuerzo / (30 * 7 * 5)
+        capturas = monthly_summary.Capturas
+
+    print("Esfuerzo")
+    print(esfuerzo)
+    # Se busca el tamaño de la población
     iteraciones = argumentos["iterations"]
     estimador_poblacion_inicial: PopulationEstimator = PopulationEstimator(
         esfuerzo, capturas, argumentos["output_file"]
