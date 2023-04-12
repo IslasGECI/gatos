@@ -64,4 +64,6 @@ mutants: install
 setup: clean install
 
 tests:
+	mkdir -p reports/non-tabular
+	mkdir -p reports/figures
 	pytest --verbose
