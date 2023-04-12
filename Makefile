@@ -42,8 +42,7 @@ clean:
 	rm --recursive --force .pytest_cache
 
 coverage: install
-	pytest --cov=${module} --cov-report=xml --verbose && \
-	codecov --token=${codecov_token}
+	pytest --cov=${module} --cov-report=xml --verbose
 
 format:
 	black --line-length 100 ${module}
