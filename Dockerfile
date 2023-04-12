@@ -6,7 +6,6 @@ RUN pip install --upgrade pip && \
     autopep8 \
     black \
     click \
-    codecov \
     flake8 \
     hammett \
     mutmut \
