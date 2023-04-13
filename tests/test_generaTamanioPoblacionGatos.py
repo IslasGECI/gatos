@@ -3,13 +3,15 @@ from gatos import run_population_estimator
 import hashlib
 import subprocess
 import re
+import pandas as pd
 
 
-def tests_run_population_estimatior():
+def tests_run_population_estimator():
+    posterior_path = "tests/data/distribucion_posterior.csv"
     argumentos = {
         "resource": "tests/data/monthly_effort_and_captures.csv",
         "iterations": 100,
-        "output_file": "tests/data/distribucion_posterior.csv",
+        "output_file": posterior_path,
         "datapackage": True,
     }
     run_population_estimator(argumentos)
@@ -17,37 +19,44 @@ def tests_run_population_estimatior():
     obtained_leo_hash = hashlib.md5(open(loo_figure, "rb").read()).hexdigest()
     expected_leo_hash = "c46abaa10e432dfebe5fe516ca4e5b35"
     assert obtained_leo_hash == expected_leo_hash
+
     predictive_figure = "reports/figures/predictive_posterior.png"
     obtained_predictive_hash = hashlib.md5(open(predictive_figure, "rb").read()).hexdigest()
     expected_predictive_hash = "d17e1fba7eba6f76ea75c88f3c83daa4"
     assert obtained_predictive_hash == expected_predictive_hash
-    posterior_path = "tests/data/distribucion_posterior.csv"
-    obtained_posterior_hash = hashlib.md5(open(posterior_path, "rb").read()).hexdigest()
-    expected_posterior_hash = "2de5ff7c555a175d632697383313b913"
-    assert obtained_posterior_hash == expected_posterior_hash
+
+    obtained_posterior = pd.read_csv(posterior_path)
+    expected_posterior = pd.read_csv("tests/data/distribucion_posterior_reference.csv")
+    pd.testing.assert_frame_equal(obtained_posterior, expected_posterior)
+
     loo_path = "reports/non-tabular/loo_results.json"
     obtained_loo_hash = hashlib.md5(open(loo_path, "rb").read()).hexdigest()
     expected_loo_hash = "88b5f9b02123a9466803b1e2531aaded"
     assert obtained_loo_hash == expected_loo_hash
+
     waic_path = "reports/non-tabular/waic_results.json"
     obtained_waic_hash = hashlib.md5(open(waic_path, "rb").read()).hexdigest()
     expected_waic_hash = "5aeb3923ef67ccce2fa6daab5028fb8d"
     assert obtained_waic_hash == expected_waic_hash
 
+    posterior_path = "tests/data/distribucion_posterior_without_datapackage.csv"
     argumentos = {
         "resource": "tests/data/helpers/monthly_effort_and_captures.csv",
         "iterations": 100,
-        "output_file": "tests/data/distribucion_posterior_without_datapackage.csv",
+        "output_file": posterior_path,
         "datapackage": False,
     }
     run_population_estimator(argumentos)
     obtained_predictive_hash = hashlib.md5(open(predictive_figure, "rb").read()).hexdigest()
     assert obtained_predictive_hash == expected_predictive_hash
-    posterior_path = "tests/data/distribucion_posterior_without_datapackage.csv"
-    obtained_posterior_hash = hashlib.md5(open(posterior_path, "rb").read()).hexdigest()
-    assert obtained_posterior_hash == expected_posterior_hash
+
+    obtained_posterior = pd.read_csv(posterior_path)
+    expected_posterior = pd.read_csv("tests/data/distribucion_posterior_reference.csv")
+    pd.testing.assert_frame_equal(obtained_posterior, expected_posterior)
+
     obtained_loo_hash = hashlib.md5(open(loo_path, "rb").read()).hexdigest()
     assert obtained_loo_hash == expected_loo_hash
+
     obtained_waic_hash = hashlib.md5(open(waic_path, "rb").read()).hexdigest()
     assert obtained_waic_hash == expected_waic_hash
 
