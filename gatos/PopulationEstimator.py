@@ -72,7 +72,9 @@ class PopulationEstimator:
                 tune=n_datos_descartados,
                 progressbar=True,
                 return_inferencedata=False,
-                random_seed=[i for i in range(iteraciones - 2, iteraciones)],
+                chains=2,
+                cores=2,
+                random_seed=[98, 99],
             )
         results_trace = pd.DataFrame(
             {
