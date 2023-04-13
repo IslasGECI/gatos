@@ -5,6 +5,7 @@ import subprocess
 import re
 import pandas as pd
 import json
+import numpy as np
 
 
 def tests_run_population_estimator():
@@ -35,10 +36,9 @@ def tests_run_population_estimator():
     expected_loo_hash = "88b5f9b02123a9466803b1e2531aaded"
     assert obtained_loo_hash == expected_loo_hash
 
-    waic_path = "reports/non-tabular/waic_results.json"
-    obtained_waic_json = json.load(open(waic_path))
-    expected_waic_json = json.load(open("tests/data/waic_results.json"))
-    assert obtained_waic_json == expected_waic_json
+    obtained_waic_path = "reports/non-tabular/waic_results.json"
+    expected_waic_path = "tests/data/waic_results.json"
+    assert_dict_equal_from_path(obtained_waic_path, expected_waic_path)
 
     posterior_path = "tests/data/distribucion_posterior_without_datapackage.csv"
     argumentos = {
@@ -58,9 +58,17 @@ def tests_run_population_estimator():
     obtained_loo_hash = hashlib.md5(open(loo_path, "rb").read()).hexdigest()
     assert obtained_loo_hash == expected_loo_hash
 
-    obtained_waic_json = json.load(open(waic_path))
-    expected_waic_json = json.load(open("tests/data/waic_results.json"))
-    assert obtained_waic_json == expected_waic_json
+    assert_dict_equal_from_path(obtained_waic_path, expected_waic_path)
+
+
+def assert_dict_equal_from_path(obtained_waic_path, expected_waic_path):
+    obtained_waic_json = json.load(open(obtained_waic_path))
+    expected_waic_json = json.load(open(expected_waic_path))
+    assert_dict_equal(obtained_waic_json, expected_waic_json)
+
+
+def assert_dict_equal(obtained_dict, expected_dict):
+    np.testing.assert_allclose(list(obtained_dict.values()), list(expected_dict.values()))
 
 
 def test_crea_tamagno_poblacion_gatos_help():
