@@ -43,6 +43,7 @@ clean:
 
 coverage: setup
 	pytest --cov=${module} --cov-report=xml --verbose
+	coverage report --show-missing
 
 format:
 	black --line-length 100 ${module}
