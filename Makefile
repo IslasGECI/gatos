@@ -42,7 +42,7 @@ clean:
 	rm --recursive --force .pytest_cache
 
 coverage: setup
-	pytest --cov=${module} --cov-report=xml --verbose
+	pytest --cov=${module}
 
 format:
 	black --line-length 100 ${module}
