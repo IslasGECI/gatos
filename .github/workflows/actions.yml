@@ -1,8 +1,5 @@
 name: Push latest
-on:
-  push:
-    branches:
-      - develop
+on: push
 jobs:
   actions:
     runs-on: ubuntu-latest
@@ -41,9 +38,3 @@ jobs:
         tag: "latest"
         message: "Latest release"
         force_push_tag: true
-  run-mutants:
-    name: Run mutation testing 👾
-    runs-on: ubuntu-latest
-    steps:
-    - name: Evalúa resistencia a mutaciones
-      run: docker run islasgeci/gatos:latest make mutants

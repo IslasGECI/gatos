@@ -1,0 +1,9 @@
+name: Push latest
+on: push
+jobs:
+  mutants:
+    name: 👾 Run mutation testing 👾
+    runs-on: ubuntu-latest
+    steps:
+    - name: Evalúa resistencia a mutaciones
+      run: docker run islasgeci/gatos:latest make mutants
