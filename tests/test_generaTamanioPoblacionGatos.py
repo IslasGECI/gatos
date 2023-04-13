@@ -4,6 +4,7 @@ import hashlib
 import subprocess
 import re
 import pandas as pd
+import json
 
 
 def tests_run_population_estimator():
@@ -16,9 +17,9 @@ def tests_run_population_estimator():
     }
     run_population_estimator(argumentos)
     loo_figure = "reports/figures/loo_diagnostic.png"
-    obtained_leo_hash = hashlib.md5(open(loo_figure, "rb").read()).hexdigest()
-    expected_leo_hash = "c46abaa10e432dfebe5fe516ca4e5b35"
-    assert obtained_leo_hash == expected_leo_hash
+    obtained_loo_hash = hashlib.md5(open(loo_figure, "rb").read()).hexdigest()
+    expected_loo_hash = "c46abaa10e432dfebe5fe516ca4e5b35"
+    assert obtained_loo_hash == expected_loo_hash
 
     predictive_figure = "reports/figures/predictive_posterior.png"
     obtained_predictive_hash = hashlib.md5(open(predictive_figure, "rb").read()).hexdigest()
@@ -35,9 +36,9 @@ def tests_run_population_estimator():
     assert obtained_loo_hash == expected_loo_hash
 
     waic_path = "reports/non-tabular/waic_results.json"
-    obtained_waic_hash = hashlib.md5(open(waic_path, "rb").read()).hexdigest()
-    expected_waic_hash = "5aeb3923ef67ccce2fa6daab5028fb8d"
-    assert obtained_waic_hash == expected_waic_hash
+    obtained_waic_json = json.load(open(waic_path))
+    expected_waic_json = json.load(open("tests/data/waic_results.json"))
+    assert obtained_waic_json == expected_waic_json
 
     posterior_path = "tests/data/distribucion_posterior_without_datapackage.csv"
     argumentos = {
@@ -57,8 +58,9 @@ def tests_run_population_estimator():
     obtained_loo_hash = hashlib.md5(open(loo_path, "rb").read()).hexdigest()
     assert obtained_loo_hash == expected_loo_hash
 
-    obtained_waic_hash = hashlib.md5(open(waic_path, "rb").read()).hexdigest()
-    assert obtained_waic_hash == expected_waic_hash
+    obtained_waic_json = json.load(open(waic_path))
+    expected_waic_json = json.load(open("tests/data/waic_results.json"))
+    assert obtained_waic_json == expected_waic_json
 
 
 def test_crea_tamagno_poblacion_gatos_help():
