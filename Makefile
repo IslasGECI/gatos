@@ -41,7 +41,7 @@ clean:
 	rm --recursive --force tests/__pycache__
 	rm --recursive --force .pytest_cache
 
-coverage: install
+coverage: setup
 	pytest --cov=${module} --cov-report=xml --verbose
 
 format:
@@ -61,8 +61,8 @@ mutants: install
 	mutmut run --paths-to-mutate ${module} --runner 'pytest'
 
 setup: clean install
+	mkdir --parents reports/non-tabular
+	mkdir --parents reports/figures
 
 tests:
-	mkdir -p reports/non-tabular
-	mkdir -p reports/figures
 	pytest --verbose
