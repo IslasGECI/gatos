@@ -57,7 +57,7 @@ linter:
 	$(call lint, ${module})
 	$(call lint, tests)
 
-mutants: install
+mutants: setup
 	mutmut run --paths-to-mutate ${module} --runner 'pytest'
 
 setup: clean install
