@@ -38,8 +38,8 @@ def get_cummulative_effort_and_captures_by_year(weekly_effort_and_captures_data)
     yearly_capture_and_effor_by_zone = get_yearly_capture_and_effort_by_zone(
         weekly_effort_and_captures_data
     )
-    year_capture_and_effort = yearly_capture_and_effor_by_zone.groupby(["Date"]).sum(
-        numeric_only=True
+    year_capture_and_effort = (
+        yearly_capture_and_effor_by_zone.groupby(["Date"]).sum(numeric_only=True).cumsum()
     )
     return year_capture_and_effort.reset_index()
 

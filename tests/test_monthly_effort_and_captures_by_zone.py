@@ -54,7 +54,6 @@ def test_get_cummulative_effort_and_captures_by_year():
     expected_captures_2022 = 6
     assert obtained_captures_2022 == expected_captures_2022
     obtained_captures_2023 = obtained[obtained.Date == "2023"].Captures.item()
-    print(obtained_captures_2023)
     expected_captures_2023 = 25
     assert obtained_captures_2023 == expected_captures_2023
 
