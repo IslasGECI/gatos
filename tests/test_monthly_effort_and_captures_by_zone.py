@@ -53,6 +53,9 @@ def test_get_cummulative_effort_and_captures_by_year():
     obtained_captures_2022 = obtained[obtained.Date == "2022"].Captures[0]
     expected_captures_2022 = 6
     assert obtained_captures_2022 == expected_captures_2022
+    obtained_captures_2023 = obtained[obtained.Date == "2023"].Captures[0]
+    expected_captures_2023 = 25
+    assert obtained_captures_2023 == expected_captures_2023
 
 
 def test_select_effort_and_captures_by_year():
