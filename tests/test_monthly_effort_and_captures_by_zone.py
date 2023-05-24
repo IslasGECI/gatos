@@ -50,10 +50,11 @@ def test_get_yearly_capture_and_effort_by_zone():
 def test_get_cummulative_effort_and_captures_by_year():
     weekly_effort_and_captures_data = pd.read_csv(input_path)
     obtained = get_cummulative_effort_and_captures_by_year(weekly_effort_and_captures_data)
-    obtained_captures_2022 = obtained[obtained.Date == "2022"].Captures[0]
+    obtained_captures_2022 = obtained[obtained.Date == "2022"].Captures.item()
     expected_captures_2022 = 6
     assert obtained_captures_2022 == expected_captures_2022
-    obtained_captures_2023 = obtained[obtained.Date == "2023"].Captures[0]
+    obtained_captures_2023 = obtained[obtained.Date == "2023"].Captures.item()
+    print(obtained_captures_2023)
     expected_captures_2023 = 25
     assert obtained_captures_2023 == expected_captures_2023
 
