@@ -4,6 +4,7 @@ from gatos import (
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     write_effort_and_captures_by_zone_for_year,
+    write_yearly_cummulative_effort_and_captures,
 )
 
 import pandas as pd
@@ -75,4 +76,12 @@ def test_write_effort_and_captures_by_zone():
         os.remove(output_path)
     year = "2022"
     write_effort_and_captures_by_zone_for_year(input_path, output_path, year)
+    assert os.path.exists(output_path)
+
+
+def test_write_yearly_cummulative_effort_and_captures():
+    output_path = "tests/data/yearly_cummulative_effort_and_captures.csv"
+    if os.path.exists(output_path):
+        os.remove(output_path)
+    write_yearly_cummulative_effort_and_captures(input_path, output_path)
     assert os.path.exists(output_path)
