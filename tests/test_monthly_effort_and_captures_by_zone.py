@@ -46,7 +46,10 @@ def test_get_yearly_capture_and_effort_by_zone():
 
 
 def test_get_cummulative_effort_and_captures_by_year():
-    get_cummulative_effort_and_captures_by_year(input_path)
+    obtained = get_cummulative_effort_and_captures_by_year(input_path)
+    obtained_captures_2022 = obtained[obtained.Date == 2022].Captures
+    expected_captures_2022 = 6
+    assert obtained_captures_2022 == expected_captures_2022
 
 
 def test_select_effort_and_captures_by_year():
