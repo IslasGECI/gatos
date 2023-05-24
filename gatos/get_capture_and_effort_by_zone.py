@@ -35,7 +35,13 @@ def get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
 
 
 def get_cummulative_effort_and_captures_by_year(weekly_effort_and_captures_data):
-    pass
+    yearly_capture_and_effor_by_zone = get_yearly_capture_and_effort_by_zone(
+        weekly_effort_and_captures_data
+    )
+    year_capture_and_effort = yearly_capture_and_effor_by_zone.groupby(["Date"]).sum(
+        numeric_only=True
+    )
+    return year_capture_and_effort.reset_index()
 
 
 def get_yearly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
@@ -56,6 +62,9 @@ def cut_date_string(weekly_effort_and_captures_data, string_length):
 
 def sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data):
     new_names = {"Fecha": "Date", "Zona": "Zone", "Esfuerzo": "Effort", "Capturas": "Captures"}
-    weekly_effort_and_captures_data.rename(columns=new_names, inplace=True)
-    capture_and_effort = weekly_effort_and_captures_data.groupby(["Date", "Zone"]).sum()
+    weekly_effort_and_captures_data_copy = weekly_effort_and_captures_data.copy()
+    weekly_effort_and_captures_data_renamed = weekly_effort_and_captures_data_copy.rename(
+        columns=new_names
+    )
+    capture_and_effort = weekly_effort_and_captures_data_renamed.groupby(["Date", "Zone"]).sum()
     return capture_and_effort.reset_index()
