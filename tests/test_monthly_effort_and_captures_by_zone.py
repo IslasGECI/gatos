@@ -1,5 +1,6 @@
 from gatos import (
     get_capture_and_effort_by_zone,
+    get_cummulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     write_effort_and_captures_by_zone_for_year,
@@ -42,6 +43,10 @@ def test_get_yearly_capture_and_effort_by_zone():
     expected_length = 11
     obtained_length = len(obtained)
     assert obtained_length == expected_length
+
+
+def test_get_cummulative_effort_and_captures_by_year():
+    get_cummulative_effort_and_captures_by_year(input_path)
 
 
 def test_select_effort_and_captures_by_year():
