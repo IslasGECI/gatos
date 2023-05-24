@@ -17,6 +17,18 @@ def write_effort_and_captures_by_zone_for_year(
     data_for_year.to_csv(output_path, index=False)
 
 
+@app.command()
+def write_yearly_cummulative_effort_and_captures(
+    input_path: str = typer.Option("", help="Input file path"),
+    output_path: str = typer.Option("", help="Output file path"),
+):
+    weekly_effort_and_capture = pd.read_csv(input_path)
+    cummulatie_effort_and_capture = get_cummulative_effort_and_captures_by_year(
+        weekly_effort_and_capture
+    )
+    cummulatie_effort_and_capture.to_csv(output_path, index=False)
+
+
 def select_effort_and_captures_by_year(multiyear_data, year):
     return multiyear_data[multiyear_data["Date"].str.contains(year)]
 
