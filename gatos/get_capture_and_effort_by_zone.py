@@ -1,5 +1,6 @@
 import pandas as pd
 import typer
+import numpy as np
 import warnings
 
 app = typer.Typer()
@@ -80,3 +81,27 @@ def sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data):
     )
     capture_and_effort = weekly_effort_and_captures_data_renamed.groupby(["Date", "Zone"]).sum()
     return capture_and_effort.reset_index()
+
+
+def calculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro, years_in_data):
+    masks = [datos_gatos_socorro["Fecha"].str.contains(i) for i in years_in_data]
+    esfuerzo_acumulado_anual = [
+        calculate_yearly_cumulative_effort(datos_gatos_socorro, mask) for mask in masks
+    ]
+    gatos_erradicados = [
+        calculate_yearly_cumulative_captures(datos_gatos_socorro, mask) for mask in masks
+    ]
+    return esfuerzo_acumulado_anual, gatos_erradicados
+
+
+def calculate_yearly_cumulative_effort(data, mask):
+    return np.sum(data["Esfuerzo"].values[mask])
+
+
+def calculate_yearly_cumulative_captures(data, mask):
+    return np.sum(data["Capturas"].values[mask])
+
+
+def years_from_data(dataframe):
+    years = dataframe.Fecha.str.slice(stop=4)
+    return years.unique()

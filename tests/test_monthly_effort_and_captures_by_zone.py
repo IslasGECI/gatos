@@ -1,10 +1,12 @@
 from gatos import (
+    calculate_yearly_cumulative_effort_and_captures,
     get_capture_and_effort_by_zone,
     get_cummulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     write_effort_and_captures_by_zone_for_year,
     write_yearly_cummulative_effort_and_captures,
+    years_from_data,
 )
 
 import pandas as pd
@@ -85,3 +87,12 @@ def test_write_yearly_cummulative_effort_and_captures():
         os.remove(output_path)
     write_yearly_cummulative_effort_and_captures(input_path, output_path)
     assert os.path.exists(output_path)
+
+
+def test_calculate_yearly_cummulative_effort_and_captures():
+    monthly_data = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
+    string_length_years = 4
+    years_in_data = years_from_data(monthly_data)
+    obtained_effort, obtained_captures = calculate_yearly_cumulative_effort_and_captures(monthly_data, years_in_data)
+    assert obtained_effort == [111597, 11781]
+    assert obtained_captures == [57, 3]
