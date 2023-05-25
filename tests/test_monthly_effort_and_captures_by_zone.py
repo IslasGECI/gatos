@@ -94,7 +94,6 @@ def test_write_yearly_cummulative_effort_and_captures():
     assert obtained_hash == expected_hash, "Hash of csv with cumulative effort an captures"
 
 
-
 def test_calculate_yearly_cummulative_effort_and_captures():
     monthly_data = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
     years_in_data = years_from_data(monthly_data)
