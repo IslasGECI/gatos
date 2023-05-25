@@ -106,5 +106,5 @@ def test_calculate_yearly_cummulative_cpue():
     obtained_cpue = calculate_yearly_cumulative_cpue(monthly_data, years_in_data)
     effort = [111597, 11781]
     captures = [57, 3]
-    expected_cpue = captures / effort
+    expected_cpue = [57 / 111597, 3 / 11781]
     assert obtained_cpue == expected_cpue

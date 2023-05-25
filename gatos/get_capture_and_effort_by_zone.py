@@ -83,6 +83,11 @@ def sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data):
     return capture_and_effort.reset_index()
 
 
+def calculate_yearly_cumulative_cpue(data, years_in_data):
+    effort, captures = calculate_yearly_cumulative_effort_and_captures(data, years_in_data)
+    return [c / e for c, e in zip(captures, effort)]
+
+
 def calculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro, years_in_data):
     masks = [datos_gatos_socorro["Fecha"].str.contains(i) for i in years_in_data]
     esfuerzo_acumulado_anual = [
