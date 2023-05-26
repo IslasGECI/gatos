@@ -13,4 +13,4 @@ def fit_ramsey_plot(data):
 
 
 def calculate_six_months_slope(data):
-    pass
+    return [fit_ramsey_plot(data.iloc[(i - 6) : i]) for i in range(6, len(data) + 1)]
