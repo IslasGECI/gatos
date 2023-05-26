@@ -30,4 +30,6 @@ def test_fit_ramsey_plot():
     data = pd.DataFrame(
         {"CPUE": [10, 5, 2.5, 1.25, 0.625, 0.3125], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
     )
-    fit_ramsey_plot(data)
+    obtained_parameters = fit_ramsey_plot(data)
+    expected_parameters = [-0.5, 20]
+    assert (obtained_parameters == expected_parameters).all()
