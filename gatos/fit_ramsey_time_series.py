@@ -9,4 +9,4 @@ def set_up_ramsey_time_series(data):
 
 
 def fit_ramsey_plot(data):
-    pass
+    return np.polyfit(data["Cumulative_captures"], data["CPUE"], 1)

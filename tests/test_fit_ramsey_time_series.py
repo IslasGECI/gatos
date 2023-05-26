@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+
 from gatos import fit_ramsey_plot, set_up_ramsey_time_series
 
 
@@ -28,8 +30,8 @@ def test_set_up_ramsey_time_series():
 
 def test_fit_ramsey_plot():
     data = pd.DataFrame(
-        {"CPUE": [10, 5, 2.5, 1.25, 0.625, 0.3125], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
+        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
     )
     obtained_parameters = fit_ramsey_plot(data)
-    expected_parameters = [-0.5, 20]
-    assert (obtained_parameters == expected_parameters).all()
+    expected_parameters = np.array([-0.5, 20.0])
+    np.testing.assert_array_almost_equal(obtained_parameters, expected_parameters)
