@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 
 
 def set_up_ramsey_time_series(data):
