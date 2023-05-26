@@ -1,5 +1,5 @@
 import pandas as pd
-from gatos import set_up_ramsey_time_series
+from gatos import fit_ramsey_plot, set_up_ramsey_time_series
 
 
 data = pd.DataFrame({"Effort": [1, 2, 3, 4, 5, 6], "Captures": [1, 1, 1, 1, 1, 1]})
@@ -24,3 +24,10 @@ def test_set_up_ramsey_time_series():
         }
     )
     assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
+
+
+def test_fit_ramsey_plot():
+    data = pd.DataFrame(
+        {"CPUE": [10, 5, 2.5, 1.25, 0.625, 0.3125], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
+    )
+    fit_ramsey_plot(data)
