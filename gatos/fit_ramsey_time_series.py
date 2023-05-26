@@ -10,3 +10,7 @@ def set_up_ramsey_time_series(data):
 
 def fit_ramsey_plot(data):
     return np.polyfit(data["Cumulative_captures"], data["CPUE"], 1)
+
+
+def calculate_six_months_slope(data):
+    pass

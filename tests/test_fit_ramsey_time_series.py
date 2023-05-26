@@ -30,7 +30,7 @@ def test_set_up_ramsey_time_series():
 
 def test_fit_ramsey_plot():
     data = pd.DataFrame(
-        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [3, 4, 5, 6, 7, 8]}
+        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
     )
     obtained_parameters = fit_ramsey_plot(data)
     expected_parameters = np.array([-0.5, 20.0])
