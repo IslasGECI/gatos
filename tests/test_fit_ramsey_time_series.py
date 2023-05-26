@@ -12,6 +12,7 @@ def test_set_up_ramsey_time_series():
     obtained = set_up_ramsey_time_series(data)
     assert (obtained.columns == ["CPUE", "Cumulative_captures"]).all()
     assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
+    assert (obtained.CPUE == expected.CPUE).all()
 
     data_2 = pd.DataFrame({"Effort": [2, 2, 2, 2, 2, 2], "Captures": [1, 2, 1, 1, 2, 1]})
     obtained = set_up_ramsey_time_series(data_2)
