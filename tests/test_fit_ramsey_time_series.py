@@ -11,3 +11,4 @@ def test_set_up_ramsey_time_series():
     )
     obtained = set_up_ramsey_time_series(data)
     assert (obtained.columns == ["CPUE", "Captures"]).all()
+    assert (obtained.Captures == expected.Captures).all()
