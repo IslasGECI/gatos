@@ -57,4 +57,7 @@ def test_calculate_six_months_slope():
             "Cumulative_captures": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14],
         }
     )
-    calculate_six_months_slope(ramsey_time_series)
+    obtained_slopes = calculate_six_months_slope(ramsey_time_series)
+    expected_number_slopes = 7
+    obtained_number_slopes = len(obtained_slopes)
+    assert obtained_number_slopes == expected_number_slopes
