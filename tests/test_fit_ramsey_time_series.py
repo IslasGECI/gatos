@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from gatos import fit_ramsey_plot, set_up_ramsey_time_series
+from gatos import calculate_six_months_slope, fit_ramsey_plot, set_up_ramsey_time_series
 
 
 data = pd.DataFrame({"Effort": [1, 2, 3, 4, 5, 6], "Captures": [1, 1, 1, 1, 1, 1]})
@@ -30,8 +30,31 @@ def test_set_up_ramsey_time_series():
 
 def test_fit_ramsey_plot():
     data = pd.DataFrame(
-        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
+        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [3, 4, 5, 6, 7, 8]}
     )
     obtained_parameters = fit_ramsey_plot(data)
     expected_parameters = np.array([-0.5, 20.0])
     np.testing.assert_array_almost_equal(obtained_parameters, expected_parameters)
+
+
+def test_calculate_six_months_slope():
+    ramsey_time_series = pd.DataFrame(
+        {
+            "CPUE": [
+                1,
+                1 / 2,
+                1 / 3,
+                1 / 4,
+                1 / 5,
+                1 / 6,
+                1 / 2,
+                2 / 2,
+                1 / 2,
+                1 / 2,
+                2 / 2,
+                1 / 2,
+            ],
+            "Cumulative_captures": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14],
+        }
+    )
+    calculate_six_months_slope(ramsey_time_series)
