@@ -18,7 +18,7 @@ data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1,
 def test_add_slopes_to_effort_capture_data():
     obtained = add_slopes_to_effort_capture_data(data)
     contains_slope_column = "slope" in obtained.columns
-    assert contains_slope_column == True
+    assert contains_slope_column
     obtained_no_nan = obtained.slope.count()
     expected_no_nan = 1
     assert obtained_no_nan == expected_no_nan
