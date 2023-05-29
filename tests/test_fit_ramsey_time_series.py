@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 from gatos import (
+    add_slopes_to_effort_capture_data,
     calculate_six_months_slope,
     extract_slopes,
     fit_ramsey_plot,
@@ -11,6 +12,12 @@ from gatos import (
 
 
 data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
+
+
+def test_add_slopes_to_effort_capture_data():
+    obtained = add_slopes_to_effort_capture_data(data)
+    expected_slope = [np.nan, np.nan, np.nan, np.nan, np.nan, 1]
+    assert (obtained.slope == expected_slope).all()
 
 
 def test_get_status_slopes():
