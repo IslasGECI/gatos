@@ -4,9 +4,8 @@ import numpy as np
 def add_slopes_to_effort_capture_data(data):
     data["slope"] = np.nan
     slope_status = get_status_slopes(data)
-    data_with_slope = data.copy()
-    data_with_slope["slope"].iloc[5:] = slope_status
-    return data_with_slope
+    data.loc[5:, "slope"] = slope_status
+    return data
 
 
 def get_status_slopes(data):
