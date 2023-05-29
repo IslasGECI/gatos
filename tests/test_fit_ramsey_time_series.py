@@ -5,11 +5,19 @@ from gatos import (
     calculate_six_months_slope,
     extract_slopes,
     fit_ramsey_plot,
+    get_status_slopes,
     set_up_ramsey_time_series,
 )
 
 
 data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
+
+
+def test_get_status_slopes():
+    obtained = get_status_slopes(data)
+    obtained_len = len(obtained)
+    expected_len = 1
+    assert obtained_len == expected_len
 
 
 def test_set_up_ramsey_time_series():
