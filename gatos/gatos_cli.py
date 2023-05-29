@@ -1,10 +1,10 @@
 from gatos import (
+    add_slopes_to_effort_capture_data,
+    calculate_yearly_cumulative_cpue,
+    get_cummulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     years_from_data,
-    calculate_yearly_cumulative_cpue,
-    get_cummulative_effort_and_captures_by_year,
-    add_slopes_to_effort_capture_data,
 )
 import pandas as pd
 import typer
@@ -41,7 +41,7 @@ def write_yearly_cummulative_effort_and_captures(
 
 
 @app.command()
-def write_effort_and_captures_by_zone_for_year(
+def write_effort_and_captures_with_slopes(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
 ):
