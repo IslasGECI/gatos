@@ -1,6 +1,12 @@
 import numpy as np
 
 
+def get_status_slopes(data):
+    ramsey_time_series = set_up_ramsey_time_series(data)
+    slopes_and_origin = calculate_six_months_slope(ramsey_time_series)
+    return extract_slopes(slopes_and_origin)
+
+
 def set_up_ramsey_time_series(data):
     data["Cumulative_captures"] = data["Capturas"].cumsum()
     data["CPUE"] = data["Capturas"] / data["Esfuerzo"]
