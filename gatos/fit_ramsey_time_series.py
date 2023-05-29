@@ -3,8 +3,8 @@ import numpy as np
 
 def get_status_slopes(data):
     ramsey_time_series = set_up_ramsey_time_series(data)
-    slopes_and_origin = calculate_six_months_slope(ramsey_time_series)
-    return extract_slopes(slopes_and_origin)
+    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
+    return extract_slopes(slopes_and_intercept)
 
 
 def set_up_ramsey_time_series(data):
@@ -25,5 +25,5 @@ def calculate_six_months_slope(data):
     ]
 
 
-def extract_slopes(slopes_origin_data):
-    return [slope[0] for slope in slopes_origin_data]
+def extract_slopes(slopes_intercept_data):
+    return [slope[0] for slope in slopes_intercept_data]

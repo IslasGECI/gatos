@@ -77,7 +77,7 @@ def test_calculate_six_months_slope():
 
 
 def test_extract_slopes():
-    slopes_and_origin = [np.array([1, 2]), np.array([3, 4]), np.array([5, 6])]
+    slopes_and_intercept = [np.array([1, 2]), np.array([3, 4]), np.array([5, 6])]
     expected_slopes = [1, 3, 5]
-    obtained_slopes = extract_slopes(slopes_and_origin)
+    obtained_slopes = extract_slopes(slopes_and_intercept)
     assert obtained_slopes == expected_slopes
