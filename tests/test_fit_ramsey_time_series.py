@@ -22,6 +22,14 @@ def test_add_slopes_to_effort_capture_data():
     expected_no_nan = 1
     assert obtained_no_nan == expected_no_nan
 
+    effort_and_capture_data = pd.read_csv(
+        "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
+    )
+    obtained = add_slopes_to_effort_capture_data(effort_and_capture_data)
+    obtained_first_slope = obtained.iloc[6]
+    expected_first_slope = 0.000005
+    assert obtained_first_slope == expected_first_slope
+
 
 def test_get_status_slopes():
     obtained = get_status_slopes(data)
