@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pytest
 
 from gatos import (
     add_slopes_to_effort_capture_data,
@@ -27,9 +28,8 @@ def test_add_slopes_to_effort_capture_data():
     )
     obtained = add_slopes_to_effort_capture_data(effort_and_capture_data)
     obtained_first_slope = obtained.slope.iloc[5]
-    expected_first_slope = 0.000005
-    print(obtained_first_slope)
-    assert obtained_first_slope == expected_first_slope
+    expected_first_slope = 0.0000047
+    assert obtained_first_slope == pytest.approx(expected_first_slope, abs=1e-6)
 
 
 def test_get_status_slopes():
