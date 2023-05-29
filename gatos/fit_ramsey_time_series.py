@@ -17,3 +17,7 @@ def calculate_six_months_slope(data):
         fit_ramsey_plot(data.iloc[(i - window_length) : i])
         for i in range(window_length, len(data) + 1)
     ]
+
+
+def extract_slopes(slopes_origin_data):
+    return [slope[0] for slope in slopes_origin_data]
