@@ -1,6 +1,11 @@
 import numpy as np
 
 
+def add_slopes_to_effort_capture_data(data):
+    data["slope"] = np.nan
+    return data
+
+
 def get_status_slopes(data):
     ramsey_time_series = set_up_ramsey_time_series(data)
     slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
