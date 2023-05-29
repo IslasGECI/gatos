@@ -4,7 +4,7 @@ import numpy as np
 from gatos import calculate_six_months_slope, fit_ramsey_plot, set_up_ramsey_time_series
 
 
-data = pd.DataFrame({"Effort": [1, 2, 3, 4, 5, 6], "Captures": [1, 1, 1, 1, 1, 1]})
+data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
 
 
 def test_set_up_ramsey_time_series():
@@ -16,7 +16,7 @@ def test_set_up_ramsey_time_series():
     assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
     assert (obtained.CPUE == expected.CPUE).all()
 
-    data_2 = pd.DataFrame({"Effort": [2, 2, 2, 2, 2, 2], "Captures": [1, 2, 1, 1, 2, 1]})
+    data_2 = pd.DataFrame({"Esfuerzo": [2, 2, 2, 2, 2, 2], "Capturas": [1, 2, 1, 1, 2, 1]})
     obtained = set_up_ramsey_time_series(data_2)
 
     expected = pd.DataFrame(
