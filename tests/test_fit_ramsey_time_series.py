@@ -26,8 +26,9 @@ def test_add_slopes_to_effort_capture_data():
         "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     )
     obtained = add_slopes_to_effort_capture_data(effort_and_capture_data)
-    obtained_first_slope = obtained.iloc[6]
+    obtained_first_slope = obtained.slope.iloc[5]
     expected_first_slope = 0.000005
+    print(obtained_first_slope)
     assert obtained_first_slope == expected_first_slope
 
 
