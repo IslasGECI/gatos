@@ -1,7 +1,12 @@
 import pandas as pd
 import numpy as np
 
-from gatos import calculate_six_months_slope, fit_ramsey_plot, set_up_ramsey_time_series
+from gatos import (
+    calculate_six_months_slope,
+    extract_slopes,
+    fit_ramsey_plot,
+    set_up_ramsey_time_series,
+)
 
 
 data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
@@ -61,3 +66,10 @@ def test_calculate_six_months_slope():
     expected_number_slopes = 7
     obtained_number_slopes = len(obtained_slopes)
     assert obtained_number_slopes == expected_number_slopes
+
+
+def test_extract_slopes():
+    slopes_and_origin = [np.array(1, 2), np.array(3, 4), np.array(5, 6)]
+    expected_slopes = [1, 3, 5]
+    obtained_slopes = extract_slopes(slopes_and_origin)
+    assert obtained_slopes == expected_slopes
