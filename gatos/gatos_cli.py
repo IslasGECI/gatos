@@ -1,5 +1,5 @@
-from gatos import (
-    add_slopes_to_effort_capture_data,
+from gatos.fit_ramsey_time_series import add_slopes_to_effort_capture_data
+from gatos.get_capture_and_effort_by_zone import (
     calculate_yearly_cumulative_cpue,
     get_cummulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
