@@ -2,8 +2,8 @@ import numpy as np
 
 
 def set_up_ramsey_time_series(data):
-    data["Cumulative_captures"] = data["Captures"].cumsum()
-    data["CPUE"] = data["Captures"] / data["Effort"]
+    data["Cumulative_captures"] = data["Capturas"].cumsum()
+    data["CPUE"] = data["Capturas"] / data["Esfuerzo"]
     return data[["CPUE", "Cumulative_captures"]]
 
 
