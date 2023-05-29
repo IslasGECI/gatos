@@ -18,6 +18,9 @@ def test_add_slopes_to_effort_capture_data():
     obtained = add_slopes_to_effort_capture_data(data)
     contains_slope_column = "slope" in obtained.columns
     assert contains_slope_column == True
+    obtained_no_nan = obtained.slope.count()
+    expected_no_nan = 1
+    assert obtained_no_nan == expected_no_nan
 
 
 def test_get_status_slopes():
