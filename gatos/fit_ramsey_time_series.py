@@ -35,6 +35,10 @@ def sample_fit_ramsey_plot(datos):
     return fits
 
 
+def calculate_sample_six_months_slope(datos):
+    return [i for i in range(7)]
+
+
 def calculate_six_months_slope(data):
     window_length = 6
     return [
