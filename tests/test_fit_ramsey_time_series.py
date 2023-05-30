@@ -47,6 +47,10 @@ def test_extract_prob():
     expected = 5 / 6
     obtained = extract_prob(fitted_parameters)
     assert obtained == expected
+    multi_month = [fitted_parameters, fitted_parameters]
+    expected = [5 / 6, 5 / 6]
+    obtained = extract_prob(multi_month)
+    assert (obtained == expected).all()
 
 
 def test_add_slopes_to_effort_capture_data():
