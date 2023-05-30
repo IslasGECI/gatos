@@ -52,3 +52,7 @@ def calculate_six_months_slope(data):
 
 def extract_slopes(slopes_intercept_data):
     return [slope[0] for slope in slopes_intercept_data]
+
+
+def extract_prob(slopes_intercept_data):
+    return np.mean([i_sample[0] > 0 for i_sample in slopes_intercept_data])
