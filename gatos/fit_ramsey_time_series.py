@@ -34,8 +34,12 @@ def sample_fit_ramsey_plot(datos):
     return fits
 
 
-def calculate_sample_six_months_slope(datos):
-    return [i for i in range(7)]
+def calculate_sample_six_months_slope(ramsey_series):
+    window_length = 6
+    return [
+        sample_fit_ramsey_plot(ramsey_series.iloc[(i - window_length) : i])
+        for i in range(window_length, len(ramsey_series) + 1)
+    ]
 
 
 def calculate_six_months_slope(data):
