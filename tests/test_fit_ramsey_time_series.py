@@ -24,6 +24,9 @@ def test_add_probability_to_effort_capture_data():
 
 
 def test_sample_fit_ramsey_plot():
+    data = pd.DataFrame(
+        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
+    )
     sample_fit_ramsey_plot(data)
 
 

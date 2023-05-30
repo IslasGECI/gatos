@@ -29,6 +29,11 @@ def fit_ramsey_plot(data):
     return np.polyfit(data["Cumulative_captures"], data["CPUE"], 1)
 
 
+def sample_fit_ramsey_plot(datos):
+    fits = [fit_ramsey_plot(datos.drop(i)) for i in range(6)]
+    return fits
+
+
 def calculate_six_months_slope(data):
     window_length = 6
     return [
