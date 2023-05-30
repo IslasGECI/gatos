@@ -9,6 +9,7 @@ from gatos import (
     extract_slopes,
     fit_ramsey_plot,
     get_status_slopes,
+    sample_fit_ramsey_plot,
     set_up_ramsey_time_series,
 )
 
@@ -20,6 +21,10 @@ def test_add_probability_to_effort_capture_data():
     obtained = add_probability_to_effort_capture_data(data)
     contains_slope_column = "prob" in obtained.columns
     assert contains_slope_column
+
+
+def test_sample_fit_ramsey_plot():
+    sample_fit_ramsey_plot(data)
 
 
 def test_add_slopes_to_effort_capture_data():
