@@ -30,6 +30,7 @@ def test_add_probability_to_effort_capture_data():
     obtained = add_probability_to_effort_capture_data(effort_and_capture_data)
     obtained_probs = obtained.prob.iloc[6:]
     is_positive = obtained_probs > 0
+    assert is_positive.all()
 
 
 def test_sample_fit_ramsey_plot():
