@@ -27,7 +27,10 @@ def test_sample_fit_ramsey_plot():
     data = pd.DataFrame(
         {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
     )
-    sample_fit_ramsey_plot(data)
+    obtained = sample_fit_ramsey_plot(data)
+    expected_length = 6
+    obtained_length = len(obtained)
+    assert obtained_length == expected_length
 
 
 def test_add_slopes_to_effort_capture_data():
