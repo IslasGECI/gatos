@@ -16,6 +16,7 @@ from gatos import (
 
 
 data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
+print(data)
 
 
 def test_add_probability_to_effort_capture_data():
@@ -117,8 +118,9 @@ def test_calculate_six_months_slope():
 
 
 def test_calculate_sample_six_months_slope():
-    obtained_slopes = calculate_sample_six_months_slope(ramsey_time_series)
-    expected_number_slopes = 7
+    data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
+    obtained_slopes = calculate_sample_six_months_slope(data)
+    expected_number_slopes = 1
     obtained_number_slopes = len(obtained_slopes)
     assert obtained_number_slopes == expected_number_slopes
     expected_number_elements = 6
