@@ -44,13 +44,13 @@ def test_extract_prob():
             np.array([0.5, 20.0]),
         ]
     ]
-    expected = 5 / 6
+    expected = [5 / 6]
     obtained = extract_prob(fitted_parameters)
     assert obtained == expected
-    multi_month = [fitted_parameters, fitted_parameters]
+    multi_month = [fitted_parameters[0], fitted_parameters[0]]
     expected = [5 / 6, 5 / 6]
     obtained = extract_prob(multi_month)
-    assert (obtained == expected).all()
+    assert obtained == expected
 
 
 def test_add_slopes_to_effort_capture_data():
