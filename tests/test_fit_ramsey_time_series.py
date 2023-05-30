@@ -24,6 +24,13 @@ def test_add_probability_to_effort_capture_data():
     contains_slope_column = "prob" in obtained.columns
     assert contains_slope_column
 
+    effort_and_capture_data = pd.read_csv(
+        "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
+    )
+    obtained = add_probability_to_effort_capture_data(effort_and_capture_data)
+    obtained_probs = obtained.prob.iloc[6:]
+    is_positive = obtained_probs > 0
+
 
 def test_sample_fit_ramsey_plot():
     data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
