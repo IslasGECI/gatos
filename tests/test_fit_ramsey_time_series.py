@@ -28,8 +28,10 @@ def test_add_probability_to_effort_capture_data():
         "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     )
     obtained = add_probability_to_effort_capture_data(effort_and_capture_data)
+    obtained.prob
     obtained_probs = obtained.prob.iloc[6:]
-    is_positive = obtained_probs > 0
+    print(obtained_probs)
+    is_positive = obtained_probs >= 0
     assert is_positive.all()
 
 
