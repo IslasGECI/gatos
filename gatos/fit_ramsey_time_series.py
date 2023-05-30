@@ -30,7 +30,8 @@ def fit_ramsey_plot(data):
 
 
 def sample_fit_ramsey_plot(datos):
-    fits = [fit_ramsey_plot(datos.drop(i)) for i in range(6)]
+    n_sample = len(datos)
+    fits = [fit_ramsey_plot(datos.drop(i)) for i in range(n_sample)]
     return fits
 
 
