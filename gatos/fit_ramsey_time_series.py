@@ -55,5 +55,5 @@ def extract_slopes(slopes_intercept_data):
 
 
 def extract_prob(slopes_intercept_data):
-    slopes = np.asarray(extract_slopes(slopes_intercept_data))
+    slopes = np.asarray(extract_slopes(slopes_intercept_data[0]))
     return np.mean(slopes > 0)
