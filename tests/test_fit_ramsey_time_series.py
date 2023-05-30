@@ -5,6 +5,7 @@ import pytest
 from gatos import (
     add_probability_to_effort_capture_data,
     add_slopes_to_effort_capture_data,
+    calculate_sample_six_months_slope,
     calculate_six_months_slope,
     extract_slopes,
     fit_ramsey_plot,
@@ -87,27 +88,36 @@ def test_fit_ramsey_plot():
     np.testing.assert_array_almost_equal(obtained_parameters, expected_parameters)
 
 
+ramsey_time_series = pd.DataFrame(
+    {
+        "CPUE": [
+            1,
+            1 / 2,
+            1 / 3,
+            1 / 4,
+            1 / 5,
+            1 / 6,
+            1 / 2,
+            2 / 2,
+            1 / 2,
+            1 / 2,
+            2 / 2,
+            1 / 2,
+        ],
+        "Cumulative_captures": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14],
+    }
+)
+
+
 def test_calculate_six_months_slope():
-    ramsey_time_series = pd.DataFrame(
-        {
-            "CPUE": [
-                1,
-                1 / 2,
-                1 / 3,
-                1 / 4,
-                1 / 5,
-                1 / 6,
-                1 / 2,
-                2 / 2,
-                1 / 2,
-                1 / 2,
-                2 / 2,
-                1 / 2,
-            ],
-            "Cumulative_captures": [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14],
-        }
-    )
     obtained_slopes = calculate_six_months_slope(ramsey_time_series)
+    expected_number_slopes = 7
+    obtained_number_slopes = len(obtained_slopes)
+    assert obtained_number_slopes == expected_number_slopes
+
+
+def test_calculate_sample_six_months_slope():
+    obtained_slopes = calculate_sample_six_months_slope(ramsey_time_series)
     expected_number_slopes = 7
     obtained_number_slopes = len(obtained_slopes)
     assert obtained_number_slopes == expected_number_slopes
