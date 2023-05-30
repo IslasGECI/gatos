@@ -16,7 +16,6 @@ from gatos import (
 
 
 data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
-print(data)
 
 
 def test_add_probability_to_effort_capture_data():
@@ -26,9 +25,7 @@ def test_add_probability_to_effort_capture_data():
 
 
 def test_sample_fit_ramsey_plot():
-    data = pd.DataFrame(
-        {"CPUE": [19.5, 19, 18.5, 18, 17.5, 17], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
-    )
+    data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
     obtained = sample_fit_ramsey_plot(data)
     expected_length = 6
     obtained_length = len(obtained)
