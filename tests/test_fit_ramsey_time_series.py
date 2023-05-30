@@ -54,11 +54,11 @@ def test_extract_prob():
             np.array([0.5, 20.0]),
         ]
     ]
-    expected = [5 / 6]
+    expected = [1 / 6]
     obtained = extract_prob(fitted_parameters)
     assert obtained == expected
     multi_month = [fitted_parameters[0], fitted_parameters[0]]
-    expected = [5 / 6, 5 / 6]
+    expected = [1 / 6, 1 / 6]
     obtained = extract_prob(multi_month)
     assert obtained == expected
 
