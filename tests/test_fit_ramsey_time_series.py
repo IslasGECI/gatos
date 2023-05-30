@@ -7,6 +7,7 @@ from gatos import (
     add_slopes_to_effort_capture_data,
     calculate_sample_six_months_slope,
     calculate_six_months_slope,
+    extract_prob,
     extract_slopes,
     fit_ramsey_plot,
     get_status_slopes,
@@ -30,6 +31,19 @@ def test_sample_fit_ramsey_plot():
     expected_length = 6
     obtained_length = len(obtained)
     assert obtained_length == expected_length
+
+
+def test_extract_prob():
+    fitted_parameters = [
+        np.array([-0.5, 20.0]),
+        np.array([0.5, 20.0]),
+        np.array([0.5, 20.0]),
+        np.array([0.5, 20.0]),
+        np.array([0.5, 20.0]),
+        np.array([0.5, 20.0]),
+    ]
+    expected = 5 / 6
+    obtained = extract_prob(fitted_parameters)
 
 
 def test_add_slopes_to_effort_capture_data():
