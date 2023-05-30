@@ -1,6 +1,11 @@
 import numpy as np
 
 
+def add_probability_to_effort_capture_data(data):
+    data["prob"] = np.nan
+    return data
+
+
 def add_slopes_to_effort_capture_data(data):
     data["slope"] = np.nan
     slope_status = get_status_slopes(data)
