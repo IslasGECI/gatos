@@ -1,3 +1,5 @@
+import pandas as pd
+
 from gatos import get_non_captures_index
 
 
