@@ -60,7 +60,7 @@ def xxfit_ramsey_plotxx(data):
 
 
 def sample_fit_ramsey_plot(datos):
-    fits = [fit_ramsey_plot(set_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
+    fits = [fit_ramsey_plot(xxset_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
     return fits
 
 
