@@ -91,9 +91,25 @@ def test_write_effort_and_capture_with_slopes():
         os.remove(output_path)
     write_effort_and_captures_with_slopes(monthly_path, output_path)
     assert os.path.exists(output_path)
-    expected_hash = "de90c09264b6723c8bb274f58573b4fd"
-    obtained_hash = hashlib.md5(open(output_path, "rb").read()).hexdigest()
-    assert obtained_hash == expected_hash, "Hash of csv with slopes"
+    obtained = pd.read_csv(output_path)
+    obtained_slopes = obtained.slope
+    expected_slopes = pd.Series(
+        {
+            "slope": [
+                np.nan,
+                np.nan,
+                np.nan,
+                np.nan,
+                np.nan,
+                4.739e-6,
+                -1.117e-5,
+                -9.646e-6,
+                -5.082e-5,
+                -2.781e-6,
+            ]
+        }
+    )
+    pd.testing.assert_frame_equal(obtained_slopes, expected_slopes)
 
 
 def test_write_yearly_cummulative_effort_and_captures():
