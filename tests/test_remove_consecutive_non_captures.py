@@ -68,7 +68,6 @@ def test_replace_cumulative_non_captures_effort():
 
 def test_replace_and_drop_non_captures_effort():
     obtained = replace_and_drop_non_captures_effort(singular_data, index_list[1])
-    print(obtained)
     expected_length = len(singular_data) - 1
     obtained_length = len(obtained)
     assert obtained_length == expected_length
