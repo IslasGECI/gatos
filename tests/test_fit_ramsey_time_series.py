@@ -104,6 +104,16 @@ def test_set_up_ramsey_time_series():
         }
     )
     assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
+    singular_data = pd.DataFrame({"Esfuerzo": [2, 2, 2, 2, 2, 2], "Capturas": [1, 0, 0, 0, 2, 1]})
+    obtained = set_up_ramsey_time_series(data_2)
+
+    expected = pd.DataFrame(
+        {
+            "CPUE": [1 / 2, 0, 2 / 2, 1 / 2],
+            "Cumulative_captures": [1, 1, 3, 4],
+        }
+    )
+    assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
 
 
 def test_fit_ramsey_plot():
