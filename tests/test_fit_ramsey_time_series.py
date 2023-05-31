@@ -114,8 +114,7 @@ def test_set_up_ramsey_time_series():
         }
     )
 
-
-#    assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
+    assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
 
 
 def test_fit_ramsey_plot():
