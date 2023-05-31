@@ -15,3 +15,7 @@ def split_non_consecutive_indexes(index_list):
 
 def get_non_captures_index(data):
     return data.index[data.Capturas == 0].to_list()
+
+
+def drop_unused_non_captures(data, non_captures_indexes):
+    return data.drop(non_captures_indexes[:-1])
