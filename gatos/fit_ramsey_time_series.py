@@ -31,15 +31,10 @@ def get_status_slopes(data):
 
 
 def set_up_ramsey_time_series(data):
-    data_without_consecutive_non_captures = remove_consecutive_non_captures(data)
+    resized_data = remove_consecutive_non_captures(data)
     cumulative_captures = pd.DataFrame()
-    cumulative_captures["Cumulative_captures"] = data_without_consecutive_non_captures[
-        "Capturas"
-    ].cumsum()
-    cumulative_captures["CPUE"] = (
-        data_without_consecutive_non_captures["Capturas"]
-        / data_without_consecutive_non_captures["Esfuerzo"]
-    )
+    cumulative_captures["Cumulative_captures"] = resized_data["Capturas"].cumsum()
+    cumulative_captures["CPUE"] = resized_data["Capturas"] / resized_data["Esfuerzo"]
     return cumulative_captures[["CPUE", "Cumulative_captures"]]
 
 
