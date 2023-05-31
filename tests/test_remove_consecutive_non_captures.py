@@ -4,6 +4,7 @@ from gatos import (
     get_last_cumsum,
     get_non_captures_index,
     drop_unused_non_captures,
+    replace_cumulative_non_captures_effort,
     split_non_consecutive_indexes,
 )
 
@@ -40,3 +41,10 @@ def test_drop_unused_non_captures():
     expected_length = len(singular_data) - 2
     obtained_length = len(obtained)
     assert obtained_length == expected_length
+
+
+def test_replace_cumulative_non_captures_effort():
+    obtained = replace_cumulative_non_captures_effort(singular_data, index_list[1])
+    expected_7th_effort = 3
+    obtained_7th_effort = obtained.Esfuerzo.loc[index_list[1][1]]
+    assert obtained_7th_effort == expected_7th_effort
