@@ -2,6 +2,13 @@ from itertools import groupby
 from operator import itemgetter
 
 
+def replace_cumulative_non_captures_effort(singular_data, index_list):
+    last_cumsum = get_last_cumsum(singular_data, index_list)
+    last_index = index_list[-1]
+    singular_data.Esfuerzo.loc[last_index] = last_cumsum.Esfuerzo
+    return singular_data
+
+
 def get_last_cumsum(singular_data, index_list):
     return singular_data.loc[index_list].cumsum().iloc[-1]
 

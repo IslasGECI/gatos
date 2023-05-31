@@ -46,5 +46,5 @@ def test_drop_unused_non_captures():
 def test_replace_cumulative_non_captures_effort():
     obtained = replace_cumulative_non_captures_effort(singular_data, index_list[1])
     expected_7th_effort = 3
-    obtained_7th_effort = obtained.Esfuerzo.loc[index_list[1][1]]
+    obtained_7th_effort = obtained.Esfuerzo.loc[7]
     assert obtained_7th_effort == expected_7th_effort
