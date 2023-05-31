@@ -4,6 +4,7 @@ from gatos import (
     drop_unused_non_captures,
     get_last_cumsum,
     get_non_captures_index,
+    remove_consecutive_non_captures,
     replace_and_drop_non_captures_effort,
     replace_cumulative_non_captures_effort,
     split_non_consecutive_indexes,
@@ -13,6 +14,12 @@ from gatos import (
 singular_data = pd.DataFrame(
     {"Esfuerzo": [2, 2, 2, 2, 2, 2, 1, 2, 3], "Capturas": [1, 0, 0, 0, 2, 1, 0, 0, 1]}
 )
+
+
+def test_remove_consecutive_non_captures():
+    obtained = remove_consecutive_non_captures(singular_data)
+    expected = pd.DataFrame({"Esfuerzo": [2, 6, 2, 2, 3, 3], "Capturas": [1, 0, 2, 1, 0, 1]})
+    pd.assert_frame_equal(obtained, expected)
 
 
 def test_get_non_captures_index():
