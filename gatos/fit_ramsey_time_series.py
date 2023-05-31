@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def add_probability_to_effort_capture_data(data):
@@ -23,9 +24,10 @@ def get_status_slopes(data):
 
 
 def set_up_ramsey_time_series(data):
-    data["Cumulative_captures"] = data["Capturas"].cumsum()
-    data["CPUE"] = data["Capturas"] / data["Esfuerzo"]
-    return data[["CPUE", "Cumulative_captures"]]
+    cumulative_captures = pd.DataFrame()
+    cumulative_captures["Cumulative_captures"] = data["Capturas"].cumsum()
+    cumulative_captures["CPUE"] = data["Capturas"] / data["Esfuerzo"]
+    return cumulative_captures[["CPUE", "Cumulative_captures"]]
 
 
 def fit_ramsey_plot(data):

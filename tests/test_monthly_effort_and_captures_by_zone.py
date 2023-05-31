@@ -91,7 +91,7 @@ def test_write_effort_and_capture_with_slopes():
         os.remove(output_path)
     write_effort_and_captures_with_slopes(monthly_path, output_path)
     assert os.path.exists(output_path)
-    expected_hash = "3cab9f0792c8775b351dd529ee2e025a"
+    expected_hash = "f47189a7b9c4a87c6d42976ed796439d"
     obtained_hash = hashlib.md5(open(output_path, "rb").read()).hexdigest()
     assert obtained_hash == expected_hash, "Hash of csv with slopes"
 
