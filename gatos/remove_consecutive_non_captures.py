@@ -1,2 +1,2 @@
 def get_non_captures_index(data):
-    pass
+    return data.index[data.Capturas == 0].to_list()
