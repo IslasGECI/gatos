@@ -6,11 +6,13 @@ from gatos.remove_consecutive_non_captures import remove_consecutive_non_capture
 
 
 def add_probability_to_effort_capture_data(data):
-    data["prob"] = np.nan
-    samples = calculate_sample_six_months_slope(data)
+    data_copy = data.copy()
+    data_copy = remove_consecutive_non_captures(data_copy)
+    data_copy["prob"] = np.nan
+    samples = calculate_sample_six_months_slope(data_copy)
     probs_status = extract_prob(samples)
-    data.loc[5:, "prob"] = probs_status
-    return data
+    data_copy.loc[5:, "prob"] = probs_status
+    return data_copy
 
 
 def add_slopes_to_effort_capture_data(data):
