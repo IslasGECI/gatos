@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 
 
+from gatos.remove_consecutive_non_captures import remove_consecutive_non_captures
+
+
 def add_probability_to_effort_capture_data(data):
     data["prob"] = np.nan
     samples = calculate_sample_six_months_slope(data)
@@ -27,6 +30,19 @@ def set_up_ramsey_time_series(data):
     cumulative_captures = pd.DataFrame()
     cumulative_captures["Cumulative_captures"] = data["Capturas"].cumsum()
     cumulative_captures["CPUE"] = data["Capturas"] / data["Esfuerzo"]
+    return cumulative_captures[["CPUE", "Cumulative_captures"]]
+
+
+def xxset_up_ramsey_time_series(data):
+    data_without_consecutive_non_captures = remove_consecutive_non_captures(data)
+    cumulative_captures = pd.DataFrame()
+    cumulative_captures["Cumulative_captures"] = data_without_consecutive_non_captures[
+        "Capturas"
+    ].cumsum()
+    cumulative_captures["CPUE"] = (
+        data_without_consecutive_non_captures["Capturas"]
+        / data_without_consecutive_non_captures["Esfuerzo"]
+    )
     return cumulative_captures[["CPUE", "Cumulative_captures"]]
 
 

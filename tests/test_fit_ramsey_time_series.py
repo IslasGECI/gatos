@@ -13,6 +13,7 @@ from gatos import (
     get_status_slopes,
     sample_fit_ramsey_plot,
     set_up_ramsey_time_series,
+    xxset_up_ramsey_time_series,
 )
 
 
@@ -105,7 +106,7 @@ def test_set_up_ramsey_time_series():
     )
     assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
     singular_data = pd.DataFrame({"Esfuerzo": [2, 2, 2, 2, 2, 2], "Capturas": [1, 0, 0, 0, 2, 1]})
-    obtained = set_up_ramsey_time_series(singular_data)
+    obtained = xxset_up_ramsey_time_series(singular_data)
 
     expected = pd.DataFrame(
         {
@@ -114,7 +115,10 @@ def test_set_up_ramsey_time_series():
         }
     )
 
-    assert (obtained.Cumulative_captures == expected.Cumulative_captures).all()
+    pd.testing.assert_series_equal(
+        obtained.Cumulative_captures.reset_index(drop=True),
+        expected.Cumulative_captures.reset_index(drop=True),
+    )
 
 
 def test_fit_ramsey_plot():
