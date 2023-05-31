@@ -14,10 +14,12 @@ def add_probability_to_effort_capture_data(data):
 
 
 def add_slopes_to_effort_capture_data(data):
-    data["slope"] = np.nan
-    slope_status = get_status_slopes(data)
-    data.loc[5:, "slope"] = slope_status
-    return data
+    data_copy = data.copy()
+    data_copy = remove_consecutive_non_captures(data_copy)
+    data_copy["slope"] = np.nan
+    slope_status = get_status_slopes(data_copy)
+    data_copy.loc[5:, "slope"] = slope_status
+    return data_copy
 
 
 def get_status_slopes(data):
@@ -27,10 +29,7 @@ def get_status_slopes(data):
 
 
 def set_up_ramsey_time_series(data):
-    cumulative_captures = pd.DataFrame()
-    cumulative_captures["Cumulative_captures"] = data["Capturas"].cumsum()
-    cumulative_captures["CPUE"] = data["Capturas"] / data["Esfuerzo"]
-    return cumulative_captures[["CPUE", "Cumulative_captures"]]
+    return xxset_up_ramsey_time_series(data)
 
 
 def xxset_up_ramsey_time_series(data):
