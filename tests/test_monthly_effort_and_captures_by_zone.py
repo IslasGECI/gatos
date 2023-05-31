@@ -11,6 +11,7 @@ from gatos import (
     years_from_data,
 )
 
+import numpy as np
 import pandas as pd
 import os
 import hashlib
@@ -92,6 +93,7 @@ def test_write_effort_and_capture_with_slopes():
     write_effort_and_captures_with_slopes(monthly_path, output_path)
     assert os.path.exists(output_path)
     obtained = pd.read_csv(output_path)
+
     obtained_slopes = obtained.slope
     expected_slopes = pd.Series(
         {
