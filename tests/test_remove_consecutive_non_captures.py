@@ -42,6 +42,12 @@ def test_drop_unused_non_captures():
     obtained_length = len(obtained)
     assert obtained_length == expected_length
 
+    index_list_with_one_value = [8]
+    obtained = drop_unused_non_captures(singular_data, index_list_with_one_value)
+    obtained_length = len(obtained)
+    expected_length = len(singular_data)
+    assert obtained_length == expected_length
+
 
 def test_replace_cumulative_non_captures_effort():
     obtained = replace_cumulative_non_captures_effort(singular_data, index_list[1])
