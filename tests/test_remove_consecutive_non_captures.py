@@ -1,6 +1,6 @@
 import pandas as pd
 
-from gatos import get_non_captures_index, split_non_consecutive_indexes
+from gatos import get_last_cumsum, get_non_captures_index, split_non_consecutive_indexes
 
 
 singular_data = pd.DataFrame(
@@ -25,4 +25,4 @@ def test_get_last_cumsum():
     index_list = [[1, 2, 3], [6, 7]]
     obtained = get_last_cumsum(singular_data, index_list[0])
     expected_effort = 6
-    assert obtained.Effort == expected_effort
+    assert obtained.Esfuerzo == expected_effort

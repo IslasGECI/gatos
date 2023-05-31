@@ -2,6 +2,10 @@ from itertools import groupby
 from operator import itemgetter
 
 
+def get_last_cumsum(singular_data, index_list):
+    return singular_data.loc[index_list].cumsum().iloc[-1]
+
+
 def split_non_consecutive_indexes(index_list):
     return [
         list(map(itemgetter(1), g))
