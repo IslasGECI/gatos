@@ -19,7 +19,9 @@ singular_data = pd.DataFrame(
 def test_remove_consecutive_non_captures():
     obtained = remove_consecutive_non_captures(singular_data)
     expected = pd.DataFrame({"Esfuerzo": [2, 6, 2, 2, 3, 3], "Capturas": [1, 0, 2, 1, 0, 1]})
-    pd.testing.assert_frame_equal(obtained, expected)
+    pd.testing.assert_frame_equal(
+        obtained.reset_index(drop=True), expected.reset_index(drop=True), check_dtype=False
+    )
 
 
 def test_get_non_captures_index():

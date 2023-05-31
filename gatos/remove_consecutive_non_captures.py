@@ -2,6 +2,15 @@ from itertools import groupby
 from operator import itemgetter
 
 
+def remove_consecutive_non_captures(data):
+    data_copy = data.copy()
+    non_captures_indexes = get_non_captures_index(data)
+    indexes_list = split_non_consecutive_indexes(non_captures_indexes)
+    for index_list in indexes_list:
+        data_copy = replace_and_drop_non_captures_effort(data_copy, index_list)
+    return data_copy
+
+
 def replace_and_drop_non_captures_effort(data, index_list):
     data_with_cummulative_effort = replace_cumulative_non_captures_effort(data, index_list)
     return drop_unused_non_captures(data_with_cummulative_effort, index_list)
