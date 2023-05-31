@@ -32,6 +32,14 @@ def fit_ramsey_plot(data):
     return np.polyfit(data["Cumulative_captures"], data["CPUE"], 1)
 
 
+def xxfit_ramsey_plotxx(data):
+    fit = np.polynomial.polynomial.Polynomial.fit(data["Cumulative_captures"], data["CPUE"], deg=1)
+    intercept_and_slope = fit.convert().coef
+    idx = [1, 0]
+    slope_and_intercept = intercept_and_slope[idx]
+    return slope_and_intercept
+
+
 def sample_fit_ramsey_plot(datos):
     fits = [fit_ramsey_plot(set_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
     return fits
