@@ -33,6 +33,10 @@ def test_add_probability_to_effort_capture_data():
     is_positive = obtained_probs >= 0
     assert is_positive.all()
 
+    obtained_length = len(obtained)
+    expected_length = 10
+    assert obtained_length == expected_length
+
 
 def test_sample_fit_ramsey_plot():
     data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
