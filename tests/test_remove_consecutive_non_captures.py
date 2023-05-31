@@ -14,4 +14,6 @@ def test_get_non_captures_index():
 
 def test_split_non_consecutive_indexes():
     index_list = [1, 2, 5, 6, 9]
-    split_non_consecutive_indexes(index_list)
+    obtained = split_non_consecutive_indexes(index_list)
+    expected = [[1, 2], [5, 6], [9]]
+    assert obtained == expected
