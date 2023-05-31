@@ -25,16 +25,12 @@ def add_slopes_to_effort_capture_data(data):
 
 
 def get_status_slopes(data):
-    ramsey_time_series = xxset_up_ramsey_time_series(data)
+    ramsey_time_series = set_up_ramsey_time_series(data)
     slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
     return extract_slopes(slopes_and_intercept)
 
 
 def set_up_ramsey_time_series(data):
-    return xxset_up_ramsey_time_series(data)
-
-
-def xxset_up_ramsey_time_series(data):
     data_without_consecutive_non_captures = remove_consecutive_non_captures(data)
     cumulative_captures = pd.DataFrame()
     cumulative_captures["Cumulative_captures"] = data_without_consecutive_non_captures[
@@ -60,7 +56,7 @@ def xxfit_ramsey_plotxx(data):
 
 
 def sample_fit_ramsey_plot(datos):
-    fits = [fit_ramsey_plot(xxset_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
+    fits = [fit_ramsey_plot(set_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
     return fits
 
 
