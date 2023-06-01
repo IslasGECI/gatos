@@ -32,8 +32,8 @@ def test_write_effort_and_capture_with_probability():
     assert os.path.exists(output_path)
     obtained = pd.read_csv(output_path)
 
-    obtained_slopes = obtained.slope
-    expected_slopes = pd.Series(
+    obtained_probability = obtained.prob
+    expected_probability = pd.Series(
         [
             np.nan,
             np.nan,
@@ -46,9 +46,9 @@ def test_write_effort_and_capture_with_probability():
             -5.082e-5,
             -2.781e-6,
         ],
-        name="slope",
+        name="prob",
     )
-    pd.testing.assert_series_equal(obtained_slopes, expected_slopes)
+    pd.testing.assert_series_equal(obtained_probability, expected_probability)
 
 
 def test_write_effort_and_capture_with_slopes():
