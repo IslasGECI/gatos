@@ -96,22 +96,21 @@ def test_write_effort_and_capture_with_slopes():
 
     obtained_slopes = obtained.slope
     expected_slopes = pd.Series(
-        {
-            "slope": [
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                4.739e-6,
-                -1.117e-5,
-                -9.646e-6,
-                -5.082e-5,
-                -2.781e-6,
-            ]
-        }
+        [
+            np.nan,
+            np.nan,
+            np.nan,
+            np.nan,
+            np.nan,
+            4.739e-6,
+            -1.117e-5,
+            -9.646e-6,
+            -5.082e-5,
+            -2.781e-6,
+        ],
+        name="slope",
     )
-    pd.testing.assert_frame_equal(obtained_slopes, expected_slopes)
+    pd.testing.assert_series_equal(obtained_slopes, expected_slopes)
 
 
 def test_write_yearly_cummulative_effort_and_captures():
