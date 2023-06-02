@@ -17,8 +17,8 @@ def add_probability_to_effort_capture_data(data):
 def add_slopes_to_effort_capture_data(data):
     column_to_add = "slope"
     data_copy = set_up_effort_capture_data(data, column_to_add)
-    probs_status = get_status_slopes(data_copy)
-    paste_status(data_copy, probs_status, column_to_add)
+    slopes_status = get_status_slopes(data_copy)
+    paste_status(data_copy, slopes_status, column_to_add)
     return data_copy
 
 
