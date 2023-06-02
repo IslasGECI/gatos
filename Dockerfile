@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 WORKDIR /workdir
 COPY . .
 RUN pip install --upgrade pip && \
