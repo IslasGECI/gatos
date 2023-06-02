@@ -16,11 +16,11 @@ def add_probability_to_effort_capture_data(data):
 def set_up_effort_capture_data(data):
     data_copy = data.copy()
     data_copy = remove_consecutive_non_captures(data_copy)
-    xxadd_empty_column(data_copy, column_name="prob")
+    add_empty_column(data_copy, column_name="prob")
     return data_copy
 
 
-def xxadd_empty_column(data_copy, column_name="prob"):
+def add_empty_column(data_copy, column_name="prob"):
     data_copy[column_name] = np.nan
 
 
