@@ -20,10 +20,6 @@ def set_up_effort_capture_data(data):
     return data_copy
 
 
-def add_empty_column(data_copy):
-    xxadd_empty_column(data_copy, column_name="prob")
-
-
 def xxadd_empty_column(data_copy, column_name="prob"):
     data_copy[column_name] = np.nan
 
