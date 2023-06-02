@@ -20,7 +20,7 @@ def paste_status(data_copy, probs_status, column_name):
 def add_slopes_to_effort_capture_data(data):
     data_copy = set_up_effort_capture_data(data, "slope")
     slope_status = get_status_slopes(data_copy)
-    data_copy.loc[5:, "slope"] = slope_status
+    paste_status(data_copy, slope_status, "slope")
     return data_copy
 
 
