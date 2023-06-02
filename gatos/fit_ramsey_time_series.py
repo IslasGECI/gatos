@@ -14,11 +14,11 @@ def add_probability_to_effort_capture_data(data):
 
 
 def paste_status(data_copy, probs_status):
-    xxpaste_status(data_copy, probs_status)
+    xxpaste_status(data_copy, probs_status, "prob")
 
 
-def xxpaste_status(data_copy, probs_status):
-    data_copy.loc[5:, "prob"] = probs_status
+def xxpaste_status(data_copy, probs_status, column_name):
+    data_copy.loc[5:, column_name] = probs_status
 
 
 def add_slopes_to_effort_capture_data(data):
