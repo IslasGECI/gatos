@@ -40,6 +40,9 @@ def write_yearly_cummulative_effort_and_captures(
     cummulatie_effort_and_capture["CPUE"] = calculate_yearly_cumulative_cpue(
         weekly_effort_and_capture, years_in_data
     )
+    cummulatie_effort_and_capture = cummulatie_effort_and_capture.rename(
+        columns={"Captures": "Cumulative_captures"}
+    )
     cummulatie_effort_and_capture.to_csv(output_path, index=False)
 
 
