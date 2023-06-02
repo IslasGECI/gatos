@@ -7,12 +7,21 @@ from eradication_data_requirements import fit_ramsey_plot
 
 
 def add_probability_to_effort_capture_data(data):
-    data_copy = data.copy()
-    data_copy = remove_consecutive_non_captures(data_copy)
-    data_copy["prob"] = np.nan
+    data_copy = set_up_effort_capture_data(data)
     probs_status = get_status_probs(data_copy)
     data_copy.loc[5:, "prob"] = probs_status
     return data_copy
+
+
+def set_up_effort_capture_data(data):
+    data_copy = data.copy()
+    data_copy = remove_consecutive_non_captures(data_copy)
+    add_empty_column(data_copy)
+    return data_copy
+
+
+def add_empty_column(data_copy):
+    data_copy["prob"] = np.nan
 
 
 def add_slopes_to_effort_capture_data(data):
