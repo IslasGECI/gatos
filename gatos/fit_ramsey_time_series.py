@@ -13,6 +13,13 @@ def add_probability_to_effort_capture_data(data):
     return data_copy
 
 
+def add_slopes_to_effort_capture_data(data):
+    data_copy = set_up_effort_capture_data(data, "slope")
+    slope_status = get_status_slopes(data_copy)
+    data_copy.loc[5:, "slope"] = slope_status
+    return data_copy
+
+
 def set_up_effort_capture_data(data, column_name):
     data_copy = data.copy()
     data_copy = remove_consecutive_non_captures(data_copy)
@@ -22,13 +29,6 @@ def set_up_effort_capture_data(data, column_name):
 
 def add_empty_column(data_copy, column_name):
     data_copy[column_name] = np.nan
-
-
-def add_slopes_to_effort_capture_data(data):
-    data_copy = set_up_effort_capture_data(data, "slope")
-    slope_status = get_status_slopes(data_copy)
-    data_copy.loc[5:, "slope"] = slope_status
-    return data_copy
 
 
 def get_status_slopes(data):
