@@ -85,6 +85,10 @@ def test_write_yearly_cummulative_effort_and_captures():
         os.remove(output_path)
     write_yearly_cummulative_effort_and_captures(input_path, output_path)
     assert os.path.exists(output_path)
-    expected_hash = "9a4aaa1cf8d7d30c64521ca2fe727b7b"
+    obtained_csv = pd.read_csv(output_path)
+    obtained_columns = obtained_csv.columns
+    expected_columns = ["Date", "Effort", "Cumulative_captures", "CPUE"]
+    assert (obtained_columns == expected_columns).all()
+    expected_hash = "f91474bc36b1cf3c78174a9ad2f202ba"
     obtained_hash = hashlib.md5(open(output_path, "rb").read()).hexdigest()
     assert obtained_hash == expected_hash, "Hash of csv with cumulative effort an captures"
