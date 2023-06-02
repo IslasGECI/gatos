@@ -14,13 +14,13 @@ def add_probability_to_effort_capture_data(data):
 
 
 def set_up_effort_capture_data(data):
-    return xxset_up_effort_capture_data(data)
+    return xxset_up_effort_capture_data(data, "prob")
 
 
-def xxset_up_effort_capture_data(data):
+def xxset_up_effort_capture_data(data, column_name):
     data_copy = data.copy()
     data_copy = remove_consecutive_non_captures(data_copy)
-    add_empty_column(data_copy, column_name="prob")
+    add_empty_column(data_copy, column_name)
     return data_copy
 
 
