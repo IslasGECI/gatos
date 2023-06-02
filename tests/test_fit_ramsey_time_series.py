@@ -35,6 +35,14 @@ def test_add_probability_to_effort_capture_data():
     expected_length = 10
     assert obtained_length == expected_length
 
+    data_with_zero_effort_row = pd.DataFrame(
+        {"Esfuerzo": [1, 2, 0, 4, 0, 6], "Capturas": [1, 1, 1, 1, 1, 1]}
+    )
+    obtained = add_probability_to_effort_capture_data(data_with_zero_effort_row)
+    are_not_zero_efforts = obtained.Effort != 0
+    print(are_not_zero_efforts)
+    assert are_not_zero_efforts.all()
+
 
 def test_sample_fit_ramsey_plot():
     data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
