@@ -3,6 +3,7 @@ import pandas as pd
 
 
 from gatos.remove_consecutive_non_captures import remove_consecutive_non_captures
+from eradication_data_requirements import fit_ramsey_plot
 
 
 def add_probability_to_effort_capture_data(data):
@@ -36,10 +37,6 @@ def set_up_ramsey_time_series(data):
     cumulative_captures["Cumulative_captures"] = resized_data["Capturas"].cumsum()
     cumulative_captures["CPUE"] = resized_data["Capturas"] / resized_data["Esfuerzo"]
     return cumulative_captures[["CPUE", "Cumulative_captures"]]
-
-
-def fit_ramsey_plot(data):
-    return np.polyfit(data["Cumulative_captures"], data["CPUE"], 1)
 
 
 def xxfit_ramsey_plotxx(data):

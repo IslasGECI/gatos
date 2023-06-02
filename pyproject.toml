@@ -11,6 +11,7 @@ home-page = "https://github.com/IslasGECI/gatos"
 module = "gatos"
 requires = [
         "Click",
+        "eradication_data_requirements @ git+https://github.com/IslasGECI/eradication_data_requirements.git",
         "geci_plots @ git+https://github.com/IslasGECI/geci_plots.git@v0.4.2",
         "matplotlib",
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
@@ -18,7 +19,7 @@ requires = [
         "pandas",
         "pymc3"
     ]
-requires-python=">=3.8"
+requires-python=">=3.9"
 
 [tool.flit.scripts]
 crea_tabla_pvalor = "gatos.tabla_p_valor_erradicacion_gatos:cli"
