@@ -21,6 +21,10 @@ def set_up_effort_capture_data(data):
 
 
 def add_empty_column(data_copy):
+    xxadd_empty_column(data_copy)
+
+
+def xxadd_empty_column(data_copy):
     data_copy["prob"] = np.nan
 
 
