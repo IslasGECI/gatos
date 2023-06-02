@@ -30,7 +30,8 @@ def set_up_effort_capture_data(data, column_name):
     data_copy = data.copy()
     data_copy = remove_consecutive_non_captures(data_copy)
     add_empty_column(data_copy, column_name)
-    return data_copy
+    data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
+    return data_copy_filtered
 
 
 def add_empty_column(data_copy, column_name):

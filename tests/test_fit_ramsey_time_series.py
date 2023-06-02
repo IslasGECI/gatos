@@ -36,7 +36,7 @@ def test_add_probability_to_effort_capture_data():
     assert obtained_length == expected_length
 
     data_with_zero_effort_row = pd.DataFrame(
-        {"Esfuerzo": [1, 2, 0, 4, 0, 6], "Capturas": [1, 1, 1, 1, 1, 1]}
+        {"Esfuerzo": [1, 2, 3, 4, 5, 6, 0, 3, 0], "Capturas": [1, 1, 1, 1, 1, 1, 0, 1, 0]}
     )
     obtained = add_probability_to_effort_capture_data(data_with_zero_effort_row)
     are_not_zero_efforts = obtained.Esfuerzo != 0
