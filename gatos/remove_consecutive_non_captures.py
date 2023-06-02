@@ -20,7 +20,7 @@ def replace_cumulative_non_captures_effort(singular_data, index_list):
     last_cumsum = get_last_cumsum(singular_data, index_list)
     last_index = index_list[-1]
     singular_data_copy = singular_data.copy()
-    singular_data_copy.Esfuerzo.loc[last_index] = last_cumsum.Esfuerzo
+    singular_data_copy.loc[last_index, "Esfuerzo"] = last_cumsum.Esfuerzo
     return singular_data_copy
 
 
