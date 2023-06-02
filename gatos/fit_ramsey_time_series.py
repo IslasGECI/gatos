@@ -9,8 +9,12 @@ from eradication_data_requirements import fit_ramsey_plot
 def add_probability_to_effort_capture_data(data):
     data_copy = set_up_effort_capture_data(data, "prob")
     probs_status = get_status_probs(data_copy)
-    data_copy.loc[5:, "prob"] = probs_status
+    paste_status(data_copy, probs_status)
     return data_copy
+
+
+def paste_status(data_copy, probs_status):
+    data_copy.loc[5:, "prob"] = probs_status
 
 
 def add_slopes_to_effort_capture_data(data):
