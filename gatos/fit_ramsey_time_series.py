@@ -14,6 +14,10 @@ def add_probability_to_effort_capture_data(data):
 
 
 def paste_status(data_copy, probs_status):
+    xxpaste_status(data_copy, probs_status)
+
+
+def xxpaste_status(data_copy, probs_status):
     data_copy.loc[5:, "prob"] = probs_status
 
 
