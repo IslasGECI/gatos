@@ -24,8 +24,8 @@ def add_empty_column(data_copy):
     xxadd_empty_column(data_copy)
 
 
-def xxadd_empty_column(data_copy):
-    data_copy["prob"] = np.nan
+def xxadd_empty_column(data_copy, column_name="prob"):
+    data_copy[column_name] = np.nan
 
 
 def add_slopes_to_effort_capture_data(data):
