@@ -39,7 +39,7 @@ def test_add_probability_to_effort_capture_data():
         {"Esfuerzo": [1, 2, 0, 4, 0, 6], "Capturas": [1, 1, 1, 1, 1, 1]}
     )
     obtained = add_probability_to_effort_capture_data(data_with_zero_effort_row)
-    are_not_zero_efforts = obtained.Effort != 0
+    are_not_zero_efforts = obtained.Esfuerzo != 0
     print(are_not_zero_efforts)
     assert are_not_zero_efforts.all()
 
