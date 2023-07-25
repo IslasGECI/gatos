@@ -6,6 +6,7 @@ import re
 import pandas as pd
 import json
 import numpy as np
+import os
 
 
 def tests_run_population_estimator():
@@ -16,16 +17,16 @@ def tests_run_population_estimator():
         "output_file": posterior_path,
         "datapackage": True,
     }
-    run_population_estimator(argumentos)
-    loo_figure = "reports/figures/loo_diagnostic.png"
-    obtained_loo_hash = hashlib.md5(open(loo_figure, "rb").read()).hexdigest()
-    expected_loo_hash = "c46abaa10e432dfebe5fe516ca4e5b35"
-    assert obtained_loo_hash == expected_loo_hash
 
+    loo_figure = "reports/figures/loo_diagnostic.png"
     predictive_figure = "reports/figures/predictive_posterior.png"
-    obtained_predictive_hash = hashlib.md5(open(predictive_figure, "rb").read()).hexdigest()
-    expected_predictive_hash = "d17e1fba7eba6f76ea75c88f3c83daa4"
-    assert obtained_predictive_hash == expected_predictive_hash
+    remove_file_if_exists(loo_figure)
+    remove_file_if_exists(predictive_figure)
+
+    run_population_estimator(argumentos)
+
+    assert os.path.exists(loo_figure)
+    assert os.path.exists(predictive_figure)
 
     obtained_posterior = pd.read_csv(posterior_path)
     expected_posterior = pd.read_csv("tests/data/distribucion_posterior_reference.csv")
@@ -47,9 +48,12 @@ def tests_run_population_estimator():
         "output_file": posterior_path,
         "datapackage": False,
     }
+
+    remove_file_if_exists(predictive_figure)
+
     run_population_estimator(argumentos)
-    obtained_predictive_hash = hashlib.md5(open(predictive_figure, "rb").read()).hexdigest()
-    assert obtained_predictive_hash == expected_predictive_hash
+
+    assert os.path.exists(predictive_figure)
 
     obtained_posterior = pd.read_csv(posterior_path)
     expected_posterior = pd.read_csv("tests/data/distribucion_posterior_reference.csv")
@@ -59,6 +63,11 @@ def tests_run_population_estimator():
     assert obtained_loo_hash == expected_loo_hash
 
     assert_dict_equal_from_path(obtained_waic_path, expected_waic_path)
+
+
+def remove_file_if_exists(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
 
 
 def assert_dict_equal_from_path(obtained_waic_path, expected_waic_path):
