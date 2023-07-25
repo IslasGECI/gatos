@@ -12,8 +12,8 @@ def remove_consecutive_non_captures(data):
 
 
 def replace_and_drop_non_captures_effort(data, index_list):
-    data_with_cummulative_effort = replace_cumulative_non_captures_effort(data, index_list)
-    return drop_unused_non_captures(data_with_cummulative_effort, index_list)
+    data_with_cumulative_effort = replace_cumulative_non_captures_effort(data, index_list)
+    return drop_unused_non_captures(data_with_cumulative_effort, index_list)
 
 
 def replace_cumulative_non_captures_effort(singular_data, index_list):

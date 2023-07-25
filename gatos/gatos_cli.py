@@ -4,7 +4,7 @@ from gatos.fit_ramsey_time_series import (
 )
 from gatos.get_capture_and_effort_by_zone import (
     calculate_yearly_cumulative_cpue,
-    get_cummulative_effort_and_captures_by_year,
+    get_cumulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     years_from_data,
@@ -28,12 +28,12 @@ def write_effort_and_captures_by_zone_for_year(
 
 
 @app.command()
-def write_yearly_cummulative_effort_and_captures(
+def write_yearly_cumulative_effort_and_captures(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)
-    cumulative_effort_and_capture = get_cummulative_effort_and_captures_by_year(
+    cumulative_effort_and_capture = get_cumulative_effort_and_captures_by_year(
         weekly_effort_and_capture
     )
     years_in_data = years_from_data(weekly_effort_and_capture)

@@ -20,7 +20,7 @@ def get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
     return get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length)
 
 
-def get_cummulative_effort_and_captures_by_year(weekly_effort_and_captures_data):
+def get_cumulative_effort_and_captures_by_year(weekly_effort_and_captures_data):
     yearly_capture_and_effort = get_yearly_capture_and_effort_by_zone(
         weekly_effort_and_captures_data
     ).drop(columns=["Zone"])

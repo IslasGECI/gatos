@@ -2,7 +2,7 @@ from gatos import (
     calculate_yearly_cumulative_cpue,
     calculate_yearly_cumulative_effort_and_captures,
     get_capture_and_effort_by_zone,
-    get_cummulative_effort_and_captures_by_year,
+    get_cumulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     years_from_data,
@@ -48,9 +48,9 @@ def test_get_yearly_capture_and_effort_by_zone():
     assert obtained_length == expected_length
 
 
-def test_get_cummulative_effort_and_captures_by_year():
+def test_get_cumulative_effort_and_captures_by_year():
     weekly_effort_and_captures_data = pd.read_csv(input_path)
-    obtained = get_cummulative_effort_and_captures_by_year(weekly_effort_and_captures_data)
+    obtained = get_cumulative_effort_and_captures_by_year(weekly_effort_and_captures_data)
     obtained_captures_2022 = obtained[obtained.Date == "2022"].Captures.item()
     expected_captures_2022 = 6
     assert obtained_captures_2022 == expected_captures_2022
@@ -70,7 +70,7 @@ def test_select_effort_and_captures_by_year():
     assert obtained_length == expected_length
 
 
-def test_calculate_yearly_cummulative_effort_and_captures():
+def test_calculate_yearly_cumulative_effort_and_captures():
     monthly_data = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
     years_in_data = years_from_data(monthly_data)
     obtained_effort, obtained_captures = calculate_yearly_cumulative_effort_and_captures(
@@ -80,7 +80,7 @@ def test_calculate_yearly_cummulative_effort_and_captures():
     assert obtained_captures == [57, 3]
 
 
-def test_calculate_yearly_cummulative_cpue():
+def test_calculate_yearly_cumulative_cpue():
     monthly_data = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
     years_in_data = years_from_data(monthly_data)
     obtained_cpue = calculate_yearly_cumulative_cpue(monthly_data, years_in_data)

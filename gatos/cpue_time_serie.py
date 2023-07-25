@@ -1,9 +1,9 @@
 import pandas as pd
 
 
-def sum_cummulative_from_column(monthly_effort_capture: pd.DataFrame):
-    monthly_effort_capture["cummulative_effort"] = rolling_sum(monthly_effort_capture, "Esfuerzo")
-    monthly_effort_capture["cummulative_captures"] = rolling_sum(monthly_effort_capture, "Capturas")
+def sum_cumulative_from_column(monthly_effort_capture: pd.DataFrame):
+    monthly_effort_capture["cumulative_effort"] = rolling_sum(monthly_effort_capture, "Esfuerzo")
+    monthly_effort_capture["cumulative_captures"] = rolling_sum(monthly_effort_capture, "Capturas")
     return drop_effort_captures_and_trappers(monthly_effort_capture)
 
 

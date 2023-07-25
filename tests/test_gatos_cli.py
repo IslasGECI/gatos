@@ -2,7 +2,7 @@ from gatos import (
     write_effort_and_captures_by_zone_for_year,
     write_effort_and_captures_with_probability,
     write_effort_and_captures_with_slopes,
-    write_yearly_cummulative_effort_and_captures,
+    write_yearly_cumulative_effort_and_captures,
 )
 
 import numpy as np
@@ -79,11 +79,11 @@ def test_write_effort_and_capture_with_slopes():
     pd.testing.assert_series_equal(obtained_slopes, expected_slopes)
 
 
-def test_write_yearly_cummulative_effort_and_captures():
-    output_path = "tests/data/yearly_cummulative_effort_and_captures.csv"
+def test_write_yearly_cumulative_effort_and_captures():
+    output_path = "tests/data/yearly_cumulative_effort_and_captures.csv"
     if os.path.exists(output_path):
         os.remove(output_path)
-    write_yearly_cummulative_effort_and_captures(input_path, output_path)
+    write_yearly_cumulative_effort_and_captures(input_path, output_path)
     assert os.path.exists(output_path)
     obtained_csv = pd.read_csv(output_path)
     obtained_columns = obtained_csv.columns
