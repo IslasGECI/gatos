@@ -1,11 +1,10 @@
 from gatos import plot_progress_probability
 
 import pandas as pd
-import matplotlib.pyplot as plt
+import matplotlib as plt
 
 
 def test_plot_progress_probability():
     data = pd.read_csv("tests/data/progress_probability_tests.csv")
     obtained = plot_progress_probability(data)
-    print(type(obtained))
-    assert type(obtained) == type(plt)
+    assert type(obtained) == plt.axes._axes.Axes
