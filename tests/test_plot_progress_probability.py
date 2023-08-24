@@ -1,8 +1,10 @@
 from gatos import plot_progress_probability
 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def test_plot_progress_probability():
     data = pd.read_csv("tests/data/progress_probability_tests.csv")
-    plot_progress_probability(data)
+    obtained = plot_progress_probability(data)
+    assert type(obtained) == type(plt)
