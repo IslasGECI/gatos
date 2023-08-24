@@ -2,6 +2,7 @@ from gatos import (
     write_effort_and_captures_by_zone_for_year,
     write_effort_and_captures_with_probability,
     write_effort_and_captures_with_slopes,
+    write_progress_probability_figure,
     write_yearly_cumulative_effort_and_captures,
 )
 
@@ -92,3 +93,15 @@ def test_write_yearly_cumulative_effort_and_captures():
     expected_hash = "f91474bc36b1cf3c78174a9ad2f202ba"
     obtained_hash = hashlib.md5(open(output_path, "rb").read()).hexdigest()
     assert obtained_hash == expected_hash, "Hash of csv with cumulative effort an captures"
+
+
+def test_write_progress_probability_figure():
+    data_path = "tests/data/progress_probability_tests.csv"
+    figure_path = "tests/data/progress_probability_tests.png"
+
+    if os.path.exists(figure_path):
+        os.remove(figure_path)
+
+    write_progress_probability_figure(data_path, figure_path)
+
+    os.path.exists(figure_path)
