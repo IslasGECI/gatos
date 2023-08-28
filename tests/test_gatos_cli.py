@@ -105,3 +105,4 @@ def test_write_progress_probability_figure():
     write_progress_probability_figure(data_path, figure_path)
 
     os.path.exists(figure_path)
+    os.remove(figure_path)
