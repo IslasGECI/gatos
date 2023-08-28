@@ -7,4 +7,4 @@ import matplotlib as plt
 def test_plot_progress_probability():
     data = pd.read_csv("tests/data/progress_probability_tests.csv")
     obtained = plot_progress_probability(data)
-    assert type(obtained) == plt.axes._axes.Axes
+    assert isinstance(obtained, plt.axes._axes.Axes)
