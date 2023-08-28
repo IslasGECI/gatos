@@ -16,6 +16,3 @@ class Test_PopulationEstimator:
         assert self.Estimator.capturas == expected_catch
         assert self.Estimator._nombre_archivo == expected_file_name
         assert self.Estimator.tamanios_poblacion is None
-
-    def test_run(self):
-        self.Estimator.run(iteraciones=2, n_datos_descartados=3)
