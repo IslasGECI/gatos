@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+### Fixed
+
+### Changed
+
+### Removed
+
+## [1.1.0] - 2023-08-28
+
+### Added
+- Add `write_progress_probability_figure`
+
+### Removed
+- Remove test `tests_populationEstimator::test_run` to improve suit test speed
+
+
 ## [1.0.0] - 2023-07-25
 
 ### Fixed
@@ -16,3 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+[unreleased]: https://github.com/IslasGECI/gatos/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/IslasGECI/gatos/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/IslasGECI/gatos/compare/v0.2.2...v1.0.0
