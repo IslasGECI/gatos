@@ -31,7 +31,7 @@ def test_add_probability_to_effort_capture_data():
     is_positive = obtained_probs >= 0
     assert is_positive.all()
 
-    obtained_length = len(obtained)
+    obtained_length = obtained.shape[0]
     expected_length = 10
     assert obtained_length == expected_length
 
