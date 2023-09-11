@@ -82,7 +82,7 @@ def calculate_sample_six_months_slope(ramsey_series):
 def calculate_six_months_slope(data):
     window_length = 6
     return [
-        fit_ramsey_plot(data.iloc[(i - window_length) : i])
+        xxfit_ramsey_plotxx(data.iloc[(i - window_length) : i])
         for i in range(window_length, len(data) + 1)
     ]
 
