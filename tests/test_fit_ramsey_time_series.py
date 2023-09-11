@@ -168,6 +168,7 @@ def test_calculate_sample_six_months_slope():
     expected_number_elements = 6
     obtained_number_elements = len(obtained_slopes[0])
     assert obtained_number_elements == expected_number_elements
+    print(obtained_slopes)
 
 
 def test_extract_slopes():

@@ -52,6 +52,7 @@ def get_status_probs(data_copy):
 
 def set_up_ramsey_time_series(data):
     resized_data = remove_consecutive_non_captures(data)
+    resized_data = resized_data[resized_data.Esfuerzo != 0]
     cumulative_captures = pd.DataFrame()
     cumulative_captures["Cumulative_captures"] = resized_data["Capturas"].cumsum()
     cumulative_captures["CPUE"] = resized_data["Capturas"] / resized_data["Esfuerzo"]
