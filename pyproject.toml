@@ -17,9 +17,9 @@ requires = [
         "metadatatools @ git+https://git@github.com/IslasGECI/metadata_tools@v0.2.2",
         "numpy",
         "pandas",
-        "pymc3"
+        "pymc3==3.11.*"
     ]
-requires-python=">=3.9"
+requires-python=">=3.10"
 
 [tool.flit.scripts]
 crea_tabla_pvalor = "gatos.tabla_p_valor_erradicacion_gatos:cli"
