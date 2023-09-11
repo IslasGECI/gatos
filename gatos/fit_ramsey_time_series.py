@@ -9,26 +9,32 @@ from eradication_data_requirements import fit_ramsey_plot
 def add_probability_to_effort_capture_data(data):
     column_to_add = "prob"
     data_copy = set_up_effort_capture_data(data, column_to_add)
-    probs_status = get_status_probs(data_copy)
+    print("antes:")
+    print(data_copy)
+    probs_status = get_status_probs(data)
+    data_copy = remove_consecutive_non_captures(data)
+    print("despues:")
     paste_status(data_copy, probs_status, column_to_add)
+    print(data_copy)
     return data_copy
 
 
 def add_slopes_to_effort_capture_data(data):
     column_to_add = "slope"
     data_copy = set_up_effort_capture_data(data, column_to_add)
-    slopes_status = get_status_slopes(data_copy)
+    slopes_status = get_status_slopes(data)
+    data_copy = remove_consecutive_non_captures(data)
     paste_status(data_copy, slopes_status, column_to_add)
     return data_copy
 
 
 def paste_status(data_copy, probs_status, column_name):
+    add_empty_column(data_copy, column_name)
     data_copy.loc[5:, column_name] = probs_status
 
 
 def set_up_effort_capture_data(data, column_name):
     data_copy = data.copy()
-    data_copy = remove_consecutive_non_captures(data_copy)
     add_empty_column(data_copy, column_name)
     data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
     return data_copy_filtered
@@ -45,7 +51,8 @@ def get_status_slopes(data):
 
 
 def get_status_probs(data_copy):
-    samples = calculate_sample_six_months_slope(data_copy)
+    ramsey_time_series = set_up_ramsey_time_series(data_copy)
+    samples = calculate_sample_six_months_slope(ramsey_time_series)
     probs_status = extract_prob(samples)
     return probs_status
 
@@ -68,7 +75,7 @@ def xxfit_ramsey_plotxx(data):
 
 
 def sample_fit_ramsey_plot(datos):
-    fits = [xxfit_ramsey_plotxx(set_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
+    fits = [xxfit_ramsey_plotxx(datos.drop(i)) for i in datos.index]
     return fits
 
 

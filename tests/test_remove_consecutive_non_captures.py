@@ -22,6 +22,11 @@ def test_remove_consecutive_non_captures():
     pd.testing.assert_frame_equal(
         obtained.reset_index(drop=True), expected.reset_index(drop=True), check_dtype=False
     )
+    obtained = remove_consecutive_non_captures(expected)
+    print(obtained)
+    pd.testing.assert_frame_equal(
+        obtained.reset_index(drop=True), expected.reset_index(drop=True), check_dtype=False
+    )
 
 
 def test_get_non_captures_index():
