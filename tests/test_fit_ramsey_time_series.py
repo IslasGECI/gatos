@@ -44,8 +44,10 @@ def test_add_probability_to_effort_capture_data():
 
 
 def test_sample_fit_ramsey_plot():
-    data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
-    obtained = sample_fit_ramsey_plot(data)
+    time_series_for_ramsey = pd.DataFrame(
+    {"CPUE": [1, 1 / 2, 1 / 3, 1 / 4, 1 / 5, 1 / 6], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
+)
+    obtained = sample_fit_ramsey_plot(time_series_for_ramsey)
     expected_length = 6
     obtained_length = len(obtained)
     assert obtained_length == expected_length
