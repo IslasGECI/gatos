@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 from gatos import (
-    get_status_probs,
+    add_probs_to_effort_capture_data,
     add_slopes_to_effort_capture_data,
     calculate_sample_six_months_slope,
     calculate_six_months_slope,
@@ -18,14 +18,14 @@ data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1,
 
 
 def test_add_probability_to_effort_capture_data():
-    obtained = get_status_probs(data)
+    obtained = add_probs_to_effort_capture_data(data)
     contains_slope_column = "prob" in obtained.columns
     assert contains_slope_column
 
     effort_and_capture_data = pd.read_csv(
         "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv"
     )
-    obtained = get_status_probs(effort_and_capture_data)
+    obtained = add_probs_to_effort_capture_data(effort_and_capture_data)
     obtained_probs = obtained.prob.iloc[6:]
     is_positive = obtained_probs >= 0
     assert is_positive.all()
@@ -37,7 +37,7 @@ def test_add_probability_to_effort_capture_data():
     data_with_zero_effort_row = pd.DataFrame(
         {"Esfuerzo": [1, 2, 3, 4, 5, 6, 0, 3, 0], "Capturas": [1, 1, 1, 1, 1, 1, 0, 1, 0]}
     )
-    obtained = get_status_probs(data_with_zero_effort_row)
+    obtained = add_probs_to_effort_capture_data(data_with_zero_effort_row)
 
 
 time_series_for_ramsey = pd.DataFrame(
