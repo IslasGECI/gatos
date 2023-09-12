@@ -4,6 +4,7 @@ import pytest
 
 from gatos import (
     add_probability_to_effort_capture_data,
+    get_status_probs,
     add_slopes_to_effort_capture_data,
     calculate_sample_six_months_slope,
     calculate_six_months_slope,
@@ -37,7 +38,7 @@ def test_add_probability_to_effort_capture_data():
     data_with_zero_effort_row = pd.DataFrame(
         {"Esfuerzo": [1, 2, 3, 4, 5, 6, 0, 3, 0], "Capturas": [1, 1, 1, 1, 1, 1, 0, 1, 0]}
     )
-    obtained = add_probability_to_effort_capture_data(data_with_zero_effort_row)
+    obtained = get_status_probs(data_with_zero_effort_row)
 
 
 time_series_for_ramsey = pd.DataFrame(
