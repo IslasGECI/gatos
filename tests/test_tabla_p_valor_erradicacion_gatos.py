@@ -1,7 +1,9 @@
 import subprocess
 import re
+import pytest
 
 
+@pytest.mark.slow
 def test_crea_tabla_pvalor():
     expected = "gatos$"
     bash_command = "crea_tabla_pvalor --help"

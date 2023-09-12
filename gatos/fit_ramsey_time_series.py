@@ -33,14 +33,6 @@ def xxpaste_status(data_copy, probs_status, column_name):
     data_copy.loc[5:, column_name] = probs_status
 
 
-def xxset_up_effort_capture_data(data, column_name):
-    data_copy = data.copy()
-    # data_copy = remove_consecutive_non_captures(data_copy)
-    # add_empty_column(data_copy, column_name)
-    data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
-    return data_copy_filtered
-
-
 def set_up_effort_capture_data(data, column_name):
     data_copy = data.copy()
     data_copy = remove_consecutive_non_captures(data_copy)

@@ -7,8 +7,10 @@ import pandas as pd
 import json
 import numpy as np
 import os
+import pytest
 
 
+@pytest.mark.slow
 def tests_run_population_estimator():
     posterior_path = "tests/data/distribucion_posterior.csv"
     argumentos = {
@@ -80,6 +82,7 @@ def assert_dict_equal(obtained_dict, expected_dict):
     np.testing.assert_allclose(list(obtained_dict.values()), list(expected_dict.values()))
 
 
+@pytest.mark.slow
 def test_crea_tamagno_poblacion_gatos_help():
     expected = "inicial$"
     bash_command = "crea_tamagno_poblacion_gatos --help"
@@ -89,6 +92,7 @@ def test_crea_tamagno_poblacion_gatos_help():
     assert is_there
 
 
+@pytest.mark.slow
 def test_crea_tamagno_poblacion_gatos_calculate_help():
     bash_command = "crea_tamagno_poblacion_gatos calculate --help"
     subprocess.check_call(bash_command, shell=True)
