@@ -9,7 +9,6 @@ from gatos import (
     calculate_six_months_slope,
     extract_prob,
     extract_slopes,
-    get_status_slopes,
     sample_fit_ramsey_plot,
     set_up_ramsey_time_series,
 )
