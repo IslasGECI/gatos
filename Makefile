@@ -63,6 +63,7 @@ linter:
 
 mutants: setup
 	mutmut run --paths-to-mutate ${module} --runner 'pytest'
+	mutmut html 
 
 setup: clean install
 	mkdir --parents reports/non-tabular
