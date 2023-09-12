@@ -3,7 +3,6 @@ import pandas as pd
 
 
 from gatos.remove_consecutive_non_captures import remove_consecutive_non_captures
-from eradication_data_requirements import fit_ramsey_plot
 
 
 def add_slopes_to_effort_capture_data(data):
