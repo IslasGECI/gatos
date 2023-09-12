@@ -30,11 +30,6 @@ def get_status_probs(data_copy):
     return probs_status
 
 
-def paste_status(data_copy, probs_status, column_name):
-    assert len(data_copy.loc[5:, column_name]) == len(probs_status), "Different dimensions"
-    data_copy.loc[5:, column_name] = probs_status
-
-
 def xxpaste_status(data_copy, probs_status, column_name):
     add_empty_column(data_copy, column_name)
     assert len(data_copy.loc[5:, column_name]) == len(probs_status), "Different dimensions"
