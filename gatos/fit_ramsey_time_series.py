@@ -14,6 +14,13 @@ def add_probability_to_effort_capture_data(data):
     return data_copy
 
 
+def get_status_probs(data_copy):
+    ramsey_time_series = set_up_ramsey_time_series(data_copy)
+    samples = calculate_sample_six_months_slope(ramsey_time_series)
+    probs_status = extract_prob(samples)
+    return probs_status
+
+
 def add_slopes_to_effort_capture_data(data):
     ramsey_time_series = set_up_ramsey_time_series(data)
     slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
@@ -45,12 +52,6 @@ def add_empty_column(data_copy, column_name):
     data_copy[column_name] = np.nan
 
 
-def get_status_probs(data_copy):
-    samples = calculate_sample_six_months_slope(data_copy)
-    probs_status = extract_prob(samples)
-    return probs_status
-
-
 def set_up_ramsey_time_series(data):
     resized_data = remove_consecutive_non_captures(data)
     resized_data = resized_data[resized_data.Esfuerzo != 0]
@@ -69,7 +70,7 @@ def xxfit_ramsey_plotxx(data):
 
 
 def sample_fit_ramsey_plot(datos):
-    fits = [xxfit_ramsey_plotxx(set_up_ramsey_time_series(datos.drop(i))) for i in datos.index]
+    fits = [xxfit_ramsey_plotxx(datos.drop(i)) for i in datos.index]
     return fits
 
 

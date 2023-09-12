@@ -43,7 +43,7 @@ def test_write_effort_and_capture_with_probability():
             np.nan,
             1 / 6,
             1.0,
-            5 / 6,
+            1.0,
             5 / 6,
             1 / 2,
         ],
