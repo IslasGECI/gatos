@@ -6,13 +6,21 @@ from gatos.remove_consecutive_non_captures import remove_consecutive_non_capture
 from eradication_data_requirements import fit_ramsey_plot
 
 
+def add_slopes_to_effort_capture_data(data):
+    ramsey_time_series = set_up_ramsey_time_series(data)
+    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
+    slopes_status = extract_slopes(slopes_and_intercept)
+    xxpaste_status(ramsey_time_series, slopes_status, "slope")
+    return ramsey_time_series
+
+
 def add_probability_to_effort_capture_data(data):
     column_to_add = "prob"
     data_copy = set_up_effort_capture_data(data, column_to_add)
     data_copy = remove_consecutive_non_captures(data_copy)
     data_copy = data_copy[data_copy.Esfuerzo != 0]
     probs_status = get_status_probs(data_copy)
-    paste_status(data_copy, probs_status, column_to_add)
+    xxpaste_status(data_copy, probs_status, column_to_add)
     return data_copy
 
 
@@ -44,14 +52,6 @@ def xxpaste_status(data_copy, probs_status, column_name):
 
 def add_empty_column(data_copy, column_name):
     data_copy[column_name] = np.nan
-
-
-def add_slopes_to_effort_capture_data(data):
-    ramsey_time_series = set_up_ramsey_time_series(data)
-    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
-    slopes_status = extract_slopes(slopes_and_intercept)
-    xxpaste_status(ramsey_time_series, slopes_status, "slope")
-    return ramsey_time_series
 
 
 def set_up_ramsey_time_series(data):
