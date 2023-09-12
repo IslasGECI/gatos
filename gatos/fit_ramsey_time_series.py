@@ -19,6 +19,14 @@ def add_slopes_to_effort_capture_data(data):
     return data_with_slopes
 
 
+def get_status_slopes(data):
+    ramsey_time_series = set_up_ramsey_time_series(data)
+    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
+    slopes_status = extract_slopes(slopes_and_intercept)
+    xxpaste_status(ramsey_time_series, slopes_status, "slope")
+    return ramsey_time_series
+
+
 def paste_status(data_copy, probs_status, column_name):
     assert len(data_copy.loc[5:, column_name]) == len(probs_status), "Different dimensions"
     data_copy.loc[5:, column_name] = probs_status
@@ -48,14 +56,6 @@ def set_up_effort_capture_data(data, column_name):
 
 def add_empty_column(data_copy, column_name):
     data_copy[column_name] = np.nan
-
-
-def get_status_slopes(data):
-    ramsey_time_series = set_up_ramsey_time_series(data)
-    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
-    slopes_status = extract_slopes(slopes_and_intercept)
-    xxpaste_status(ramsey_time_series, slopes_status, "slope")
-    return ramsey_time_series
 
 
 def get_status_probs(data_copy):
