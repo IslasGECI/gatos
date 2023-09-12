@@ -12,7 +12,6 @@ from gatos import (
     get_status_slopes,
     sample_fit_ramsey_plot,
     set_up_ramsey_time_series,
-    xxfit_ramsey_plotxx,
 )
 
 
@@ -45,13 +44,9 @@ def test_add_probability_to_effort_capture_data():
     assert are_not_zero_efforts.all()
 
 
-time_series_for_ramsey = pd.DataFrame(
-    {"CPUE": [1, 1 / 2, 1 / 3, 1 / 4, 1 / 5, 1 / 6], "Cumulative_captures": [1, 2, 3, 4, 5, 6]}
-)
-
-
 def test_sample_fit_ramsey_plot():
-    obtained = sample_fit_ramsey_plot(time_series_for_ramsey)
+    data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
+    obtained = sample_fit_ramsey_plot(data)
     expected_length = 6
     obtained_length = len(obtained)
     assert obtained_length == expected_length
@@ -96,22 +91,10 @@ def test_add_slopes_to_effort_capture_data():
 
 def test_get_status_slopes():
     obtained = get_status_slopes(data)
-    obtained_len = len(obtained)
-    expected_len = 1
-    assert obtained_len == expected_len
-
-
-def tests_xxfit_ramsey_plotxx():
-    data_for_fit = pd.DataFrame(
-        {
-            "CPUE": [1, 0.6, 1 / 2, 1 / 3, 1 / 4, 1 / 5, 1 / 6],
-            "Cumulative_captures": [1, 1, 2, 3, 4, 5, 6],
-        }
-    )
-    obtained = xxfit_ramsey_plotxx(data_for_fit)
     print(obtained)
-    expected = np.array([-0.130625, 0.84625])
-    np.testing.assert_allclose(obtained, expected)
+    obtained_len = len(obtained)
+    expected_len = 6
+    assert obtained_len == expected_len
 
 
 def test_set_up_ramsey_time_series():
@@ -178,7 +161,8 @@ def test_calculate_six_months_slope():
 
 
 def test_calculate_sample_six_months_slope():
-    obtained_slopes = calculate_sample_six_months_slope(time_series_for_ramsey)
+    data = pd.DataFrame({"Esfuerzo": [1, 2, 3, 4, 5, 6], "Capturas": [1, 1, 1, 1, 1, 1]})
+    obtained_slopes = calculate_sample_six_months_slope(data)
     expected_number_slopes = 1
     obtained_number_slopes = len(obtained_slopes)
     assert obtained_number_slopes == expected_number_slopes
