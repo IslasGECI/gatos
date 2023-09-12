@@ -15,12 +15,8 @@ def add_probability_to_effort_capture_data(data):
 
 
 def add_slopes_to_effort_capture_data(data):
-    column_to_add = "slope"
-    data_copy = remove_consecutive_non_captures(data)
-    data_copy = data_copy[data_copy.Esfuerzo != 0]
-    slopes_status = get_status_slopes(data)
-    # xxpaste_status(data_copy, slopes_status, column_to_add)
-    return slopes_status
+    data_with_slopes = get_status_slopes(data)
+    return data_with_slopes
 
 
 def paste_status(data_copy, probs_status, column_name):
