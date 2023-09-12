@@ -3,7 +3,6 @@ import numpy as np
 import pytest
 
 from gatos import (
-    add_probability_to_effort_capture_data,
     get_status_probs,
     add_slopes_to_effort_capture_data,
     calculate_sample_six_months_slope,

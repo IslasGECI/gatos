@@ -1,6 +1,6 @@
 from gatos.fit_ramsey_time_series import (
     add_slopes_to_effort_capture_data,
-    add_probability_to_effort_capture_data,
+    get_status_probs,
 )
 from gatos.get_capture_and_effort_by_zone import (
     calculate_yearly_cumulative_cpue,
@@ -65,7 +65,7 @@ def write_effort_and_captures_with_probability(
     output_path: str = typer.Option("", help="Output file path"),
 ):
     effort_capture_data = pd.read_csv(input_path)
-    effort_captures_with_slopes = add_probability_to_effort_capture_data(effort_capture_data)
+    effort_captures_with_slopes = get_status_probs(effort_capture_data)
     effort_captures_with_slopes.to_csv(output_path, index=False)
 
 
