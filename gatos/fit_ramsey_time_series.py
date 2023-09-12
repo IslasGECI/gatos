@@ -30,14 +30,6 @@ def get_status_probs(data_copy):
     return probs_status
 
 
-def set_up_effort_capture_data(data, column_name):
-    data_copy = data.copy()
-    # data_copy = remove_consecutive_non_captures(data_copy)
-    add_empty_column(data_copy, column_name)
-    # data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
-    return data_copy
-
-
 def paste_status(data_copy, probs_status, column_name):
     assert len(data_copy.loc[5:, column_name]) == len(probs_status), "Different dimensions"
     data_copy.loc[5:, column_name] = probs_status
