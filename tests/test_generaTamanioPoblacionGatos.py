@@ -82,7 +82,7 @@ def assert_dict_equal(obtained_dict, expected_dict):
     np.testing.assert_allclose(list(obtained_dict.values()), list(expected_dict.values()))
 
 
-@pytest.mark.slow
+@pytest.mark.slow()
 def test_crea_tamagno_poblacion_gatos_help():
     expected = "inicial$"
     bash_command = "crea_tamagno_poblacion_gatos --help"
