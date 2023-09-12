@@ -15,19 +15,16 @@ def add_slopes_to_effort_capture_data(data):
 
 
 def add_probability_to_effort_capture_data(data):
-    column_to_add = "prob"
-    data_copy = remove_consecutive_non_captures(data)
-    data_copy = data_copy[data_copy.Esfuerzo != 0]
     probs_status = get_status_probs(data)
-    paste_status(data_copy, probs_status, column_to_add)
-    return data_copy
+    return probs_status
 
 
 def get_status_probs(data_copy):
     ramsey_time_series = set_up_ramsey_time_series(data_copy)
     samples = calculate_sample_six_months_slope(ramsey_time_series)
     probs_status = extract_prob(samples)
-    return probs_status
+    paste_status(ramsey_time_series, probs_status, "prob")
+    return ramsey_time_series
 
 
 def paste_status(data_copy, probs_status, column_name):
