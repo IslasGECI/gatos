@@ -9,6 +9,7 @@ from eradication_data_requirements import fit_ramsey_plot
 def add_probability_to_effort_capture_data(data):
     column_to_add = "prob"
     data_copy = set_up_effort_capture_data(data, column_to_add)
+    data_copy = remove_consecutive_non_captures(data_copy)
     probs_status = get_status_probs(data_copy)
     paste_status(data_copy, probs_status, column_to_add)
     return data_copy
@@ -21,12 +22,12 @@ def get_status_probs(data_copy):
     return probs_status
 
 
-def add_slopes_to_effort_capture_data(data):
-    ramsey_time_series = set_up_ramsey_time_series(data)
-    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
-    slopes_status = extract_slopes(slopes_and_intercept)
-    xxpaste_status(ramsey_time_series, slopes_status, "slope")
-    return ramsey_time_series
+def set_up_effort_capture_data(data, column_name):
+    data_copy = data.copy()
+    # data_copy = remove_consecutive_non_captures(data_copy)
+    add_empty_column(data_copy, column_name)
+    data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
+    return data_copy_filtered
 
 
 def paste_status(data_copy, probs_status, column_name):
@@ -40,16 +41,16 @@ def xxpaste_status(data_copy, probs_status, column_name):
     data_copy.loc[5:, column_name] = probs_status
 
 
-def set_up_effort_capture_data(data, column_name):
-    data_copy = data.copy()
-    data_copy = remove_consecutive_non_captures(data_copy)
-    add_empty_column(data_copy, column_name)
-    data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
-    return data_copy_filtered
-
-
 def add_empty_column(data_copy, column_name):
     data_copy[column_name] = np.nan
+
+
+def add_slopes_to_effort_capture_data(data):
+    ramsey_time_series = set_up_ramsey_time_series(data)
+    slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
+    slopes_status = extract_slopes(slopes_and_intercept)
+    xxpaste_status(ramsey_time_series, slopes_status, "slope")
+    return ramsey_time_series
 
 
 def set_up_ramsey_time_series(data):
