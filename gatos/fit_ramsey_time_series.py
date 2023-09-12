@@ -10,6 +10,7 @@ def add_probability_to_effort_capture_data(data):
     column_to_add = "prob"
     data_copy = set_up_effort_capture_data(data, column_to_add)
     data_copy = remove_consecutive_non_captures(data_copy)
+    data_copy = data_copy[data_copy.Esfuerzo != 0]
     probs_status = get_status_probs(data_copy)
     paste_status(data_copy, probs_status, column_to_add)
     return data_copy
@@ -26,8 +27,8 @@ def set_up_effort_capture_data(data, column_name):
     data_copy = data.copy()
     # data_copy = remove_consecutive_non_captures(data_copy)
     add_empty_column(data_copy, column_name)
-    data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
-    return data_copy_filtered
+    # data_copy_filtered = data_copy[data_copy.Esfuerzo != 0]
+    return data_copy
 
 
 def paste_status(data_copy, probs_status, column_name):
