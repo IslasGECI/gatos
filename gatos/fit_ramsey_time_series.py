@@ -42,6 +42,7 @@ def set_up_ramsey_time_series(data):
 
 
 def xxfit_ramsey_plotxx(data):
+    assert len(data["Cumulative_captures"].unique()) > 1, "It can not fit Ramsey plot"
     fit = np.polynomial.polynomial.Polynomial.fit(data["Cumulative_captures"], data["CPUE"], deg=1)
     intercept_and_slope = fit.convert().coef
     idx = [1, 0]
