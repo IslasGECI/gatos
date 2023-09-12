@@ -15,11 +15,6 @@ def add_probability_to_effort_capture_data(data):
 
 
 def add_slopes_to_effort_capture_data(data):
-    data_with_slopes = get_status_slopes(data)
-    return data_with_slopes
-
-
-def get_status_slopes(data):
     ramsey_time_series = set_up_ramsey_time_series(data)
     slopes_and_intercept = calculate_six_months_slope(ramsey_time_series)
     slopes_status = extract_slopes(slopes_and_intercept)
