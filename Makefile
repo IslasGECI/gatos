@@ -73,19 +73,19 @@ tests:
 
 
 red: format
-	pytest --verbose \
+	pytest -vm "not slow" \
 	&& git restore tests/*.py \
 	|| (git add tests/*.py && git commit -m "🛑🧪 Fail tests")
 	chmod g+w -R .
 
 green: format
-	pytest --verbose \
+	pytest -vm "not slow" \
 	&& (git add gatos/*.py tests/*.py && git commit -m "✅ Pass tests") \
 	|| git restore gatos/*.py
 	chmod g+w -R .
 
 refactor: format
-	pytest --verbose \
+	pytest -vm "not slow" \
 	&& (git add gatos/*.py tests/*.py && git commit -m "♻️  Refactor") \
 	|| git restore gatos/*.py tests/*.py
 	chmod g+w -R .
