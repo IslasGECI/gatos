@@ -18,6 +18,6 @@ RUN pip install --upgrade pip && \
     rope \
     typer
 
-RUN pip uninstall pony
+RUN pip uninstall pony --yes
 RUN pip install git+https://github.com/ponyorm/pony.git
 CMD make
