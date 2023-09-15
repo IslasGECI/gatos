@@ -3,7 +3,6 @@ from gatos import (
     write_yearly_cumulative_effort_and_captures,
 )
 
-import numpy as np
 import pandas as pd
 import os
 import hashlib
