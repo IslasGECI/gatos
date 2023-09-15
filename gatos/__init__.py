@@ -1,8 +1,8 @@
 """Gatos package"""
 
 
-__version__ = "1.1.0"
-# from .DataAndMetadataCats import *
+__version__ = "2.0.0"
+
 from .cpue_time_serie import *  # noqa
 from .gatos_cli import *  # noqa
 from .generaTamanioPoblacionGatos import *  # noqa
