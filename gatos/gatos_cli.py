@@ -5,23 +5,11 @@ from gatos.get_capture_and_effort_by_zone import (
     select_effort_and_captures_by_year,
     years_from_data,
 )
-from gatos.plot_progress_probability import plot_progress_probability
 
 import pandas as pd
 import typer
-import matplotlib.pyplot as plt
 
 app = typer.Typer()
-
-
-@app.command()
-def write_progress_probability_figure(
-    data_path: str = typer.Option("", help="Input file path"),
-    figure_path: str = typer.Option("", help="Output file path"),
-):
-    monthly_progress_probability = pd.read_csv(data_path)
-    plot_progress_probability(monthly_progress_probability)
-    plt.savefig(figure_path)
 
 
 @app.command()
