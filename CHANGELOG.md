@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [2.0.1] - 2023-09-28
+
+### Added
+- Add cli object to executable path. This way we can use it without `typer-cli`
+
 ## [2.0.0] - 2023-09-15
 
 ### Removed
