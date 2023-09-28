@@ -24,3 +24,4 @@ requires-python=">=3.10"
 [tool.flit.scripts]
 crea_tabla_pvalor = "gatos.tabla_p_valor_erradicacion_gatos:cli"
 crea_tamagno_poblacion_gatos = "gatos.generaTamanioPoblacionGatos:cli"
+gatos = "gatos.gatos_cli:app"
