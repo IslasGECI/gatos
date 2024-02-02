@@ -1,6 +1,5 @@
 """Gatos package"""
 
-
 __version__ = "2.0.1"
 
 from .cpue_time_serie import *  # noqa
