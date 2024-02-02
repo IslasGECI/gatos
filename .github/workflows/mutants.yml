@@ -5,6 +5,10 @@ jobs:
     name: 👾 Run mutation testing 👾
     runs-on: ubuntu-latest
     steps:
+    - name: Copia repositorio
+      uses: actions/checkout@v3
+    - name: Construye imagen
+      run: docker build --tag islasgeci/gatos:latest .
     - name: Evalúa resistencia a mutaciones
       run: docker run --volume $PWD:/workdir islasgeci/gatos:latest make mutants
     - name: Upload
