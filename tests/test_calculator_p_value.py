@@ -42,8 +42,8 @@ class Test_CalculatorPValue:
         """
         La probabilidad de que un elemento de la distribución posterior esté en los intervalos:
         - de 0 a 1
-        - de 1 a población remamnente
-        - de la población remamnente hasta 10,000,000,000 ("infinito")
+        - de 1 a población remanente
+        - de la población remanente hasta 10,000,000,000 ("infinito")
         """
         self.__set_probability()
         interval_0_1 = 25.0
