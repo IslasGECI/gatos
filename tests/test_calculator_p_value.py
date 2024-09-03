@@ -56,9 +56,7 @@ class Test_CalculatorPValue:
     def __set_up_test_calculate_high_probability_and_calculate_high_probability(self):
         self.calculador.calculate_range_remanented_cats()
         self.calculador.calculate_high_probability()
-        self.expected_n_bins = max(self.calculador.datos.No.unique()) - min(
-            self.calculador.datos.No.unique()
-        )
+        self.expected_n_bins = 8
         self.expected_hist, _ = np.histogram(
             self.calculador.remanented_cats, bins=self.expected_n_bins
         )
