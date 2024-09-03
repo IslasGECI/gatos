@@ -51,9 +51,13 @@ class Test_CalculatorPValue:
         calculador.probability()
         obtained_probabilities = calculador.probabilidades.tolist()
         interval_0_1 = 25.0
-        interval_1_remaining = 25.0
+        interval_1_remaining_minus_one = 25.0
         interval_remanent_to_infinity = 50.0
-        expected_probabilities = [interval_0_1, interval_1_remaining, interval_remanent_to_infinity]
+        expected_probabilities = [
+            interval_0_1,
+            interval_1_remaining_minus_one,
+            interval_remanent_to_infinity,
+        ]
         assert expected_probabilities == obtained_probabilities
 
     def __set_up_test_calculate_high_probability_and_calculate_high_probability(self):
@@ -70,7 +74,3 @@ class Test_CalculatorPValue:
     def __set_calculate_remanented_cat_more_probably(self):
         self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
         self.calculador.calculate_remanented_cat_more_probably()
-
-    def __set_probability(self):
-        self.__set_calculate_remanented_cat_more_probably()
-        self.calculador.probability()
