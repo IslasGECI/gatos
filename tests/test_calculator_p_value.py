@@ -56,7 +56,8 @@ class Test_CalculatorPValue:
         assert expected_probabilities == obtained_probabilities
 
         calculador.remanented_cat_more_probably = 1
-        calculador.remanented_cats = [0, 4, 8]
+        posterior_distribution = np.array([1, 5, 9])
+        calculador.remanented_cats = posterior_distribution - total_capturas
         calculador.probability()
         obtained_probabilities = calculador.probabilidades.tolist()
         interval_0_1 = 33.33
