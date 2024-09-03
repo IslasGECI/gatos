@@ -38,9 +38,18 @@ class Test_CalculatorPValue:
         expected_remanented_cat_more_probably = 8
         assert self.calculador.remanented_cat_more_probably == expected_remanented_cat_more_probably
 
-    def test_probability(self):
+    def test_posterior_distribution_probabilities_in_intervals(self):
+        """
+        La probabilidad de que un elemento de la distribución posterior esté en los intervalos:
+        - de 0 a 1
+        - de 1 a población remamnente
+        - de la población remamnente hasta 10,000,000,000 ("infinito")
+        """
         self.__set_probability()
-        expected_probabilities = [25.0, 25.0, 50.0]
+        interval_0_1 = 25.0
+        interval_1_remaining = 25.0
+        interval_remanent_to_infinity = 50.0
+        expected_probabilities = [interval_0_1, interval_1_remaining, interval_remanent_to_infinity]
         obtained_probabilities = self.calculador.probabilidades.tolist()
         assert expected_probabilities == obtained_probabilities
 
