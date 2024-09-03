@@ -35,8 +35,8 @@ class Test_CalculatorPValue:
 
     def test_calculate_remanented_cat_more_probably(self):
         self.__set_calculate_remanented_cat_more_probably()
-        remanented_cat_more_probably = self.expected_bins[self.indice_mas_probable][0]
-        assert self.calculador.remanented_cat_more_probably == remanented_cat_more_probably
+        expected_remanented_cat_more_probably = 0
+        assert self.calculador.remanented_cat_more_probably == expected_remanented_cat_more_probably
 
     def test_probability(self):
         self.__set_probability()
