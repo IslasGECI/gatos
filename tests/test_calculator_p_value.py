@@ -80,7 +80,7 @@ class Test_CalculatorPValue:
         self.calculador.calculate_high_probability()
         self.expected_hist = np.array([1, 0, 0, 0, 1, 0, 0, 2])
         self.maximo = 2
-        self.indice_mas_probable = np.where(self.expected_hist == self.maximo)[0]
+        self.indice_mas_probable = [7]
 
     def __set_calculate_remanented_cat_more_probably(self):
         self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
