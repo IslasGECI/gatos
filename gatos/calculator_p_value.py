@@ -22,10 +22,10 @@ class CalculatorPValue:
         self.indice_mas_probable = np.where(self.hist == self.maximo)[0]
 
     def calculate_remanented_cat_more_probably(self):
-        self.remanented_cat_more_probably = self.bins[self.indice_mas_probable][0]
+        self.remanented_cat_more_probably = self.bins[self.indice_mas_probable][0] + 1
 
     def probability(self):
         hist, bin_edges = np.histogram(
-            self.remanented_cats, bins=[0, 1, self.remanented_cat_more_probably + 1, 10_000_000_000]
+            self.remanented_cats, bins=[0, 1, self.remanented_cat_more_probably, 10_000_000_000]
         )
         self.probabilidades = (hist / hist.sum()) * 100

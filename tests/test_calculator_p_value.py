@@ -35,12 +35,12 @@ class Test_CalculatorPValue:
 
     def test_calculate_remanented_cat_more_probably(self):
         self.__set_calculate_remanented_cat_more_probably()
-        expected_remanented_cat_more_probably = 0
+        expected_remanented_cat_more_probably = 8
         assert self.calculador.remanented_cat_more_probably == expected_remanented_cat_more_probably
 
     def test_probability(self):
         self.__set_probability()
-        expected_probabilities = [33.33333333333333, 0.0, 66.66666666666666]
+        expected_probabilities = [25.0, 25.0, 50.0]
         obtained_probabilities = self.calculador.probabilidades.tolist()
         assert expected_probabilities == obtained_probabilities
 
@@ -50,9 +50,10 @@ class Test_CalculatorPValue:
         self.expected_n_bins = max(self.calculador.datos.No.unique()) - min(
             self.calculador.datos.No.unique()
         )
-        self.expected_hist, self.expected_bins = np.histogram(
+        self.expected_hist, _ = np.histogram(
             self.calculador.remanented_cats, bins=self.expected_n_bins
         )
+        self.expected_bins = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
         self.maximo = max(self.expected_hist)
         self.indice_mas_probable = np.where(self.expected_hist == self.maximo)[0]
 
