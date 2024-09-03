@@ -35,9 +35,15 @@ class Test_CalculatorPValue:
         np.testing.assert_array_equal(calculador.hist, expected_hist)
 
     def test_calculate_high_probability(self):
-        self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
-        assert self.calculador.maximo == self.maximo
-        assert self.calculador.indice_mas_probable[0] == self.indice_mas_probable[0]
+        calculador = CalculatorPValue()
+        calculador.set_total_capturas(total_capturas)
+        calculador.read_posterior(archivo)
+        calculador.calculate_range_remanented_cats()
+        calculador.calculate_high_probability()
+        expected_indice_mas_probable = [7]
+        expected_maximo = 2
+        assert calculador.maximo == expected_maximo
+        assert calculador.indice_mas_probable[0] == expected_indice_mas_probable[0]
 
     def test_calculate_remanented_cat_more_probably(self):
         self.__set_calculate_remanented_cat_more_probably()
@@ -79,8 +85,6 @@ class Test_CalculatorPValue:
         self.calculador.calculate_range_remanented_cats()
         self.calculador.calculate_high_probability()
         self.expected_hist = np.array([1, 0, 0, 0, 1, 0, 0, 2])
-        self.maximo = 2
-        self.indice_mas_probable = [7]
 
     def __set_calculate_remanented_cat_more_probably(self):
         self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
