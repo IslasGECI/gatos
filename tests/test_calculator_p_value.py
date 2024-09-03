@@ -25,9 +25,14 @@ class Test_CalculatorPValue:
         assert self.calculador.capturas == total_capturas
 
     def test_calculate_range_remanented_cats(self):
-        self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
-        np.testing.assert_array_equal(self.calculador.bins, self.expected_bins)
-        np.testing.assert_array_equal(self.calculador.hist, self.expected_hist)
+        calculador = CalculatorPValue()
+        calculador.set_total_capturas(total_capturas)
+        calculador.read_posterior(archivo)
+        calculador.calculate_range_remanented_cats()
+        expected_hist = np.array([1, 0, 0, 0, 1, 0, 0, 2])
+        expected_bins = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+        np.testing.assert_array_equal(calculador.bins, expected_bins)
+        np.testing.assert_array_equal(calculador.hist, expected_hist)
 
     def test_calculate_high_probability(self):
         self.__set_up_test_calculate_high_probability_and_calculate_high_probability()
@@ -73,12 +78,8 @@ class Test_CalculatorPValue:
     def __set_up_test_calculate_high_probability_and_calculate_high_probability(self):
         self.calculador.calculate_range_remanented_cats()
         self.calculador.calculate_high_probability()
-        self.expected_n_bins = 8
-        self.expected_hist, _ = np.histogram(
-            self.calculador.remanented_cats, bins=self.expected_n_bins
-        )
-        self.expected_bins = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
-        self.maximo = max(self.expected_hist)
+        self.expected_hist = np.array([1, 0, 0, 0, 1, 0, 0, 2])
+        self.maximo = 2
         self.indice_mas_probable = np.where(self.expected_hist == self.maximo)[0]
 
     def __set_calculate_remanented_cat_more_probably(self):

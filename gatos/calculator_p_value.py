@@ -26,6 +26,6 @@ class CalculatorPValue:
 
     def probability(self):
         hist, bin_edges = np.histogram(
-            self.remanented_cats, bins=[0, 1, self.remanented_cat_more_probably, 10_000_000_000]
+            self.remanented_cats, bins=[0, 1, self.remanented_cat_more_probably, 10_000]
         )
         self.probabilidades = (hist / hist.sum()) * 100
