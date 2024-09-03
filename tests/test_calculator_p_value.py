@@ -45,12 +45,15 @@ class Test_CalculatorPValue:
         - de 1 a población remanente
         - de la población remanente hasta 10,000,000,000 ("infinito")
         """
-        self.__set_probability()
+        calculador = CalculatorPValue()
+        calculador.remanented_cat_more_probably = 8
+        calculador.remanented_cats = [0, 4, 8, 8]
+        calculador.probability()
+        obtained_probabilities = calculador.probabilidades.tolist()
         interval_0_1 = 25.0
         interval_1_remaining = 25.0
         interval_remanent_to_infinity = 50.0
         expected_probabilities = [interval_0_1, interval_1_remaining, interval_remanent_to_infinity]
-        obtained_probabilities = self.calculador.probabilidades.tolist()
         assert expected_probabilities == obtained_probabilities
 
     def __set_up_test_calculate_high_probability_and_calculate_high_probability(self):
