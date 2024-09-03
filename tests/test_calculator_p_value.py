@@ -39,12 +39,6 @@ class Test_CalculatorPValue:
         assert self.calculador.remanented_cat_more_probably == expected_remanented_cat_more_probably
 
     def test_posterior_distribution_probabilities_in_intervals(self):
-        """
-        La probabilidad de que un elemento de la distribución posterior esté en los intervalos:
-        - de 0 a 1
-        - de 1 a población remanente
-        - de la población remanente hasta 10,000,000,000 ("infinito")
-        """
         calculador = CalculatorPValue()
         calculador.remanented_cat_more_probably = 8
         calculador.remanented_cats = [0, 4, 8, 8]
