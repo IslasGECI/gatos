@@ -2,6 +2,7 @@ from gatos.calculator_p_value import CalculatorPValue
 from pandas.testing import assert_frame_equal
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
+import pytest
 
 
 total_capturas = 1
@@ -53,6 +54,20 @@ class Test_CalculatorPValue:
             interval_remanent_to_infinity,
         ]
         assert expected_probabilities == obtained_probabilities
+
+        calculador.remanented_cat_more_probably = 1
+        calculador.remanented_cats = [0, 4, 8]
+        calculador.probability()
+        obtained_probabilities = calculador.probabilidades.tolist()
+        interval_0_1 = 33.33
+        interval_1_remaining_minus_one = 0
+        interval_remanent_to_infinity = 66.66
+        expected_probabilities = [
+            interval_0_1,
+            interval_1_remaining_minus_one,
+            interval_remanent_to_infinity,
+        ]
+        assert obtained_probabilities == pytest.approx(expected_probabilities, 0.1)
 
     def __set_up_test_calculate_high_probability_and_calculate_high_probability(self):
         self.calculador.calculate_range_remanented_cats()
