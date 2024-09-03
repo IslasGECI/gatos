@@ -5,8 +5,6 @@ import arviz as az
 from geci_plots import geci_plot, roundup
 import matplotlib.pyplot as plt
 
-RANDOM_SEED = 1000
-
 
 class PopulationEstimator:
     """Clase encargada de encontrar el tamaño inicial de la población utilizando
@@ -127,9 +125,7 @@ class PopulationEstimator:
         df_waic[["waic", "waic_se", "p_waic"]].to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
-        self.ppc = pm3.sample_posterior_predictive(
-            self.trace, model=self.cats_model, samples=100, random_seed=RANDOM_SEED
-        )
+        self.ppc = pm3.sample_posterior_predictive(self.trace, model=self.cats_model, samples=100)
 
     def plot_data_and_predictive_points(self, plot_name="predictive_posterior.png"):
         fig, ax = geci_plot()
