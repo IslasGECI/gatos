@@ -56,8 +56,8 @@ class Test_CalculatorPValue:
         calculador.remanented_cats = [
             0,
             4,
-            8,
-            8,
+            10_101,
+            10_101,
         ]
         calculador.probability()
         obtained_probabilities = calculador.probabilidades.tolist()
