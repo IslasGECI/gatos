@@ -52,8 +52,13 @@ class Test_CalculatorPValue:
 
     def test_posterior_distribution_probabilities_in_intervals(self):
         calculador = CalculatorPValue()
-        calculador.remanented_cat_more_probably = 8
-        calculador.remanented_cats = [0, 4, 8, 8]
+        calculador.remanented_cat_more_probably = 10_100
+        calculador.remanented_cats = [
+            0,
+            4,
+            8,
+            8,
+        ]
         calculador.probability()
         obtained_probabilities = calculador.probabilidades.tolist()
         interval_0_1 = 25.0
