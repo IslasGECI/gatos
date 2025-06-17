@@ -53,6 +53,7 @@ class Test_CalculatorPValue:
     def test_posterior_distribution_probabilities_in_intervals(self):
         calculador = CalculatorPValue()
         calculador.remanented_cat_more_probably = 10_100
+        calculador.bins = np.array([i for i in range(10_101)])
         calculador.remanented_cats = [
             0,
             4,

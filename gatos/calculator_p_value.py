@@ -16,6 +16,7 @@ class CalculatorPValue:
     def calculate_range_remanented_cats(self):
         n_bins = int(np.ceil(max(self.datos.No.unique()) - min(self.datos.No.unique())))
         self.hist, self.bins = np.histogram(self.remanented_cats, bins=n_bins)
+        print(self.bins)
 
     def calculate_high_probability(self):
         self.maximo = max(self.hist)
@@ -25,7 +26,10 @@ class CalculatorPValue:
         self.remanented_cat_more_probably = self.bins[self.indice_mas_probable][0] + 1
 
     def probability(self):
+        maximum_remanented_cats = self.bins[-1] + 1
+        print(maximum_remanented_cats)
         hist, bin_edges = np.histogram(
-            self.remanented_cats, bins=[0, 1, self.remanented_cat_more_probably, 10_000]
+            self.remanented_cats,
+            bins=[0, 1, self.remanented_cat_more_probably, maximum_remanented_cats],
         )
         self.probabilidades = (hist / hist.sum()) * 100
