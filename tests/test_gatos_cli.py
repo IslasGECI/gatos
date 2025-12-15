@@ -35,6 +35,7 @@ def test_plot_annual_effort_and_captures():
             input_path,
             "--output-path",
             output_path,
+            "--show-mean-line",
         ],
     )
     assert result.exit_code == 0
