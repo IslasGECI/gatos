@@ -2,10 +2,23 @@ from gatos import (
     write_effort_and_captures_by_zone_for_year,
     write_yearly_cumulative_effort_and_captures,
 )
+from gatos.gatos_cli import app
 
 import pandas as pd
 import os
 import hashlib
+from typer.testing import CliRunner
+
+runner = CliRunner()
+
+
+def test_cli():
+    result = runner.invoke(
+        app,
+        ["--help"],
+    )
+    assert "plot-anual-effort-and-captures" in result.stdout
+
 
 input_path = "tests/data/esfuerzo_capturas_semanales_iso8601.csv"
 
