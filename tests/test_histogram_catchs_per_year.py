@@ -1,5 +1,4 @@
 from gatos.histogram_catchs_per_year import (
-    generate_histogram,
     xxgenerate_histogram,
     get_bar_positions,
     TAMANO_FUENTE,
