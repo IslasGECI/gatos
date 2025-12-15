@@ -25,10 +25,8 @@ def test_constants():
 
 
 def test_generate_histogram():
-    output_file = "tests/data/histogram.png"
     datos_gatos = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
-    obtained = generate_histogram(datos_gatos, output_file)
-    assert os.path.exists(output_file)
+    obtained = generate_histogram(datos_gatos)
 
     assert isinstance(obtained, mpl.figure.Figure)
 

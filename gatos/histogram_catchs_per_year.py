@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
@@ -12,7 +11,7 @@ from gatos.get_capture_and_effort_by_zone import (
 TAMANO_FUENTE = 15
 
 
-def generate_histogram(datos_gatos, nombre_imagen_salida):
+def generate_histogram(datos_gatos):
     years_in_data = years_from_data(datos_gatos)
     bar_positions = get_bar_positions(years_in_data)
 
@@ -54,7 +53,6 @@ def generate_histogram(datos_gatos, nombre_imagen_salida):
         )
     ax2.tick_params(labelsize=TAMANO_FUENTE)
     ax2.spines["top"].set_visible(False)
-    plt.savefig(f"{nombre_imagen_salida}", dpi=300, transparent=True)
     return fig
 
 
