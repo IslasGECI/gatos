@@ -89,6 +89,6 @@ green: format
 
 refactor: format
 	pytest -vm "not slow" \
-	&& (git add gatos/*.py tests/*.py && git commit -m "♻️  Refactor") \
+	&& (git add gatos/*.py tests/*.py && git commit -m "♻️ Refactor ${message}") \
 	|| git restore gatos/*.py tests/*.py
 	chmod g+w -R .
