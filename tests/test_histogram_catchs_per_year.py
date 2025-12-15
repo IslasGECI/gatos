@@ -1,5 +1,6 @@
 from gatos.histogram_catchs_per_year import (
     generate_histogram,
+    xxgenerate_histogram,
     get_bar_positions,
     TAMANO_FUENTE,
     years_from_data,
@@ -25,12 +26,10 @@ def test_constants():
 
 
 def test_generate_histogram():
-    argumentos = {
-        "resource": "tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv",
-        "output_file": "tests/data/histogram.png",
-    }
-    obtained = generate_histogram(**argumentos)
-    assert os.path.exists(argumentos["output_file"])
+    output_file = "tests/data/histogram.png"
+    datos_gatos = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
+    obtained = xxgenerate_histogram(datos_gatos, output_file)
+    assert os.path.exists(output_file)
 
     assert isinstance(obtained, mpl.figure.Figure)
 
