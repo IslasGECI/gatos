@@ -46,7 +46,9 @@ def generate_histogram(datos_gatos, show_mean_line):
     ax2 = ax.twinx()
     ax2.set_ylabel("No. cats dispatched", fontsize=TAMANO_FUENTE)
     ax2.plot(bar_positions, gatos_erradicados, c="black", marker="D")
-    ax2.set_ylim(0, 140)
+    max_captures = max(gatos_erradicados)
+    y_limit_captures = roundup(max_captures, 10 ** order_magnitude(max_captures))
+    ax2.set_ylim(0, y_limit_captures)
     for i in range(len(gatos_erradicados)):
         plt.text(
             x=bar_positions[i] - 0.25,
