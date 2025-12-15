@@ -17,7 +17,7 @@ requires = [
         "metadatatools @ git+https://git@github.com/IslasGECI/wrangler@v0.2.2",
         "numpy",
         "pandas",
-        "pymc3==3.11.*"
+        "pymc"
     ]
 requires-python=">=3.10"
 
