@@ -1,6 +1,5 @@
 import numpy as np
-import pandas as pd
-import pymc3 as pm3
+import pymc as pm3
 import arviz as az
 from geci_plots import geci_plot, roundup
 import matplotlib.pyplot as plt
@@ -69,19 +68,16 @@ class PopulationEstimator:
                 iteraciones,
                 tune=n_datos_descartados,
                 progressbar=True,
-                return_inferencedata=False,
+                return_inferencedata=True,
                 chains=2,
                 cores=2,
                 random_seed=[98, 99],
             )
-        results_trace = pd.DataFrame(
-            {
-                "a": self.trace["alpha"],
-                "b": self.trace["beta"],
-                "No": self.trace["initial_population"],
-            }
-        )
-        results_trace.to_csv(self._nombre_archivo, index=False)
+        posterior_df = self.trace.posterior.to_dataframe()
+        posterior_df_renamed = posterior_df.rename(
+            columns={"alpha": "a", "beta": "b", "initial_population": "No"}
+        ).loc[:, ["a", "b", "No"]]
+        posterior_df_renamed.to_csv(self._nombre_archivo, index=False)
 
     def plot_Vmp_histogram(self):
         self.tamanios_poblacion.Vmp.hist()
@@ -111,9 +107,10 @@ class PopulationEstimator:
         self.plot_data_and_predictive_points()
 
     def run_loo_diagnostic(self, plot_name="loo_diagnostic.png"):
-        df_loo = az.loo(self.trace, pointwise=True)
+        trace_with_log_likelihood = pm3.compute_log_likelihood(self.trace, model=self.cats_model)
+        df_loo = az.loo(trace_with_log_likelihood, pointwise=True)
         print(df_loo)
-        df_loo[["loo", "loo_se", "p_loo"]].to_json(self.json_output_path + "loo_results.json")
+        df_loo[["elpd_loo", "se", "p_loo"]].to_json(self.json_output_path + "loo_results.json")
         fig, ax = geci_plot()
         az.plot_khat(df_loo, ax=ax)
         ax.set_ylim(0, 2)
@@ -122,14 +119,20 @@ class PopulationEstimator:
     def run_waic_diagnostic(self):
         df_waic = az.waic(self.trace)
         print(df_waic)
-        df_waic[["waic", "waic_se", "p_waic"]].to_json(self.json_output_path + "waic_results.json")
+        df_waic[["elpd_waic", "se", "p_waic"]].to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
-        self.ppc = pm3.sample_posterior_predictive(self.trace, model=self.cats_model, samples=100)
+        self.ppc = pm3.sample_posterior_predictive(self.trace, model=self.cats_model)
 
     def plot_data_and_predictive_points(self, plot_name="predictive_posterior.png"):
         fig, ax = geci_plot()
-        ax.plot(self.ppc["captures_obs"].T, "o", color="k", alpha=0.025)
+        posterior_to_plot = self.ppc.posterior_predictive["captures_obs"]
+        ax.plot(
+            [posterior_to_plot[0].values.ravel(), posterior_to_plot[1].values.ravel()],
+            "o",
+            color="k",
+            alpha=0.025,
+        )
         ax.plot(self.capturas, "o", color="red")
         ax.set_ylabel("Captures", size=20)
         ax.set_xlabel("Months", size=20)
