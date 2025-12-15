@@ -11,7 +11,7 @@ from gatos.get_capture_and_effort_by_zone import (
 TAMANO_FUENTE = 15
 
 
-def generate_histogram(datos_gatos):
+def generate_histogram(datos_gatos, show_mean_line=True):
     years_in_data = years_from_data(datos_gatos)
     bar_positions = get_bar_positions(years_in_data)
 
@@ -19,13 +19,16 @@ def generate_histogram(datos_gatos):
         datos_gatos, years_in_data
     )
 
-    mean_effort = np.mean(esfuerzo_acumulado_anual)
-    max_effort = np.max(esfuerzo_acumulado_anual)
     fig, ax = geci_plot()
     plt.bar(bar_positions, esfuerzo_acumulado_anual, alpha=1, width=1)
     plt.xticks(bar_positions, years_in_data)
-    plt.plot([-10, 100], [mean_effort, mean_effort], "-r", label="Mean effort")
+
+    if show_mean_line:
+        mean_effort = np.mean(esfuerzo_acumulado_anual)
+        plt.plot([-10, 100], [mean_effort, mean_effort], "-r", label="Mean effort")
+
     ax.set_ylabel("Cumulative effort per year", fontsize=TAMANO_FUENTE)
+    max_effort = np.max(esfuerzo_acumulado_anual)
     ax.set_ylim(0, roundup(max_effort * 1.2, 10 ** order_magnitude(max_effort)))
     ax.set_xlim(bar_positions.min() - 1, bar_positions.max() + 1)
     ax.spines["top"].set_visible(False)
