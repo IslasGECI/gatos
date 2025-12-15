@@ -17,7 +17,7 @@ def test_cli():
         app,
         ["--help"],
     )
-    assert "plot-anual-effort-and-captures" in result.stdout
+    assert "plot-annual-effort-and-captures" in result.stdout
 
 
 input_path = "tests/data/esfuerzo_capturas_semanales_iso8601.csv"

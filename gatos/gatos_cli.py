@@ -13,6 +13,14 @@ app = typer.Typer()
 
 
 @app.command()
+def plot_annual_effort_and_captures(
+    input_path: str = typer.Option("", help="Input file path"),
+    output_path: str = typer.Option("", help="Output file path"),
+):
+    pass
+
+
+@app.command()
 def write_effort_and_captures_by_zone_for_year(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
