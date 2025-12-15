@@ -1,7 +1,7 @@
 from gatos import (
     calculate_yearly_cumulative_cpue,
     calculate_yearly_cumulative_effort_and_captures,
-    get_capture_and_effort_by_zone,
+    get_monthly_capture_and_effort_by_zone,
     get_cumulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
@@ -16,7 +16,7 @@ input_path = "tests/data/esfuerzo_capturas_semanales_iso8601.csv"
 
 def test_get_capture_and_effort_by_zone():
     weekly_effort_and_captures_data = pd.read_csv(input_path)
-    obtained = get_capture_and_effort_by_zone(weekly_effort_and_captures_data)
+    obtained = get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data)
     expected_columns = ["Date", "Zone", "Effort", "Captures"]
     obtained_columns = obtained.columns
     assert (obtained_columns == expected_columns).all()
