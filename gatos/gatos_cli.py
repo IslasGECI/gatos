@@ -18,9 +18,10 @@ app = typer.Typer()
 def plot_annual_effort_and_captures(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
+    show_mean_line: bool = typer.Option(False, help="Whether to show mean line"),
 ):
     cat_data = pd.read_csv(input_path)
-    generate_histogram(cat_data)
+    generate_histogram(cat_data, show_mean_line)
     plt.savefig(output_path, dpi=300, transparent=True)
 
 

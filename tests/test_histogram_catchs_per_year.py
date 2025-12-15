@@ -25,7 +25,7 @@ def test_constants():
 
 def test_generate_histogram():
     datos_gatos = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
-    obtained = generate_histogram(datos_gatos)
+    obtained = generate_histogram(datos_gatos, show_mean_line=True)
 
     assert isinstance(obtained, mpl.figure.Figure)
 
