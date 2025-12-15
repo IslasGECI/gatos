@@ -39,8 +39,7 @@ def test_generate_histogram():
 
     expected_captures_label = "No. cats dispatched"
     assert obtained.get_children()[2].get_ylabel() == expected_captures_label
+    mpl.pyplot.close(obtained)
 
     obtained = generate_histogram(datos_gatos, show_mean_line=False)
-
-    expected_childrens = 2
-    assert len(obtained.get_children()) == expected_childrens
+    assert len(obtained.get_axes()[0].get_lines()) == 0
