@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+
+## [2.1.0] - 2025-12-15
+### Added
+- Add cli command `plot-annual-captures-effort` to generate an annual summart of captures and effort plot.
+- Add DeprecationWarning to `get_capture_and_effort_by_zone()`
+
 ## [2.0.2] - 2025-06-17
 
 ### Fixed
