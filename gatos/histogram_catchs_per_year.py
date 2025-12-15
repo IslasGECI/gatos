@@ -12,7 +12,7 @@ from gatos.get_capture_and_effort_by_zone import (
 TAMANO_FUENTE = 15
 
 
-def xxgenerate_histogram(datos_gatos, nombre_imagen_salida):
+def generate_histogram(datos_gatos, nombre_imagen_salida):
     years_in_data = years_from_data(datos_gatos)
     bar_positions = get_bar_positions(years_in_data)
 

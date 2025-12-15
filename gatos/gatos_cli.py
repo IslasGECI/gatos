@@ -5,7 +5,7 @@ from gatos.get_capture_and_effort_by_zone import (
     select_effort_and_captures_by_year,
     years_from_data,
 )
-from gatos.histogram_catchs_per_year import xxgenerate_histogram
+from gatos.histogram_catchs_per_year import generate_histogram
 
 import pandas as pd
 import typer
@@ -19,7 +19,7 @@ def plot_annual_effort_and_captures(
     output_path: str = typer.Option("", help="Output file path"),
 ):
     cat_data = pd.read_csv(input_path)
-    xxgenerate_histogram(cat_data, output_path)
+    generate_histogram(cat_data, output_path)
 
 
 @app.command()

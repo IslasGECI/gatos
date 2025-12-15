@@ -1,5 +1,5 @@
 from gatos.histogram_catchs_per_year import (
-    xxgenerate_histogram,
+    generate_histogram,
     get_bar_positions,
     TAMANO_FUENTE,
     years_from_data,
@@ -27,7 +27,7 @@ def test_constants():
 def test_generate_histogram():
     output_file = "tests/data/histogram.png"
     datos_gatos = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
-    obtained = xxgenerate_histogram(datos_gatos, output_file)
+    obtained = generate_histogram(datos_gatos, output_file)
     assert os.path.exists(output_file)
 
     assert isinstance(obtained, mpl.figure.Figure)
