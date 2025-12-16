@@ -1,5 +1,5 @@
 import numpy as np
-import pymc as pm3
+import pymc as pm
 import arviz as az
 from geci_plots import geci_plot, roundup
 import matplotlib.pyplot as plt
@@ -64,14 +64,19 @@ class PopulationEstimator:
         self.cats_model = self.init_model()
 
         with self.cats_model:
-            self.trace = pm3.sample(
+            self.trace = pm.sample(
                 iteraciones,
                 tune=n_datos_descartados,
                 progressbar=True,
                 return_inferencedata=True,
+                target_accept=0.9,
                 chains=2,
                 cores=2,
-                random_seed=[98, 99],
+                random_seed=98,
+                var_names=["alpha", "beta", "initial_population"],
+                idata_kwargs={
+                    "log_likelihood": False,
+                },
             )
         posterior_df = self.trace.posterior.to_dataframe()
         posterior_df_renamed = posterior_df.rename(
@@ -83,20 +88,24 @@ class PopulationEstimator:
         self.tamanios_poblacion.Vmp.hist()
 
     def _Ramsey_model_pymc3(self, v_effort, v_captures, v_cumulative_captures):
-        with pm3.Model() as model_ramsey:
-            effort = pm3.Data("effort", v_effort)
-            captures = pm3.Data("captures", v_captures)
-            cumulative_captures = pm3.Data("cumulative_captures", v_cumulative_captures)
-            alpha = pm3.Normal("alpha", mu=0.00, tau=1 / 5)
-            beta = pm3.Normal("beta", mu=0.00, tau=1 / 5)
-            linear_logistic_link = pm3.math.invlogit(alpha + beta * effort)
-            catch_probability = pm3.Deterministic("catch_probability", linear_logistic_link)
-            initial_population = pm3.DiscreteUniform("initial_population", lower=500, upper=22000)
-            initial_population_updated = pm3.Deterministic(
-                "initial_population_updated", initial_population - cumulative_captures
+        with pm.Model() as model_ramsey:
+            effort = pm.Data("effort", v_effort)
+            captures = pm.Data("captures", v_captures)
+            cumulative_captures = pm.Data("cumulative_captures", v_cumulative_captures)
+            alpha = pm.Normal("alpha", mu=0.00, tau=1 / 5)
+            beta = pm.Normal("beta", mu=0.00, tau=1 / 5)
+            linear_logistic_link = pm.math.invlogit(alpha + beta * effort)
+            catch_probability = pm.Deterministic("catch_probability", linear_logistic_link)
+            initial_population = pm.Uniform("initial_population", lower=500, upper=22000)
+            initial_population_updated = pm.Deterministic(
+                "initial_population_updated",
+                pm.math.maximum(initial_population - cumulative_captures, 1e-5),
             )
-            captures_obs = pm3.Binomial(  # noqa
-                "captures_obs", n=initial_population_updated, p=catch_probability, observed=captures
+            captures_obs = pm.Binomial(  # noqa
+                "captures_obs",
+                n=initial_population_updated.astype(int),
+                p=catch_probability,
+                observed=captures,
             )
         return model_ramsey
 
@@ -107,7 +116,7 @@ class PopulationEstimator:
         self.plot_data_and_predictive_points()
 
     def run_loo_diagnostic(self, plot_name="loo_diagnostic.png"):
-        trace_with_log_likelihood = pm3.compute_log_likelihood(self.trace, model=self.cats_model)
+        trace_with_log_likelihood = pm.compute_log_likelihood(self.trace, model=self.cats_model)
         df_loo = az.loo(trace_with_log_likelihood, pointwise=True)
         print(df_loo)
         df_loo[["elpd_loo", "se", "p_loo"]].to_json(self.json_output_path + "loo_results.json")
@@ -122,7 +131,7 @@ class PopulationEstimator:
         df_waic[["elpd_waic", "se", "p_waic"]].to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
-        self.ppc = pm3.sample_posterior_predictive(self.trace, model=self.cats_model)
+        self.ppc = pm.sample_posterior_predictive(self.trace, model=self.cats_model)
 
     def plot_data_and_predictive_points(self, plot_name="predictive_posterior.png"):
         fig, ax = geci_plot()
