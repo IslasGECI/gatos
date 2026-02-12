@@ -10,7 +10,6 @@ from gatos import (
 
 import pandas as pd
 
-
 input_path = "tests/data/esfuerzo_capturas_semanales_iso8601.csv"
 
 
