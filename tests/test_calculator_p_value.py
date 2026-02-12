@@ -4,7 +4,6 @@ import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import pytest
 
-
 total_capturas = 1
 archivo = "tests/data/example.csv"
 
