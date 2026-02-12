@@ -7,7 +7,6 @@ from gatos.get_capture_and_effort_by_zone import (
     years_from_data,
 )
 
-
 TAMANO_FUENTE = 15
 
 
