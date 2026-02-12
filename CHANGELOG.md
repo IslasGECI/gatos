@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Changed pymc3 to pymc latest version.
+- Upgrade `geci-plots==0.9*` dependency.
 
 ### Removed
+- Unused `eradication-data-requirements` dependency.
 
 ## [2.1.0] - 2025-12-15
 ### Added
