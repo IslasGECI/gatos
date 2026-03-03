@@ -11,7 +11,7 @@ home-page = "https://github.com/IslasGECI/gatos"
 module = "gatos"
 requires = [
         "Click",
-        "geci-plots==0.9.*",
+        "geci-plots==0.*",
         "matplotlib",
         "metadatatools @ git+https://git@github.com/IslasGECI/wrangler@v0.2.2",
         "numpy",
