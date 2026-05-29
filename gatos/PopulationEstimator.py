@@ -73,7 +73,7 @@ class PopulationEstimator:
                 cores=2,
                 random_seed=[98, 99],
             )
-        posterior_df = self.trace.posterior.to_dataframe()
+        posterior_df = self.trace.posterior.to_dataset().to_dataframe()
         posterior_df_renamed = posterior_df.rename(
             columns={"alpha": "a", "beta": "b", "initial_population": "No"}
         ).loc[:, ["a", "b", "No"]]
