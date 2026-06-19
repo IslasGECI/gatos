@@ -61,12 +61,6 @@ def remove_file_if_exists(file_path):
         os.remove(file_path)
 
 
-def assert_dict_equal_from_path(obtained_waic_path, expected_waic_path):
-    obtained_waic_json = json.load(open(obtained_waic_path))
-    expected_waic_json = json.load(open(expected_waic_path))
-    assert_dict_equal(obtained_waic_json, expected_waic_json)
-
-
 def assert_dict_equal(obtained_dict, expected_dict):
     np.testing.assert_allclose(list(obtained_dict.values()), list(expected_dict.values()))
 

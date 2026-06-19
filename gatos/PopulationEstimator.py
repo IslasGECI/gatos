@@ -3,6 +3,7 @@ import pymc as pm
 import arviz as az
 from geci_plots import geci_plot, roundup
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 class PopulationEstimator:
@@ -103,23 +104,23 @@ class PopulationEstimator:
     def run_model_diagnostics(self):
         self.sample_predictive_posterior()
         self.run_loo_diagnostic()
-        self.run_waic_diagnostic()
         self.plot_data_and_predictive_points()
 
     def run_loo_diagnostic(self, plot_name="loo_diagnostic.png"):
         trace_with_log_likelihood = pm.compute_log_likelihood(self.trace, model=self.cats_model)
         df_loo = az.loo(trace_with_log_likelihood, pointwise=True)
         print(df_loo)
-        df_loo[["elpd_loo", "se", "p_loo"]].to_json(self.json_output_path + "loo_results.json")
+        loo_dictionary = {
+            "loo": [df_loo.elpd],
+            "loo_se": [df_loo.se],
+            "p_loo": [df_loo.p],
+        }
+        df_loo_results = pd.DataFrame(loo_dictionary)
+        df_loo_results.iloc[0].to_json(self.json_output_path + "loo_results.json")
         fig, ax = geci_plot()
-        az.plot_khat(df_loo, ax=ax)
+        az.plot_khat(df_loo)
         ax.set_ylim(0, 2)
         plt.savefig(self.plot_output_path + plot_name, transparent=True, dpi=300)
-
-    def run_waic_diagnostic(self):
-        df_waic = az.waic(self.trace)
-        print(df_waic)
-        df_waic[["elpd_waic", "se", "p_waic"]].to_json(self.json_output_path + "waic_results.json")
 
     def sample_predictive_posterior(self):
         self.ppc = pm.sample_posterior_predictive(self.trace, model=self.cats_model)
