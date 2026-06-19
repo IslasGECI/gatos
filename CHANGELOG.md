@@ -12,11 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Changed
+
+### Removed
+
+## [3.0.0] - 2026-06-19
+### Changed
 - Changed pymc3 to pymc latest version.
 - Upgrade `geci-plots==0.9*` dependency.
+- `run_loo_diagnostic` now saves LOO results as scalars instead of arrays, and no longer passes `ax` to `plot_khat`.
+- `run_model_diagnostics` no longer calls `run_waic_diagnostic`.
 
 ### Removed
 - Unused `eradication-data-requirements` dependency.
+- Removed `run_waic_diagnostic` method and its associated test helper `assert_dict_equal_from_path`. WAIC diagnostics is no longer supported by pymc latest version.
 
 ## [2.1.0] - 2025-12-15
 ### Added
@@ -57,6 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 [unreleased]: https://github.com/IslasGECI/gatos/compare/v2.0.0...HEAD
+[2.1.0]: https://github.com/IslasGECI/gatos/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/IslasGECI/gatos/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/IslasGECI/gatos/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/IslasGECI/gatos/compare/v0.2.2...v1.0.0
