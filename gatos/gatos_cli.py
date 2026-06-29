@@ -1,6 +1,7 @@
 from gatos.get_capture_and_effort_by_zone import (
     calculate_yearly_cumulative_cpue,
     get_cumulative_effort_and_captures_by_year,
+    get_monthly_capture_and_effort_by_zone,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
     years_from_data,
@@ -23,6 +24,16 @@ def plot_annual_effort_and_captures(
     cat_data = pd.read_csv(input_path)
     generate_histogram(cat_data, show_mean_line)
     plt.savefig(output_path, dpi=300, transparent=True)
+
+
+@app.command()
+def write_monthly_effort_and_captures_by_zone(
+    input_path: str = typer.Option("", help="Input file path"),
+    output_path: str = typer.Option("", help="Output file path"),
+):
+    weekly_effort_and_capture = pd.read_csv(input_path)
+    monthly_df = get_monthly_capture_and_effort_by_zone(weekly_effort_and_capture)
+    monthly_df.to_csv(output_path, index=False)
 
 
 @app.command()
