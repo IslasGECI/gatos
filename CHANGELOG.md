@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [3.1.0] - 2026-06-29
+### Added
+- CLI command `write-monthly-effort-and-captures-by-zone` to write a montly summary of effort and captures by each working zone.
+
+### Removed
+- Function `get_capture_and_effort_by_zone()`. This functionality is now on CLI command `write-monthly-effort-and-captures-by-zone`.
+
+
 ## [3.0.0] - 2026-06-19
 ### Changed
 - Changed pymc3 to pymc latest version.
@@ -60,11 +68,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix typo in interface command `write_yearly_cumulative_effort_and_captures`
 
-### Changed
 
-### Removed
-
-[unreleased]: https://github.com/IslasGECI/gatos/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/IslasGECI/gatos/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/IslasGECI/gatos/compare/v3.0.0...v3.1.0
+[3.0.0]: https://github.com/IslasGECI/gatos/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/IslasGECI/gatos/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/IslasGECI/gatos/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/IslasGECI/gatos/compare/v1.0.0...v1.1.0
