@@ -1,6 +1,4 @@
-import pandas as pd
 import numpy as np
-import warnings
 
 
 def select_effort_and_captures_by_year(multiyear_data, year):
