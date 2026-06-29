@@ -7,14 +7,6 @@ def select_effort_and_captures_by_year(multiyear_data, year):
     return multiyear_data[multiyear_data["Date"].str.contains(year)]
 
 
-def get_capture_and_effort_by_zone(weekly_effort_and_captures_data: pd.DataFrame):
-    warnings.warn(
-        "Use get_monthly_capture_and_effort_by_zone() instead of get_capture_and_effort_by_zone()",
-        DeprecationWarning,
-    )
-    return get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data)
-
-
 def get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
     string_length = 7
     return get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length)
