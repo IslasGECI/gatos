@@ -51,21 +51,21 @@ def calculate_yearly_cumulative_cpue(data):
     return [c / e for c, e in zip(captures, effort)]
 
 
-def calculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro):
-    years_in_data = years_from_data(datos_gatos_socorro)
+def calculate_yearly_cumulative_effort_and_captures(effort_captures_df):
+    years_in_data = years_from_data(effort_captures_df)
     esfuerzo_acumulado_anual, gatos_erradicados = (
-        compute_cumulative_effort_and_captures_by_date_list(datos_gatos_socorro, years_in_data)
+        compute_cumulative_effort_and_captures_by_date_list(effort_captures_df, years_in_data)
     )
     return esfuerzo_acumulado_anual, gatos_erradicados
 
 
-def compute_cumulative_effort_and_captures_by_date_list(datos_gatos_socorro, years_in_data):
-    masks = [datos_gatos_socorro["Fecha"].str.contains(i) for i in years_in_data]
+def compute_cumulative_effort_and_captures_by_date_list(effort_captures_df, years_in_data):
+    masks = [effort_captures_df["Fecha"].str.contains(i) for i in years_in_data]
     esfuerzo_acumulado_anual = [
-        calculate_cumulative_effort_by_mask(datos_gatos_socorro, mask) for mask in masks
+        calculate_cumulative_effort_by_mask(effort_captures_df, mask) for mask in masks
     ]
     gatos_erradicados = [
-        calculate_cumulative_captures_by_mask(datos_gatos_socorro, mask) for mask in masks
+        calculate_cumulative_captures_by_mask(effort_captures_df, mask) for mask in masks
     ]
 
     return esfuerzo_acumulado_anual, gatos_erradicados
