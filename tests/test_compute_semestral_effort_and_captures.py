@@ -16,10 +16,12 @@ def test_compute_semestral_effort_and_captures():
 
 
 def test_compute_semestral_cumulative_effort_and_captures():
+    cpue_values = [0.1, 0.1, 0.1]
     semestral_effort_and_captures = pd.DataFrame(
-        {"Capturas": [10, 20, 30], "Esfuerzo": [100, 200, 300]},
+        {"Capturas": [10, 20, 30], "Esfuerzo": [100, 200, 300], "CPUE": cpue_values},
         index=["2022-P1", "2022-P2", "2022-P3"],
     )
     obtained = compute_semestral_cumulative_effort_and_captures(semestral_effort_and_captures)
     expected_effort = [100, 300, 600]
     assert list(obtained["Esfuerzo"]) == expected_effort
+    assert list(obtained["CPUE"]) == cpue_values
