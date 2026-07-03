@@ -2,8 +2,9 @@ import numpy as np
 import pandas as pd
 
 
-def compute_semestral_CPUE_and_cumulative_effort_and_captures(effort_and_captures_df):
-    resolution = 6
+def compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+    effort_and_captures_df, resolution
+):
     semestral_effort_and_captures = compute_effort_and_captures_and_cpue_by_resolution(
         effort_and_captures_df, resolution
     )

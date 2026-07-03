@@ -1,7 +1,7 @@
 from gatos.compute_semestral_effort_and_captures import (
     compute_effort_and_captures_and_cpue_by_resolution,
     compute_cumulative_effort_and_captures,
-    compute_semestral_CPUE_and_cumulative_effort_and_captures,
+    compute_CPUE_and_cumulative_effort_and_captures_by_resolution,
 )
 import pandas as pd
 
@@ -14,7 +14,10 @@ def test_compute_semestral_CPUE_and_cumulative_effort_and_captures():
             "Fecha": ["2022-01-02", "2022-07-08", "2023-01-02"],
         }
     )
-    obtained = compute_semestral_CPUE_and_cumulative_effort_and_captures(effort_and_captures_df)
+    resolution = 6
+    obtained = compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+        effort_and_captures_df, resolution
+    )
     expected_rows = 3
     assert len(obtained) == expected_rows, f"Expected {expected_rows} rows, but got {len(obtained)}"
     expected_columns = ["Esfuerzo", "Capturas", "CPUE"]
