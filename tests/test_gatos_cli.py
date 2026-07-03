@@ -23,6 +23,27 @@ def test_cli():
 input_path = "tests/data/esfuerzo_capturas_semanales_iso8601.csv"
 
 
+def test_write_CPUE_and_cumulative_effort_and_captures():
+    output_path = "tests/data/CPUE_and_cumulative_effort_and_captures.csv"
+    if os.path.exists(output_path):
+        os.remove(output_path)
+    resolution = "semestral"
+    result = runner.invoke(
+        app,
+        [
+            "write-CPUE-and-cumulative-effort-and-captures",
+            "--input-path",
+            input_path,
+            "--resolution",
+            resolution,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
+
+
 def test_write_monthly_effort_and_captures_by_zone():
     output_path = "tests/data/monthly_effort_and_captures_by_zone.csv"
     if os.path.exists(output_path):
