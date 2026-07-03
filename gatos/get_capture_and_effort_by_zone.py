@@ -54,19 +54,19 @@ def calculate_yearly_cumulative_cpue(data, years_in_data):
 def calculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro, years_in_data):
     masks = [datos_gatos_socorro["Fecha"].str.contains(i) for i in years_in_data]
     esfuerzo_acumulado_anual = [
-        calculate_yearly_cumulative_effort(datos_gatos_socorro, mask) for mask in masks
+        calculate_cumulative_effort_by_mask(datos_gatos_socorro, mask) for mask in masks
     ]
     gatos_erradicados = [
-        calculate_yearly_cumulative_captures(datos_gatos_socorro, mask) for mask in masks
+        calculate_cumulative_captures_by_mask(datos_gatos_socorro, mask) for mask in masks
     ]
     return esfuerzo_acumulado_anual, gatos_erradicados
 
 
-def calculate_yearly_cumulative_effort(data, mask):
+def calculate_cumulative_effort_by_mask(data, mask):
     return np.sum(data["Esfuerzo"].values[mask])
 
 
-def calculate_yearly_cumulative_captures(data, mask):
+def calculate_cumulative_captures_by_mask(data, mask):
     return np.sum(data["Capturas"].values[mask])
 
 
