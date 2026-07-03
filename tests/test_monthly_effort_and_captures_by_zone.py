@@ -1,6 +1,6 @@
-from gatos import (
+from gatos.get_capture_and_effort_by_zone import (
     calculate_yearly_cumulative_cpue,
-    xxcalculate_yearly_cumulative_effort_and_captures,
+    calculate_yearly_cumulative_effort_and_captures,
     get_monthly_capture_and_effort_by_zone,
     get_cumulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
@@ -71,7 +71,7 @@ def test_select_effort_and_captures_by_year():
 
 def test_calculate_yearly_cumulative_effort_and_captures():
     monthly_data = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
-    obtained_effort, obtained_captures = xxcalculate_yearly_cumulative_effort_and_captures(
+    obtained_effort, obtained_captures = calculate_yearly_cumulative_effort_and_captures(
         monthly_data
     )
     assert obtained_effort == [111597, 11781]
