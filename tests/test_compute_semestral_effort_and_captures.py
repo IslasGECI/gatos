@@ -1,6 +1,6 @@
 from gatos.compute_semestral_effort_and_captures import (
     compute_semestral_effort_and_captures,
-    compute_semestral_cumulative_effort_and_captures,
+    compute_cumulative_effort_and_captures,
     compute_semestral_CPUE_and_cumulative_effort_and_captures,
 )
 import pandas as pd
@@ -42,7 +42,7 @@ def test_compute_semestral_cumulative_effort_and_captures():
         {"Capturas": [10, 20, 30], "Esfuerzo": [100, 200, 300], "CPUE": cpue_values},
         index=["2022-P1", "2022-P2", "2022-P3"],
     )
-    obtained = compute_semestral_cumulative_effort_and_captures(semestral_effort_and_captures)
+    obtained = compute_cumulative_effort_and_captures(semestral_effort_and_captures)
     expected_effort = [100, 300, 600]
     assert list(obtained["Esfuerzo"]) == expected_effort
     assert list(obtained["CPUE"]) == cpue_values

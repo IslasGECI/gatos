@@ -4,7 +4,7 @@ import pandas as pd
 
 def compute_semestral_CPUE_and_cumulative_effort_and_captures(effort_and_captures_df):
     semestral_effort_and_captures = compute_semestral_effort_and_captures(effort_and_captures_df)
-    semestral_cumulative_effort_and_captures = compute_semestral_cumulative_effort_and_captures(
+    semestral_cumulative_effort_and_captures = compute_cumulative_effort_and_captures(
         semestral_effort_and_captures
     )
     return semestral_cumulative_effort_and_captures
@@ -30,7 +30,7 @@ def compute_effort_and_captures_by_resolution(effort_and_captures_df, resolution
     return effort_and_captures_df.groupby("period").agg({"Esfuerzo": "sum", "Capturas": "sum"})
 
 
-def compute_semestral_cumulative_effort_and_captures(effort_and_catpures_df):
+def compute_cumulative_effort_and_captures(effort_and_catpures_df):
     effort_and_catpures_df[["Esfuerzo", "Capturas"]] = effort_and_catpures_df[
         ["Esfuerzo", "Capturas"]
     ].cumsum(numeric_only=True)
