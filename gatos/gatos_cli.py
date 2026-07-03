@@ -24,7 +24,7 @@ def write_cpue_and_cumulative_effort_and_captures(
     output_path: str = typer.Option("", help="Output file path"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)
-    resolutions_dict = {"semestral": 6}
+    resolutions_dict = {"annual": 12, "semestral": 6}
     CPUE_and_cumulative_effort_and_captures_df = (
         compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
             weekly_effort_and_capture, resolutions_dict[resolution]
