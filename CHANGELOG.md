@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `write-cpue-and-cumulative-effort-and-captures` command to write into disk a csv file with CPUE and cumulative effort and captures.
 
 ### Fixed
 
 ### Changed
+- `write-yearly-cumulative-effort-and-captures` now uses new `compute_CPUE_and_cumulative_effort_and_captures_by_resolution()` implementation.
+
+### Deprecated
+- CLI command `write-yearly-cumulative-effort-and-captures` is deprecated in favor of `write-yearly-cumulative-effort-and-captures` . The old command will remain functional and will be removed in v4.0.0.
 
 ### Removed
 
