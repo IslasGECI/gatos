@@ -4,7 +4,6 @@ from gatos.get_capture_and_effort_by_zone import (
     get_monthly_capture_and_effort_by_zone,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
-    years_from_data,
 )
 from gatos.histogram_catchs_per_year import generate_histogram
 
@@ -57,9 +56,8 @@ def write_yearly_cumulative_effort_and_captures(
     cumulative_effort_and_capture = get_cumulative_effort_and_captures_by_year(
         weekly_effort_and_capture
     )
-    years_in_data = years_from_data(weekly_effort_and_capture)
     cumulative_effort_and_capture["CPUE"] = calculate_yearly_cumulative_cpue(
-        weekly_effort_and_capture, years_in_data
+        weekly_effort_and_capture
     )
     cumulative_effort_and_capture = cumulative_effort_and_capture.rename(
         columns={"Captures": "Cumulative_captures"}
