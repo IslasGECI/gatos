@@ -5,7 +5,13 @@ import pandas as pd
 def compute_semestral_effort_and_captures(effort_and_captures_df):
     effort_and_captures_df.index = pd.to_datetime(effort_and_captures_df.Fecha)
     resolution = 6
-    return compute_effort_and_captures_by_resolution(effort_and_captures_df, resolution)
+    effort_and_captures_by_period = compute_effort_and_captures_by_resolution(
+        effort_and_captures_df, resolution
+    )
+    effort_and_captures_by_period["CPUE"] = (
+        effort_and_captures_by_period["Capturas"] / effort_and_captures_by_period["Esfuerzo"]
+    )
+    return effort_and_captures_by_period
 
 
 def compute_effort_and_captures_by_resolution(effort_and_captures_df, resolution):
