@@ -3,16 +3,18 @@ import pandas as pd
 
 
 def compute_semestral_CPUE_and_cumulative_effort_and_captures(effort_and_captures_df):
-    semestral_effort_and_captures = compute_semestral_effort_and_captures(effort_and_captures_df)
+    resolution = 6
+    semestral_effort_and_captures = compute_effort_and_captures_and_cpue_by_resolution(
+        effort_and_captures_df, resolution
+    )
     semestral_cumulative_effort_and_captures = compute_cumulative_effort_and_captures(
         semestral_effort_and_captures
     )
     return semestral_cumulative_effort_and_captures
 
 
-def compute_semestral_effort_and_captures(effort_and_captures_df):
+def compute_effort_and_captures_and_cpue_by_resolution(effort_and_captures_df, resolution):
     effort_and_captures_df.index = pd.to_datetime(effort_and_captures_df.Fecha)
-    resolution = 6
     effort_and_captures_by_period = compute_effort_and_captures_by_resolution(
         effort_and_captures_df, resolution
     )
