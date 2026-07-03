@@ -1,8 +1,29 @@
 from gatos.compute_semestral_effort_and_captures import (
     compute_semestral_effort_and_captures,
     compute_semestral_cumulative_effort_and_captures,
+    compute_semestral_CPUE_and_cumulative_effort_and_captures,
 )
 import pandas as pd
+
+
+def test_compute_semestral_CPUE_and_cumulative_effort_and_captures():
+    effort_and_captures_df = pd.DataFrame(
+        {
+            "Capturas": [10, 20, 30],
+            "Esfuerzo": [100, 200, 300],
+            "Fecha": ["2022-01-02", "2022-07-08", "2023-01-02"],
+        }
+    )
+    obtained = compute_semestral_CPUE_and_cumulative_effort_and_captures(effort_and_captures_df)
+    expected_rows = 2
+    assert len(obtained) == expected_rows, f"Expected {expected_rows} rows, but got {len(obtained)}"
+    expected_columns = ["Esfuerzo", "Capturas", "CPUE"]
+    assert all(obtained.columns == expected_columns)
+    assert obtained.index[0] == "2022-P1"
+    expected_effort = [100, 300, 600]
+    assert list(obtained["Esfuerzo"]) == expected_effort
+    expected_cpue_values = [0.1, 0.1, 0.1]
+    assert list(obtained["CPUE"]) == expected_cpue_values
 
 
 def test_compute_semestral_effort_and_captures():
