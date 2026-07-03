@@ -9,4 +9,4 @@ def compute_semestral_effort_and_captures(effort_and_captures_df):
         + "-S"
         + np.where(effort_and_captures_df.index.month <= 6, "1", "2")
     )
-    return effort_and_captures_df.groupby("semestral").agg({"Esfuerzo": "sum"})
+    return effort_and_captures_df.groupby("semestral").agg({"Esfuerzo": "sum", "Capturas": "sum"})
