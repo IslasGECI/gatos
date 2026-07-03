@@ -52,6 +52,11 @@ def calculate_yearly_cumulative_cpue(data, years_in_data):
 
 
 def calculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro, years_in_data):
+    return xxcalculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro)
+
+
+def xxcalculate_yearly_cumulative_effort_and_captures(datos_gatos_socorro):
+    years_in_data = years_from_data(datos_gatos_socorro)
     masks = [datos_gatos_socorro["Fecha"].str.contains(i) for i in years_in_data]
     esfuerzo_acumulado_anual = [
         calculate_cumulative_effort_by_mask(datos_gatos_socorro, mask) for mask in masks
