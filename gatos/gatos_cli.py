@@ -18,6 +18,27 @@ app = typer.Typer()
 
 
 @app.command()
+def write_cpue_and_cumulative_effort_and_captures(
+    input_path: str = typer.Option("", help="Input file path"),
+    resolution: str = typer.Option("anual", help="Resolution for CPUE calculation"),
+    output_path: str = typer.Option("", help="Output file path"),
+):
+    weekly_effort_and_capture = pd.read_csv(input_path)
+    resolutions_dict = {"semestral": 6}
+    CPUE_and_cumulative_effort_and_captures_df = (
+        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+            weekly_effort_and_capture, resolutions_dict[resolution]
+        )
+    )
+    CPUE_and_cumulative_effort_and_captures_df.reset_index(inplace=True, names=["Date"])
+    renamed_df = CPUE_and_cumulative_effort_and_captures_df.rename(
+        columns={"Esfuerzo": "Effort", "Capturas": "Cumulative_captures"}
+    )
+
+    renamed_df.to_csv(output_path, index=False)
+
+
+@app.command()
 def plot_annual_effort_and_captures(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
