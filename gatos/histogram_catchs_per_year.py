@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from geci_plots import geci_plot, roundup, order_magnitude
 from gatos.get_capture_and_effort_by_zone import (
-    calculate_yearly_cumulative_effort_and_captures,
+    xxcalculate_yearly_cumulative_effort_and_captures,
     years_from_data,
 )
 
@@ -14,8 +14,8 @@ def generate_histogram(datos_gatos, show_mean_line):
     years_in_data = years_from_data(datos_gatos)
     bar_positions = get_bar_positions(years_in_data)
 
-    esfuerzo_acumulado_anual, gatos_erradicados = calculate_yearly_cumulative_effort_and_captures(
-        datos_gatos, years_in_data
+    esfuerzo_acumulado_anual, gatos_erradicados = xxcalculate_yearly_cumulative_effort_and_captures(
+        datos_gatos
     )
 
     fig, ax = geci_plot()
