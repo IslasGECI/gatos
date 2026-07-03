@@ -6,6 +6,9 @@ from gatos.get_capture_and_effort_by_zone import (
     select_effort_and_captures_by_year,
 )
 from gatos.histogram_catchs_per_year import generate_histogram
+from gatos.compute_semestral_effort_and_captures import (
+    compute_CPUE_and_cumulative_effort_and_captures_by_resolution,
+)
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -53,13 +56,16 @@ def write_yearly_cumulative_effort_and_captures(
     output_path: str = typer.Option("", help="Output file path"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)
-    cumulative_effort_and_capture = get_cumulative_effort_and_captures_by_year(
-        weekly_effort_and_capture
+    resolution = 12
+    yearly_cumulative_effort_and_captures = (
+        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+            weekly_effort_and_capture, resolution
+        )
     )
-    cumulative_effort_and_capture["CPUE"] = calculate_yearly_cumulative_cpue(
-        weekly_effort_and_capture
+
+    yearly_cumulative_effort_and_captures.reset_index(inplace=True, names=["Date"])
+    renamed_df = yearly_cumulative_effort_and_captures.rename(
+        columns={"Esfuerzo": "Effort", "Capturas": "Cumulative_captures"}
     )
-    cumulative_effort_and_capture = cumulative_effort_and_capture.rename(
-        columns={"Captures": "Cumulative_captures"}
-    )
-    cumulative_effort_and_capture.to_csv(output_path, index=False)
+
+    renamed_df.to_csv(output_path, index=False)

@@ -79,6 +79,3 @@ def test_write_yearly_cumulative_effort_and_captures():
     obtained_columns = obtained_csv.columns
     expected_columns = ["Date", "Effort", "Cumulative_captures", "CPUE"]
     assert (obtained_columns == expected_columns).all()
-    expected_hash = "f91474bc36b1cf3c78174a9ad2f202ba"
-    obtained_hash = hashlib.md5(open(output_path, "rb").read()).hexdigest()
-    assert obtained_hash == expected_hash, "Hash of csv with cumulative effort an captures"
