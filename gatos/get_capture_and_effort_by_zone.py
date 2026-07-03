@@ -61,14 +61,14 @@ def calculate_yearly_cumulative_effort_and_captures(effort_captures_df):
 
 def compute_cumulative_effort_and_captures_by_date_list(effort_captures_df, years_in_data):
     masks = [effort_captures_df["Fecha"].str.contains(i) for i in years_in_data]
-    esfuerzo_acumulado_anual = [
+    cumulative_effort = [
         calculate_cumulative_effort_by_mask(effort_captures_df, mask) for mask in masks
     ]
-    gatos_erradicados = [
+    cumulative_captures = [
         calculate_cumulative_captures_by_mask(effort_captures_df, mask) for mask in masks
     ]
 
-    return esfuerzo_acumulado_anual, gatos_erradicados
+    return cumulative_effort, cumulative_captures
 
 
 def calculate_cumulative_effort_by_mask(data, mask):
