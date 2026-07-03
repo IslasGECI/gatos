@@ -6,7 +6,6 @@ from gatos.gatos_cli import app
 
 import pandas as pd
 import os
-import hashlib
 from typer.testing import CliRunner
 
 runner = CliRunner()
