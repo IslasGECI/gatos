@@ -15,7 +15,7 @@ def test_compute_semestral_CPUE_and_cumulative_effort_and_captures():
         }
     )
     obtained = compute_semestral_CPUE_and_cumulative_effort_and_captures(effort_and_captures_df)
-    expected_rows = 2
+    expected_rows = 3
     assert len(obtained) == expected_rows, f"Expected {expected_rows} rows, but got {len(obtained)}"
     expected_columns = ["Esfuerzo", "Capturas", "CPUE"]
     assert all(obtained.columns == expected_columns)
