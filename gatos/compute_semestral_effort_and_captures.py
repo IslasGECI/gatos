@@ -20,3 +20,10 @@ def compute_effort_and_captures_by_resolution(effort_and_captures_df, resolution
         effort_and_captures_df.index.year.astype(str) + "-P" + (period_index + 1).astype(str)
     )
     return effort_and_captures_df.groupby("period").agg({"Esfuerzo": "sum", "Capturas": "sum"})
+
+
+def compute_semestral_cumulative_effort_and_captures(effort_and_catpures_df):
+    effort_and_catpures_df[["Esfuerzo", "Capturas"]] = effort_and_catpures_df[
+        ["Esfuerzo", "Capturas"]
+    ].cumsum(numeric_only=True)
+    return effort_and_catpures_df
