@@ -4,13 +4,13 @@ import pandas as pd
 def compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
     effort_and_captures_df, resolution
 ):
-    semestral_effort_and_captures = compute_effort_and_captures_and_cpue_by_resolution(
+    effort_and_captures_by_resolution = compute_effort_and_captures_and_cpue_by_resolution(
         effort_and_captures_df, resolution
     )
-    semestral_cumulative_effort_and_captures = compute_cumulative_effort_and_captures(
-        semestral_effort_and_captures
+    cumulative_effort_and_captures_by_resolution = compute_cumulative_effort_and_captures(
+        effort_and_captures_by_resolution
     )
-    return semestral_cumulative_effort_and_captures
+    return cumulative_effort_and_captures_by_resolution
 
 
 def compute_effort_and_captures_and_cpue_by_resolution(effort_and_captures_df, resolution):
