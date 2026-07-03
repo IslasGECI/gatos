@@ -1,5 +1,4 @@
 from gatos.get_capture_and_effort_by_zone import (
-    get_cumulative_effort_and_captures_by_year,
     get_monthly_capture_and_effort_by_zone,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,

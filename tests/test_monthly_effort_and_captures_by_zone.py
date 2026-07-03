@@ -1,7 +1,6 @@
 from gatos.get_capture_and_effort_by_zone import (
     calculate_yearly_cumulative_effort_and_captures,
     get_monthly_capture_and_effort_by_zone,
-    get_cumulative_effort_and_captures_by_year,
     get_yearly_capture_and_effort_by_zone,
     select_effort_and_captures_by_year,
 )
@@ -43,17 +42,6 @@ def test_get_yearly_capture_and_effort_by_zone():
     expected_length = 11
     obtained_length = len(obtained)
     assert obtained_length == expected_length
-
-
-def test_get_cumulative_effort_and_captures_by_year():
-    weekly_effort_and_captures_data = pd.read_csv(input_path)
-    obtained = get_cumulative_effort_and_captures_by_year(weekly_effort_and_captures_data)
-    obtained_captures_2022 = obtained[obtained.Date == "2022"].Captures.item()
-    expected_captures_2022 = 6
-    assert obtained_captures_2022 == expected_captures_2022
-    obtained_captures_2023 = obtained[obtained.Date == "2023"].Captures.item()
-    expected_captures_2023 = 25
-    assert obtained_captures_2023 == expected_captures_2023
 
 
 def test_select_effort_and_captures_by_year():

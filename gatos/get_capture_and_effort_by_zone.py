@@ -10,16 +10,6 @@ def get_monthly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
     return get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length)
 
 
-def get_cumulative_effort_and_captures_by_year(weekly_effort_and_captures_data):
-    yearly_capture_and_effort = get_yearly_capture_and_effort_by_zone(
-        weekly_effort_and_captures_data
-    ).drop(columns=["Zone"])
-    year_capture_and_effort = (
-        yearly_capture_and_effort.groupby(["Date"]).sum(numeric_only=True).cumsum()
-    )
-    return year_capture_and_effort.reset_index()
-
-
 def get_yearly_capture_and_effort_by_zone(weekly_effort_and_captures_data):
     string_length = 4
     return get_capture_and_effort_by_period_and_zone(weekly_effort_and_captures_data, string_length)
