@@ -47,7 +47,7 @@ def sum_captures_and_effort_by_date_and_zone(weekly_effort_and_captures_data):
 
 
 def calculate_yearly_cumulative_cpue(data, years_in_data):
-    effort, captures = calculate_yearly_cumulative_effort_and_captures(data, years_in_data)
+    effort, captures = xxcalculate_yearly_cumulative_effort_and_captures(data)
     return [c / e for c, e in zip(captures, effort)]
 
 
