@@ -42,6 +42,21 @@ def test_write_CPUE_and_cumulative_effort_and_captures():
     )
     assert result.exit_code == 0
     assert os.path.exists(output_path)
+    resolution = "annual"
+    result = runner.invoke(
+        app,
+        [
+            "write-cpue-and-cumulative-effort-and-captures",
+            "--input-path",
+            input_path,
+            "--resolution",
+            resolution,
+            "--output-path",
+            output_path,
+        ],
+    )
+    assert result.exit_code == 0
+    assert os.path.exists(output_path)
 
 
 def test_write_monthly_effort_and_captures_by_zone():
