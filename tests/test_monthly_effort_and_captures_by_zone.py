@@ -1,5 +1,4 @@
 from gatos.get_capture_and_effort_by_zone import (
-    calculate_yearly_cumulative_cpue,
     calculate_yearly_cumulative_effort_and_captures,
     get_monthly_capture_and_effort_by_zone,
     get_cumulative_effort_and_captures_by_year,
@@ -75,10 +74,3 @@ def test_calculate_yearly_cumulative_effort_and_captures():
     )
     assert obtained_effort == [111597, 11781]
     assert obtained_captures == [57, 3]
-
-
-def test_calculate_yearly_cumulative_cpue():
-    monthly_data = pd.read_csv("tests/data/esfuerzo_capturas_mensuales_gatos_socorro.csv")
-    obtained_cpue = calculate_yearly_cumulative_cpue(monthly_data)
-    expected_cpue = [57 / 111597, 3 / 11781]
-    assert obtained_cpue == expected_cpue
