@@ -7,6 +7,6 @@ def test_compute_semestral_effort_and_captures():
     obtained = compute_semestral_effort_and_captures(effort_and_captures_df)
     expected_rows = 2
     assert len(obtained) == expected_rows, f"Expected {expected_rows} rows, but got {len(obtained)}"
-    expected_columns = ["Esfuerzo", "Capturas"]
+    expected_columns = ["Esfuerzo", "Capturas", "CPUE"]
     assert all(obtained.columns == expected_columns)
     assert obtained.index[0] == "2022-P1"
