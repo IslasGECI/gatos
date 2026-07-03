@@ -31,7 +31,7 @@ def test_write_CPUE_and_cumulative_effort_and_captures():
     result = runner.invoke(
         app,
         [
-            "write-CPUE-and-cumulative-effort-and-captures",
+            "write-cpue-and-cumulative-effort-and-captures",
             "--input-path",
             input_path,
             "--resolution",
