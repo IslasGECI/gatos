@@ -96,6 +96,14 @@ def test_plot_annual_effort_and_captures():
     assert os.path.exists(output_path)
 
 
+def test_version():
+    from gatos import __version__
+
+    result = runner.invoke(app, ["version"])
+    assert result.exit_code == 0
+    assert result.stdout.strip() == __version__
+
+
 def test_write_effort_and_captures_by_zone():
     output_path = "tests/data/effort_and_captures_by_zone.csv"
     if os.path.exists(output_path):

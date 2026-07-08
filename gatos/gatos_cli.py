@@ -13,6 +13,8 @@ import pandas as pd
 import typer
 import warnings
 
+from gatos import __version__
+
 app = typer.Typer()
 
 
@@ -68,6 +70,11 @@ def write_effort_and_captures_by_zone_for_year(
     grouped_data = get_yearly_capture_and_effort_by_zone(weekly_effort_and_capture)
     data_for_year = select_effort_and_captures_by_year(grouped_data, year)
     data_for_year.to_csv(output_path, index=False)
+
+
+@app.command()
+def version():
+    typer.echo(__version__)
 
 
 @app.command(deprecated=True)
