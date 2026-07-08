@@ -1,8 +1,11 @@
-from gatos import (
+from gatos.gatos_cli import (
+    app,
     write_effort_and_captures_by_zone_for_year,
     write_yearly_cumulative_effort_and_captures,
 )
-from gatos.gatos_cli import app
+
+
+from gatos import __version__
 
 import pandas as pd
 import pytest
@@ -97,7 +100,6 @@ def test_plot_annual_effort_and_captures():
 
 
 def test_version():
-    from gatos import __version__
 
     result = runner.invoke(app, ["version"])
     assert result.exit_code == 0

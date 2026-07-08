@@ -7,18 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- `write-cpue-and-cumulative-effort-and-captures` command to write into disk a csv file with CPUE and cumulative effort and captures.
+## [3.2.0] - 2026-07-08
 
-### Fixed
+### Added
+- `version` command to show the package version.
+- `write-cpue-and-cumulative-effort-and-captures` command to write into disk a csv file with CPUE and cumulative effort and captures.
+- Add DeprecationWarning to `write_yearly_cumulative_effort_and_captures` with an associated pytest.
 
 ### Changed
 - `write-yearly-cumulative-effort-and-captures` now uses new `compute_CPUE_and_cumulative_effort_and_captures_by_resolution()` implementation.
 
 ### Deprecated
-- CLI command `write-yearly-cumulative-effort-and-captures` is deprecated in favor of `write-yearly-cumulative-effort-and-captures` . The old command will remain functional and will be removed in v4.0.0.
-
-### Removed
+- CLI command `write-yearly-cumulative-effort-and-captures` is deprecated in favor of `write-yearly-cumulative-effort-and-captures`. The old command will remain functional and will be removed in v4.0.0.
 
 ## [3.1.0] - 2026-06-29
 ### Added
@@ -74,7 +74,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix typo in interface command `write_yearly_cumulative_effort_and_captures`
 
 
-[unreleased]: https://github.com/IslasGECI/gatos/compare/v3.1.0...HEAD
+[unreleased]: https://github.com/IslasGECI/gatos/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/IslasGECI/gatos/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/IslasGECI/gatos/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/IslasGECI/gatos/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/IslasGECI/gatos/compare/v2.0.0...v2.1.0
