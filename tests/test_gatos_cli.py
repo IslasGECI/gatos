@@ -5,6 +5,7 @@ from gatos import (
 from gatos.gatos_cli import app
 
 import pandas as pd
+import pytest
 import os
 from typer.testing import CliRunner
 
@@ -108,7 +109,8 @@ def test_write_yearly_cumulative_effort_and_captures():
     output_path = "tests/data/yearly_cumulative_effort_and_captures.csv"
     if os.path.exists(output_path):
         os.remove(output_path)
-    write_yearly_cumulative_effort_and_captures(input_path, output_path)
+    with pytest.warns(DeprecationWarning):
+        write_yearly_cumulative_effort_and_captures(input_path, output_path)
     assert os.path.exists(output_path)
     obtained_csv = pd.read_csv(output_path)
     obtained_columns = obtained_csv.columns

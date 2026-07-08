@@ -11,6 +11,7 @@ from gatos.compute_semestral_effort_and_captures import (
 import matplotlib.pyplot as plt
 import pandas as pd
 import typer
+import warnings
 
 app = typer.Typer()
 
@@ -69,11 +70,15 @@ def write_effort_and_captures_by_zone_for_year(
     data_for_year.to_csv(output_path, index=False)
 
 
-@app.command()
+@app.command(deprecated=True)
 def write_yearly_cumulative_effort_and_captures(
     input_path: str = typer.Option("", help="Input file path"),
     output_path: str = typer.Option("", help="Output file path"),
 ):
+    warnings.warn(
+        "Use write-cpue-and-cumulative-effort-and-captures with resolution=annual instead",
+        DeprecationWarning,
+    )
     weekly_effort_and_capture = pd.read_csv(input_path)
     resolution = 12
     yearly_cumulative_effort_and_captures = (
