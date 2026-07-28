@@ -34,6 +34,14 @@ def compute_effort_and_captures_by_resolution(effort_and_captures_df, resolution
 
 
 def compute_cumulative_effort_and_captures(effort_and_catpures_df):
+    effort_and_catpures_df = sort_by_period(effort_and_catpures_df)
+    effort_and_catpures_df[["Esfuerzo", "Capturas"]] = effort_and_catpures_df[
+        ["Esfuerzo", "Capturas"]
+    ].cumsum(numeric_only=True)
+    return effort_and_catpures_df.set_index("period")
+
+
+def sort_by_period(effort_and_catpures_df):
     effort_and_catpures_df["period"] = effort_and_catpures_df.index.to_series()
     effort_and_catpures_df["_year"] = effort_and_catpures_df.period.str.extract(r"(\d+)-P").astype(
         int
@@ -46,7 +54,4 @@ def compute_cumulative_effort_and_captures(effort_and_catpures_df):
         .drop(columns=["_year", "_pnum"])
         .reset_index(drop=True)
     )
-    effort_and_catpures_df[["Esfuerzo", "Capturas"]] = effort_and_catpures_df[
-        ["Esfuerzo", "Capturas"]
-    ].cumsum(numeric_only=True)
-    return effort_and_catpures_df.set_index("period")
+    return effort_and_catpures_df
