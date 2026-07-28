@@ -2,7 +2,7 @@ from gatos.compute_semestral_effort_and_captures import (
     compute_effort_and_captures_and_cpue_by_resolution,
     compute_cumulative_effort_and_captures,
 )
-from gatos.gatos_cli import xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution
+from gatos.gatos_cli import compute_CPUE_and_cumulative_effort_and_captures_by_resolution
 import pandas as pd
 
 
@@ -15,7 +15,7 @@ def test_compute_semestral_CPUE_and_cumulative_effort_and_captures():
         }
     )
     resolution = "semestral"
-    obtained = xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+    obtained = compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
         effort_and_captures_df, resolution
     )
     expected_rows = 3

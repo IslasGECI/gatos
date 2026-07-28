@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+def compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
     weekly_effort_and_capture, resolution
 ):
     resolutions_dict = {"annual": 12, "semestral": 6, "monthly": 1}
