@@ -27,7 +27,7 @@ def write_cpue_and_cumulative_effort_and_captures(
     weekly_effort_and_capture = pd.read_csv(input_path)
     CPUE_and_cumulative_effort_and_captures_df = (
         xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-            resolution, weekly_effort_and_capture
+            weekly_effort_and_capture, resolution
         )
     )
     CPUE_and_cumulative_effort_and_captures_df.reset_index(inplace=True, names=["Date"])
@@ -39,7 +39,7 @@ def write_cpue_and_cumulative_effort_and_captures(
 
 
 def xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-    resolution, weekly_effort_and_capture
+    weekly_effort_and_capture, resolution
 ):
     resolutions_dict = {"annual": 12, "semestral": 6, "monthly": 1}
     CPUE_and_cumulative_effort_and_captures_df = (
