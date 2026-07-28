@@ -5,7 +5,7 @@ from gatos.get_capture_and_effort_by_zone import (
 )
 from gatos.histogram_catchs_per_year import generate_histogram
 from gatos.compute_semestral_effort_and_captures import (
-    compute_CPUE_and_cumulative_effort_and_captures_by_resolution,
+    xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution,
 )
 
 import matplotlib.pyplot as plt
@@ -36,18 +36,6 @@ def write_cpue_and_cumulative_effort_and_captures(
     )
 
     renamed_df.to_csv(output_path, index=False)
-
-
-def xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-    weekly_effort_and_capture, resolution
-):
-    resolutions_dict = {"annual": 12, "semestral": 6, "monthly": 1}
-    CPUE_and_cumulative_effort_and_captures_df = (
-        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-            weekly_effort_and_capture, resolutions_dict[resolution]
-        )
-    )
-    return CPUE_and_cumulative_effort_and_captures_df
 
 
 @app.command()
