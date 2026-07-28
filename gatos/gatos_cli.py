@@ -25,10 +25,9 @@ def write_cpue_and_cumulative_effort_and_captures(
     output_path: str = typer.Option("", help="Output file path"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)
-    resolutions_dict = {"annual": 12, "semestral": 6, "monthly": 1}
     CPUE_and_cumulative_effort_and_captures_df = (
-        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-            weekly_effort_and_capture, resolutions_dict[resolution]
+        xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+            resolution, weekly_effort_and_capture
         )
     )
     CPUE_and_cumulative_effort_and_captures_df.reset_index(inplace=True, names=["Date"])
@@ -37,6 +36,18 @@ def write_cpue_and_cumulative_effort_and_captures(
     )
 
     renamed_df.to_csv(output_path, index=False)
+
+
+def xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+    resolution, weekly_effort_and_capture
+):
+    resolutions_dict = {"annual": 12, "semestral": 6, "monthly": 1}
+    CPUE_and_cumulative_effort_and_captures_df = (
+        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+            weekly_effort_and_capture, resolutions_dict[resolution]
+        )
+    )
+    return CPUE_and_cumulative_effort_and_captures_df
 
 
 @app.command()
