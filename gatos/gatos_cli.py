@@ -96,11 +96,12 @@ def write_yearly_cumulative_effort_and_captures(
     warnings.warn(
         "Use write-cpue-and-cumulative-effort-and-captures with resolution=annual instead",
         DeprecationWarning,
+        stacklevel=2,
     )
     weekly_effort_and_capture = pd.read_csv(input_path)
-    resolution = 12
+    resolution = "annual"
     yearly_cumulative_effort_and_captures = (
-        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
+        xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
             weekly_effort_and_capture, resolution
         )
     )
