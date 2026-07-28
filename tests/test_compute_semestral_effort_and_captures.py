@@ -27,11 +27,12 @@ def test_compute_semestral_CPUE_and_cumulative_effort_and_captures():
     assert list(obtained["Esfuerzo"]) == expected_effort
     expected_cpue_values = [0.1, 0.1, 0.1]
     assert list(obtained["CPUE"]) == expected_cpue_values
+
     effort_and_captures_df = pd.DataFrame(
         {
             "Capturas": [10, 40, 100],
             "Esfuerzo": [100, 400, 1000],
-            "Fecha": ["2022-01-01", "2022-02-01", "2023-03-01"],
+            "Fecha": ["2022-01-01", "2022-02-01", "2022-10-01"],
         }
     )
     resolution = "monthly"
@@ -40,7 +41,7 @@ def test_compute_semestral_CPUE_and_cumulative_effort_and_captures():
     )
     expected_rows = 3
     assert len(obtained) == expected_rows, f"Expected {expected_rows} rows, but got {len(obtained)}"
-    assert obtained.index[2] == "2023-P3"
+    assert obtained.index[1] == "2022-P2"
 
 
 def test_compute_semestral_effort_and_captures():
