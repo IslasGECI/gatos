@@ -21,7 +21,7 @@ app = typer.Typer()
 @app.command()
 def write_cpue_and_cumulative_effort_and_captures(
     input_path: str = typer.Option("", help="Input file path"),
-    resolution: str = typer.Option("anual", help="Resolution for CPUE calculation"),
+    resolution: str = typer.Option("annual", help="Resolution for CPUE calculation"),
     output_path: str = typer.Option("", help="Output file path"),
 ):
     weekly_effort_and_capture = pd.read_csv(input_path)

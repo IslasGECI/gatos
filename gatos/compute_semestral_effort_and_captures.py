@@ -5,19 +5,8 @@ def xxcompute_CPUE_and_cumulative_effort_and_captures_by_resolution(
     weekly_effort_and_capture, resolution
 ):
     resolutions_dict = {"annual": 12, "semestral": 6, "monthly": 1}
-    CPUE_and_cumulative_effort_and_captures_df = (
-        compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-            weekly_effort_and_capture, resolutions_dict[resolution]
-        )
-    )
-    return CPUE_and_cumulative_effort_and_captures_df
-
-
-def compute_CPUE_and_cumulative_effort_and_captures_by_resolution(
-    effort_and_captures_df, resolution
-):
     effort_and_captures_by_resolution = compute_effort_and_captures_and_cpue_by_resolution(
-        effort_and_captures_df, resolution
+        weekly_effort_and_capture, resolutions_dict[resolution]
     )
     cumulative_effort_and_captures_by_resolution = compute_cumulative_effort_and_captures(
         effort_and_captures_by_resolution
