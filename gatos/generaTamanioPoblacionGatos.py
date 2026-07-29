@@ -8,7 +8,7 @@ import pandas as pd
 
 
 from gatos.PopulationEstimator import PopulationEstimator
-import metadatatools  # type: ignore
+import metadata_wrangler  # type: ignore
 
 
 # @click.group(cls=DefaultGroup, default="create", default_if_no_args=True)
@@ -56,7 +56,7 @@ def get_effort_and_captures_without_datapackage(argumentos, man_days):
 
 
 def get_effort_and_captures_with_datapackage(argumentos, man_days):
-    DatosSocorro = metadatatools.import_tabular_data_resource(argumentos["resource"])
+    DatosSocorro = metadata_wrangler.import_tabular_data_resource(argumentos["resource"])
     nombre_esfuerzo: str = "Esfuerzo"
     nombre_capturas: str = "Capturas"
     esfuerzo: np.array = np.array(DatosSocorro.get_value(nombre_esfuerzo) / man_days)
