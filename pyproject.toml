@@ -13,7 +13,7 @@ requires = [
         "Click",
         "geci-plots==0.*",
         "matplotlib",
-        "metadatatools @ git+https://git@github.com/IslasGECI/wrangler@v0.2.2",
+        "metadata-wrangler",
         "numpy",
         "pandas",
         "pymc"
