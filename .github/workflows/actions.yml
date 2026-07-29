@@ -3,9 +3,13 @@ on: push
 jobs:
   actions:
     runs-on: ubuntu-latest
+    environment: pypi_token
+    permissions:
+      id-token: write
+      contents: write
     steps:
     - name: Copia repositorio
-      uses: actions/checkout@v2
+      uses: actions/checkout@main
     - name: Construye imagen
       run: docker build --tag islasgeci/gatos:latest --tag islasgeci/gatos:${GITHUB_SHA:0:4} .
     - name: Verifica el formato
@@ -13,12 +17,12 @@ jobs:
     - name: Corre pruebas y evalúa cobertura
       run: docker run --volume $PWD:/workdir islasgeci/gatos:latest make coverage
     - name: Upload coverage reports to Codecov with GitHub Action
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@main
       with:
         files: ./coverage.xml
         verbose: true
     - name: Create/Update tag
-      uses: rickstaa/action-create-tag@v1.5.4
+      uses: rickstaa/action-create-tag@main
       with:
         tag: "latest"
         message: "Latest release"
@@ -32,16 +36,10 @@ jobs:
       run: docker push islasgeci/gatos:latest
     - name: Sube sha a Docker Hub
       run: docker push islasgeci/gatos:${GITHUB_SHA:0:4}
-    - name: Create/Update tag
-      uses: rickstaa/action-create-tag@v1.5.4
+    - name: Set up Python 3.x
+      uses: actions/setup-python@main
       with:
-        tag: "latest"
-        message: "Latest release"
-        force_push_tag: true
-    - name: Set up Python 3.9
-      uses: actions/setup-python@master
-      with:
-        python-version: 3.9
+        python-version: '3.x'
     - name: Install pypa/build
       run: >-
         python -m
@@ -59,5 +57,4 @@ jobs:
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        password: ${{ secrets.PYPI_TOKEN }}
-        skip_existing: true
+        skip-existing: true
