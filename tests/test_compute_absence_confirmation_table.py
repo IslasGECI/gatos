@@ -15,3 +15,4 @@ def test_compute_absence_confirmation_table():
     columns = ["Fecha", "absence_probability", "remanents"]
     assert list(obtained.columns) == columns
     assert obtained.shape == (months_to_iterate, len(columns))
+    obtained.to_csv("tests/absence_confirmation.csv")
