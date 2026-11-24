@@ -10,9 +10,11 @@ def test_compute_absence_confirmation_table():
     obtained = compute_absence_confirmation_table(
         effort_captures, model_iterations, months_to_iterate
     )
+    obtained.to_csv("tests/absence_confirmation.csv")
 
     assert isinstance(obtained, pd.DataFrame)
     columns = ["Fecha", "absence_probability", "remanents"]
     assert list(obtained.columns) == columns
     assert obtained.shape == (months_to_iterate, len(columns))
-    obtained.to_csv("tests/absence_confirmation.csv")
+    assert isinstance(obtained.Fecha.loc[-1], str)
+    assert len(obtained.Fecha.loc[-1]) == 10
