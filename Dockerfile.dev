@@ -1,0 +1,12 @@
+FROM islasgeci/gatos:latest
+COPY . /workdir
+
+RUN apt update && apt upgrade --yes
+
+RUN apt install npm --yes
+RUN npm install -g @opencode/cli
+RUN git clone https://github.com/mvillasante/opencode_agents.git /tmp/opencode_agents && \
+	mkdir --parents /root/.config/opencode && \
+	cp -r /tmp/opencode_agents/* /root/.config/opencode/ && \
+	rm -rf /tmp/opencode_agents
+CMD opencode

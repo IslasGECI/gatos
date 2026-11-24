@@ -10,3 +10,14 @@ services:
       BITBUCKET_PASSWORD: $BITBUCKET_PASSWORD
     volumes:
       - $PWD:/workdir
+  islasgeci_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: islasgeci/gatos_dev:latest
+    command: bash
+    environment:
+      BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+      BITBUCKET_PASSWORD: $BITBUCKET_PASSWORD
+    volumes:
+      - $PWD:/workdir
