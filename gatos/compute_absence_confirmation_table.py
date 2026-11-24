@@ -37,6 +37,10 @@ def compute_absence_confirmation_table(effort_captures_df, model_iterations, mon
 
         effort_captures_df_copy["Fecha"] = pd.to_datetime(effort_captures_df_copy["Fecha"])
         next_month = effort_captures_df_copy["Fecha"].max() + pd.DateOffset(months=1)
-        new_row = {"Fecha": next_month, "Esfuerzo": median_effort, "Capturas": 0}
+        new_row = {
+            "Fecha": next_month.strftime("%Y-%m-%d"),
+            "Esfuerzo": median_effort,
+            "Capturas": 0,
+        }
         effort_captures_df_copy.loc[len(effort_captures_df_copy)] = new_row
     return output_df
